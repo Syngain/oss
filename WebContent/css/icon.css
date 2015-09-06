@@ -1,0 +1,195 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+/*图标合集 黑色系
+* ico1B  16x16
+*/
+
+
+.ico1B1,.ico1B2,.ico1B3,.ico1B4,.ico1B5,.ico1B6,.ico1B7,.ico1B8,.ico1B9,.ico1B10
+{background-image:url(../img/public/ico16_Back.gif); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+
+.ico1B1{ background-position: 0px 0px;}
+.ico1B2{ background-position: -50px 0px;}
+.ico1B3{ background-position: -100px 0px;}
+.ico1B4{ background-position: -150px 0px;}
+.ico1B5{ background-position: -200px 0px;}
+.ico1B6{ background-position: -250px 0px;}
+.ico1B7{ background-position: -300px 0px;}
+.ico1B8{ background-position: -350px 0px;}
+.ico1B9{ background-position: -400px 0px;}
+.ico1B10{ background-position: -450px 0px;}
+
+.ico1B11,.ico1B12,.ico1B13,.ico1B14,.ico1B15,.ico1B16,.ico1B17,.ico1B18,.ico1B19,.ico1B20
+{background-image:url(../img/public/ico16_Back.gif); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em;margin:4px 3px 0 0;}
+.ico1B11{ background-position: 0px -50px;}
+.ico1B12{ background-position: -50px -50px;}
+.ico1B13{ background-position: -100px -50px;}
+.ico1B14{ background-position: -150px -50px;}
+.ico1B15{ background-position: -200px -50px;}
+.ico1B16{ background-position: -250px -50px;}
+.ico1B17{ background-position: -300px -50px;}
+.ico1B18{ background-position: -350px -50px;}
+.ico1B19{ background-position: -400px -50px;}
+.ico1B20{ background-position: -450px -50px;}
+
+.ico1B21,.ico1B22,.ico1B23,.ico1B24,.ico1B25,.ico1B26,.ico1B27,.ico1B28,.ico1B29,.ico1B30
+{background-image:url(../img/public/ico16_Back.gif); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+.ico1B21{ background-position: 0px -100px;}
+.ico1B22{ background-position: -50px -100px;}
+.ico1B23{ background-position: -100px -100px;}
+.ico1B24{ background-position: -150px -100px;}
+.ico1B25{ background-position: -200px -100px;}
+.ico1B26{ background-position: -250px -100px;}
+.ico1B27{ background-position: -300px -100px;}
+.ico1B28{ background-position: -350px -100px;}
+.ico1B29{ background-position: -400px -100px;}
+.ico1B30{ background-position: -450px -100px;}
+
+.ico1B31,.ico1B32,.ico1B33,.ico1B34,.ico1B35,.ico1B36,.ico1B37,.ico1B38,.ico1B39,.ico1B40
+{background-image:url(../img/public/ico16_Back.gif); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+.ico1B31{ background-position: 0px -150px;}
+.ico1B32{ background-position: -50px -150px;}
+.ico1B33{ background-position: -100px -150px;}
+.ico1B34{ background-position: -150px -150px;}
+.ico1B35{ background-position: -200px -150px;}
+.ico1B36{ background-position: -250px -150px;}
+.ico1B37{ background-position: -300px -150px;}
+.ico1B38{ background-position: -350px -150px;}
+.ico1B39{ background-position: -400px -150px;}
+.ico1B40{ background-position: -450px -150px;}
+
+.ico1B41,.ico1B42,.ico1B43,.ico1B44,.ico1B45,.ico1B46,.ico1B47,.ico1B48,.ico1B49,.ico1B50
+{background-image:url(../img/public/ico16_Back.gif); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+.ico1B41{ background-position: 0px -200px;}
+.ico1B42{ background-position: -50px -200px;}
+.ico1B43{ background-position: -100px -200px;}
+.ico1B44{ background-position: -150px -200px;}
+.ico1B45{ background-position: -200px -200px;}
+.ico1B46{ background-position: -250px -200px;}
+.ico1B47{ background-position: -300px -200px;}
+.ico1B48{ background-position: -350px -200px;}
+.ico1B49{ background-position: -400px -200px;}
+.ico1B50{ background-position: -450px -200px;}
+
+/*图标合集 白色系
+* ico16x16
+*/
+
+
+.ico1W1,.ico1W2,.ico1W3,.ico1W4,.ico1W5,.ico1W6,.ico1W7,.ico1W8,.ico1W9,.ico1W10
+{background-image:url(../img/public/ico16_White.gif); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+
+.ico1W1{ background-position: 0px 0px;}
+.ico1W2{ background-position: -50px 0px;}
+.ico1W3{ background-position: -100px 0px;}
+.ico1W4{ background-position: -150px 0px;}
+.ico1W5{ background-position: -200px 0px;}
+.ico1W6{ background-position: -250px 0px;}
+.ico1W7{ background-position: -300px 0px;}
+.ico1W8{ background-position: -350px 0px;}
+.ico1W9{ background-position: -400px 0px;}
+.ico1W10{ background-position: -450px 0px;}
+
+.ico1W11,.ico1W12,.ico1W13,.ico1W14,.ico1W15,.ico1W16,.ico1W17,.ico1W18,.ico1W19,.ico1W20
+{background-image:url(../img/public/ico16_White.gif); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em;margin:4px 3px 0 0;}
+.ico1W11{ background-position: 0px -50px;}
+.ico1W12{ background-position: -50px -50px;}
+.ico1W13{ background-position: -100px -50px;}
+.ico1W14{ background-position: -150px -50px;}
+.ico1W15{ background-position: -200px -50px;}
+.ico1W16{ background-position: -250px -50px;}
+.ico1W17{ background-position: -300px -50px;}
+.ico1W18{ background-position: -350px -50px;}
+.ico1W19{ background-position: -400px -50px;}
+.ico1W20{ background-position: -450px -50px;}
+
+.ico1W21,.ico1W22,.ico1W23,.ico1W24,.ico1W25,.ico1W26,.ico1W27,.ico1W28,.ico1W29,.ico1W30
+{background-image:url(../img/public/ico16_White.gif); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+.ico1W21{ background-position: 0px -100px;}
+.ico1W22{ background-position: -50px -100px;}
+.ico1W23{ background-position: -100px -100px;}
+.ico1W24{ background-position: -150px -100px;}
+.ico1W25{ background-position: -200px -100px;}
+.ico1W26{ background-position: -250px -100px;}
+.ico1W27{ background-position: -300px -100px;}
+.ico1W28{ background-position: -350px -100px;}
+.ico1W29{ background-position: -400px -100px;}
+.ico1W30{ background-position: -450px -100px;}
+
+.ico1W31,.ico1W32,.ico1W33,.ico1W34,.ico1W35,.ico1W36,.ico1W37,.ico1W38,.ico1W39,.ico1W40
+{background-image:url(../img/public/ico16_White.gif); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+.ico1W31{ background-position: 0px -150px;}
+.ico1W32{ background-position: -50px -150px;}
+.ico1W33{ background-position: -100px -150px;}
+.ico1W34{ background-position: -150px -150px;}
+.ico1W35{ background-position: -200px -150px;}
+.ico1W36{ background-position: -250px -150px;}
+.ico1W37{ background-position: -300px -150px;}
+.ico1W38{ background-position: -350px -150px;}
+.ico1W39{ background-position: -400px -150px;}
+.ico1W40{ background-position: -450px -150px;}
+
+.ico1W41,.ico1W42,.ico1W43,.ico1W44,.ico1W45,.ico1W46,.ico1W47,.ico1W48,.ico1W49,.ico1W50
+{background-image:url(../img/public/ico16_White.gif); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+.ico1W41{ background-position: 0px -200px;}
+.ico1W42{ background-position: -50px -200px;}
+.ico1W43{ background-position: -100px -200px;}
+.ico1W44{ background-position: -150px -200px;}
+.ico1W45{ background-position: -200px -200px;}
+.ico1W46{ background-position: -250px -200px;}
+.ico1W47{ background-position: -300px -200px;}
+.ico1W48{ background-position: -350px -200px;}
+.ico1W49{ background-position: -400px -200px;}
+.ico1W50{ background-position: -450px -200px;}
+
+
+
+/*图标合集
+* ico24x24
+*/
+
+
+.ico21,.ico22,.ico23,.ico24,.ico25,.ico26,.ico27,.ico28,.ico29,.ico210
+{background-image:url(../img/public/icon24.png); background-repeat:no-repeat; width:24px; height:24px; display: block; float:left; text-indent:-999em;}
+
+.ico21{ background-position: 0px 0px;}
+.ico22{ background-position: -50px 0px;}
+.ico23{ background-position: -100px 0px;}
+.ico24{ background-position: -150px 0px;}
+.ico25{ background-position: -200px 0px;}
+.ico26{ background-position: -250px 0px;}
+.ico27{ background-position: -300px 0px;}
+.ico28{ background-position: -350px 0px;}
+.ico29{ background-position: -400px 0px;}
+.ico210{ background-position: -450px 0px;}
+
+.ico211,.ico212,.ico213,.ico214,.ico215,.ico216,.ico217,.ico218,.ico219,.ico220
+{background-image:url(../img/public/icon24.png); background-repeat:no-repeat; width:24px; height:24px; display: block; float:left; text-indent:-999em;}
+
+.ico211{ background-position: 0px -50px;}
+.ico212{ background-position: -50px -50px;}
+.ico213{ background-position: -100px -50px;}
+.ico214{ background-position: -150px -50px;}
+.ico215{ background-position: -200px -50px;}
+.ico216{ background-position: -250px -50px;}
+.ico217{ background-position: -300px -50px;}
+.ico218{ background-position: -350px -50px;}
+.ico219{ background-position: -400px -50px;}
+.ico220{ background-position: -450px -50px;}
+
+.ico221,.ico222,.ico223,.ico224,.ico225,.ico226,.ico227,.ico228,.ico229,.ico230
+{background-image:url(../img/public/icon24.png); background-repeat:no-repeat; width:24px; height:24px; display: block; float:left; text-indent:-999em;}
+
+.ico221{ background-position: 0px -100px;}
+.ico222{ background-position: -50px -100px;}
+.ico223{ background-position: -100px -100px;}
+.ico224{ background-position: -150px -100px;}
+.ico225{ background-position: -200px -100px;}
+.ico226{ background-position: -250px -100px;}
+.ico227{ background-position: -300px -100px;}
+.ico228{ background-position: -350px -100px;}
+.ico229{ background-position: -400px -100px;}
+.ico230{ background-position: -450px -100px;}
+

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log-system xmlns="http://www.capitek.com.cn">
+	<console-handler name="CONSOLE">
+		<level name="DEBUG" />
+		<formatter>
+			<pattern-formatter pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p [%c] %m%n" />
+		</formatter>
+	</console-handler>
+	<file-handler name="FILE">
+		<level name="DEBUG" />
+		<formatter>
+			<pattern-formatter pattern="%d{HH:mm:ss} %-5p [%c] %m%n" />
+		</formatter>
+		<log-file relative-to="" path="logs/ctoms.log" />
+		<suffix value=".yyyy-MM-dd" />
+		<append value="true" />
+	</file-handler>
+	<db-handler name="DATABASE">
+		<properties>
+			<property name="datasource" value=""/>
+		</properties>
+	</db-handler>
+	<root-logger>
+		<level name="DEBUG" />
+		<handlers>
+			<handler name="CONSOLE" />
+			<!-- 
+			<handler name="FILE" />
+			 -->
+			<!-- 
+			<handler name="DATABASE" />
+			-->
+		</handlers>
+	</root-logger>
+</log-system>
+

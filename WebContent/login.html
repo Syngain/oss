@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>观火数据Guanhuodata-登录中心</title>
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="Bookmark" href="favicon.ico"/>
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+  <link rel="stylesheet" type="text/css" href="css/login.css"/>
+  <script type="text/javascript" src="js/jquery/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" src="js/control/guanhuodata/util.js"></script>
+	<script type="text/javascript" src="js/control/guanhuodata/login.js"></script>
+</head>
+<body>
+  <!--主体内容堆栈-->
+  <div class="login_wrap">
+    <div class="logoBox">
+      <img src="img/login/logo.png" />
+    </div>
+    <div class="login_content">
+      <div class=" fl mr3">
+        <img src="img/login/ad.png" />
+      </div>
+      <div class="login_box">
+        <div class="w h30">
+          <h1 class=" fl w100">登录中心</h1>
+          <div class=" fl cF00 overh w150 h20 pt10 lh20 errorTip"></div>
+        </div>
+        <!--form-->
+        <form name="loginForm">
+          <ul class=" pt20">
+
+            <li class="h30 pb15">
+
+              <input class="w280" type="text" name="userName" value="用户名" title="用户名" />
+            </li>
+
+            <li class="h30 pb15 pr password">
+             <div class="abs_left lh35 h25 pl3" id="divPassword">密 码</div>
+              <input class="w280" id="password" type="password" name="password" value="" title="密码" />
+            </li>
+
+            <li class="h30 pb15">
+
+              <input class="fl w140" name="imgCode" type="text" value="验证码" title="验证码" />
+              <img class=" fr w100 imgCode h30 lineS"  name="imgPhoto" src="action?actionid=image" alt="验证码，如看不清请点击刷新" />
+            </li>
+            <li class="lh20 h30  pb5">
+              <div class="fl w150">
+                <div class=" h30 lh30 pl20">
+                  <input name="userStorage" type="checkbox" />
+                  记住用户名
+                </div>
+              </div>
+              <div class=" h30 lh30 fr w80 hand saveFavorite">
+                <a class="login_submit tnone loginButton">登录</a>
+              </div>
+            </li>
+          </ul>
+
+        </form>
+
+      </div>
+
+    </div>
+    <div class=" mt20 tc cCCC">2015 © Powered By Guanhuodata Beijing Co., Ltd.版权所有</div>
+  </div>
+
+</body>
+</html>

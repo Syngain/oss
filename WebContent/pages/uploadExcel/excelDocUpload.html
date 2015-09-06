@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	  <title>观火数据Guanhuodata-报表上传组件</title>
+	  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+	  <link rel="stylesheet" type="text/css" href="css/components/skins/Aqua/css/ligerui-dialog.css"/>
+	  <script type="text/javascript" src="js/jquery/jquery-1.8.1.min.js"></script>
+	  <script type="text/javascript" src="js/ligerUI/js/ligerui.all.js"></script>
+	  <script type="text/javascript" src="js/ligerUI/js/ligerui.min.js"></script>
+	  <script type="text/javascript" src="js/control/guanhuodata/util.js"></script>
+	  <script type="text/javascript" src="js/ajaxfileupload.js"></script>
+	  <script type="text/javascript" src="js/control/guanhuodata/upload.js"></script>
+	</head>
+	<body>
+		<div>
+			<form enctype="multipart/form-data" id="uploadfile" name="form1">
+				<!-- <input name="path" readonly="readonly" class="ml80 w220" id="filePathText" />  -->
+				<input type="file" id="fileLoad" name="filePath" style="width: 220px;" onchange="document.form1.path.value=this.value" class="ml100" /> 
+				<input type="button" value="选择文件" onclick="document.form1.filePath.click()" class=" bcY1" id="filebutton" /> 
+				<input type="button" class="bcY1 mr5" value=" 上    传 " id="uploadBtn" />
+			</form>
+			<!-- <form>
+				<a class=btn_addPic href="javascript:void(0);"> <span> <em>+</em>添加文件
+				</span> <input class=filePrew title=支持jpg、jpeg、gif、png格式，文件小于5M tabIndex=3
+					type=file size=3 name=pic></a>
+			</form> -->
+		</div>
+		<div id="maingrid"></div>
+	</body>
+</html>

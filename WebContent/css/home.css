@@ -1,0 +1,11 @@
+/* CSS Document */
+
+/*首页私有样式*/
+
+.InDevice{ overflow:hidden;}
+.InDevice span{ width:80px; padding-top:30px; padding-left:10px; font-size:14px; float:left;}
+.InDeviceUL{ float:left; padding-top:20px; display: block;}
+.InDeviceUL li{ float:left; width:22px; height:35px; margin-right:2px; line-height:35px; color:#FFF; background:#000; text-align:center; font-size:18px; font-weight:bold; border:1px solid #111; border-radius:3px; }
+
+
+

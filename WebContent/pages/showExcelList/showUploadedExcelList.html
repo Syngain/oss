@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>观火数据Guanhuodata-上传Excel列表</title>
+<link href="css/components/skins/Aqua/css/ligerui-all.css"rel="stylesheet" type="text/css" />
+<link href="css/menu/css/responsive-menu.css" rel="stylesheet" />
+<link href="css/menu/css/styles.css" rel="stylesheet" />
+<script type="text/javascript" src="js/jquery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="js/ligerUI/js/ligerui.all.js"></script>
+<script src="js/js-menu/modernizr.min.js" type="text/javascript"></script>
+<script src="js/js-menu/modernizr-custom.js" type="text/javascript"></script>
+<script src="js/js-menu/responsive-menu.js" type="text/javascript"></script>
+<script src="js/control/guanhuodata/util.js" type="text/javascript"></script>
+<script src="js/control/guanhuodata/excelList.js" type="text/javascript"></script>
+</head>
+<body>
+	 <header>
+		<div class="wrapper">
+			<div class="wrapper">
+				<div class="brand"></div>
+				<div class="rm-container">
+					<a class="rm-toggle rm-button rm-nojs" href="javascript:void(0);">导航菜单</a>
+					<nav class="rm-nav rm-nojs rm-lighten">
+						<ul>
+							<li><a href="javascript:void(0);">系统管理</a>
+								<ul>
+									<li><a href="javascript:void(0);">角色管理</a>
+										<ul>
+											<li><a href="javascript:void(0);">角色列表</a></li>
+										</ul></li>
+									<li><a href="javascript:void(0);">用户管理</a>
+										<ul>
+											<li><a href="javascript:void(0);">用户列表</a></li>
+										</ul></li>
+									<li><a href="javascript:void(0);">暂未开放菜单</a>
+										<ul>
+											<li><a href="javascript:void(0);">暂未开放子菜单</a></li>
+											<li><a href="javascript:void(0);">暂未开放子菜单</a></li>
+											<li><a href="javascript:void(0);">暂未开放子菜单</a></li>
+											<li><a href="javascript:void(0);">暂未开放子菜单</a></li>
+											<li><a href="javascript:void(0);">暂未开放子菜单</a></li>
+										</ul></li>
+									<li><a href="javascript:void(0);">暂未开放菜单</a></li>
+									<li><a href="javascript:void(0);">暂未开放菜单</a></li>
+								</ul></li>
+							<li><a href="javascript:void(0);">报表分析</a>
+								<ul>
+									<li><a href="javascript:void(0);" onclick="getExcelList();">Excel报表管理</a></li>
+									<li><a href="javascript:void(0);">Excel报表分析</a>
+										<ul>
+											<li><a href="javascript:void(0);" id="pieChart">饼状图分析</a></li>
+											<li><a href="javascript:void(0);" id="lineChart">折线图分析</a></li>
+											<li><a href="javascript:void(0);">暂未开放子菜单</a></li>
+											<li><a href="javascript:void(0);">暂未开放子菜单</a></li>
+											<li><a href="javascript:void(0);">暂未开放子菜单</a></li>
+										</ul></li>
+									<li><a href="javascript:void(0);">用户池</a>
+										<ul>
+											<li><a href="javascript:void(0);">用户体量</a></li>
+											<li><a href="javascript:void(0);">获客成本</a></li>
+											<li><a href="javascript:void(0);">回报率</a></li>
+											<li><a href="javascript:void(0);">笔单价</a></li>
+											<li><a href="javascript:void(0);">暂未开放子菜单</a></li>
+										</ul>	
+									</li>
+									<li><a href="javascript:void(0);">老用户</a>
+										<ul>
+											<li><a href="javascript:void(0);">浏览用户</a></li>
+											<li><a href="javascript:void(0);">关注用</a></li>
+											<li><a href="javascript:void(0);">未付款</a></li>
+											<li><a href="javascript:void(0);">交易用户</a></li>
+											<li><a href="javascript:void(0);">沉默用户</a></li>
+										</ul>	
+									</li>
+									<li><a href="javascript:void(0);">报表生成</a>
+										<ul>
+											<li><a href="javascript:void(0);">常用报表</a></li>
+											<li><a href="javascript:void(0);">自主报表</a></li>
+											<li><a href="javascript:void(0);">暂未开放子菜单</a></li>
+											<li><a href="javascript:void(0);">暂未开放子菜单</a></li>
+											<li><a href="javascript:void(0);">暂未开放子菜单</a></li>
+										</ul>	
+									</li>
+								</ul></li>
+							<li><a href="javascript:void(0);">素材管理</a>
+								<ul>
+									<li><a href="javascript:void(0);">素材预览</a></li>
+									<li><a href="javascript:void(0);">素材分析</a></li>
+									<li><a href="javascript:void(0);">暂未开放菜单</a>
+										<ul>
+											<li><a href="javascript:void(0);">暂未开放子菜单</a></li>
+											<li><a href="javascript:void(0);">暂未开放子菜单</a></li>
+											<li><a href="javascript:void(0);">暂未开放子菜单</a></li>
+										</ul></li>
+									<li><a href="javascript:void(0);">暂未开放菜单</a></li>
+									<li><a href="javascript:void(0);">暂未开放菜单</a></li>
+								</ul></li>
+							<li><a href="javascript:void(0);">其他功能</a></li>
+							<li><a href="javascript:void(0);">其他功能</a>
+								<ul>
+									<li><a href="javascript:void(0);">暂未开放子菜单</a></li>
+									<li><a href="javascript:void(0);">暂未开放子菜单</a>
+										<ul>
+											<li><a href="javascript:void(0);">暂未开放子菜单</a></li>
+											<li><a href="javascript:void(0);">暂未开放子菜单</a></li>
+											<li><a href="javascript:void(0);">暂未开放子菜单</a></li>
+										</ul></li>
+									<li><a href="javascript:void(0);">暂未开放子菜单</a></li>
+									<li><a href="javascript:void(0);">暂未开放子菜单</a></li>
+									<li><a href="javascript:void(0);">暂未开放子菜单</a></li>
+								</ul></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</header>
+	<footer>
+		<div id="maingrid"  style="margin: 0 auto;margin-top: 25px;"></div>
+	</footer>
+</body>
+</html>
+

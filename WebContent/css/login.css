@@ -1,0 +1,22 @@
+/* CSS Document */
+
+body{ background:#444444;}
+.logoBox{ text-align:center; height:25px; margin-bottom:50px;}
+.login_wrap{ width:693px; margin:80px auto;}
+.login_content{ height:270px;}
+.login_box{ height:240px; width:284px; display:block; overflow:hidden; background:#FFF; padding:30px 30px 0 30px;}
+.login_box h1{ font-size:24px; color:#333;}
+a.login_submit,a.login_submit:link,a.login_submit:visited{background: url(../img/login/btns.png) 0px 0px no-repeat; width:80px; 
+display:block; height:35px;border: medium none;outline-width:medium;outline-style:none;outline-color:invert; margin-bottom:5px;}
+a.login_submit:hover{background:url(../img/login/btns.png) 0 -35px no-repeat;}
+
+.login_box input[type="text"],.login_box input[type="password"]{ height:30px; line-height:30px; font-size:12px; color:#999; border-left:2px solid #35aa47;}
+.login_box input[type="text"]:focus,.login_box input[type="password"]:focus{-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 0px rgba(82,168,236,.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 0px rgba(82,168,236,.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 0px rgba(82,168,236,.6); color:#333;}
+.password div{  font-size:12px; color:#999; left:2px;}
+
+.Browser{ position:absolute; top:0; width:100%; background:#fffee0; height:30px; border-bottom:#F90 1px solid; display:none; line-height:30px; font-size:14px; text-align:center;}
+.Browser font{ color:#F30;}
+.Browser font a{ color:#F00; font-weight:bold;}
+.Browser span{background: url(../img/global/icon16.png) -400px -200px no-repeat;width: 16px;height: 16px;display: block;float: right;text-indent: -999em;margin: 6px 3px 0 0; cursor:pointer;}

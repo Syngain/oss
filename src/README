@@ -1,0 +1,5 @@
+目前关于报表可视化数据展现，选用D3组件的扩展，Quandl + NVD3 = Live Data Plotter(折线图)
+site：http://bl.ocks.org/csaladenes/ddc0b326b93ec641c84f
+
+可选组件包括：D3组件DashBoard(柱状图+饼状图)
+site：http://bl.ocks.org/NPashaP/96447623ef4d342ee09b
