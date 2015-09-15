@@ -9,14 +9,38 @@
 	       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 	       
 	<bean id="actionLookup" class="com.guanhuodata.framework.core.DefaultActionLookup"></bean>
+	
 	<bean id="serviceLocator" class="com.guanhuodata.framework.core.ServiceLocator"></bean>
+	
 	<bean id="licenseService" class="com.guanhuodata.license.license.LicenseServiceImpl"/>
+	
 	<bean id="loginInfo" class="com.guanhuodata.web.action.LoginInfoAction"></bean>
+	
 	<bean id="logout" class="com.guanhuodata.web.action.LogoutAction"></bean>
-	<bean name="image" class="com.guanhuodata.web.action.ImageAction" ></bean>
-	<bean name="forwardAction" class="com.guanhuodata.web.action.ForwardAction" ></bean>
-	<bean name="excelAction" class="com.guanhuodata.excel.action.ExcelAction">
+	
+	<bean id="image" class="com.guanhuodata.web.action.ImageAction" ></bean>
+	
+	<bean id="forwardAction" class="com.guanhuodata.web.action.ForwardAction" ></bean>
+	
+	<bean id="excelAction" class="com.guanhuodata.excel.action.ExcelAction">
+		<property name="chartService" ref="IChartService"></property>
 	</bean>
+	
+	<bean id="IChartService" class="com.guanhuodata.excel.service.impl.IChartServiceImpl">
+		<property name="chartDAO" ref="IChartDAO"></property>
+	</bean>
+	
+	<bean id="IChartDAO" class="com.guanhuodata.excel.dao.impl.IChartDAOImpl"></bean>
+	
+	<bean id="photoMaterialAction" class="com.guanhuodata.photo.action.PhotoMaterialAction">
+		<property name="materialService" ref="IMaterialService"></property>
+	</bean>
+	
+	<bean id="IMaterialService" class="com.guanhuodata.photo.service.impl.IMaterialServiceImpl">
+		<property name="materialDAO" ref="IMaterialDAO"></property>
+	</bean>
+	
+	<bean id="IMaterialDAO" class="com.guanhuodata.photo.dao.impl.IMaterialDAOImpl"></bean>
 	
 	<!-- jdbc config -->
 	<bean id="propertyConfigure"

@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>素材库</title>
+<link rel="stylesheet" href="css/prettyphoto/prettyPhoto.css" />
+<link rel="stylesheet"  href="css/menu/css/responsive-menu.css" />
+<link rel="stylesheet" type="text/css" href="css/jqueryui/jquery-ui.css"/>
+<link  rel="stylesheet" href="css/menu/css/styles.css"/>
+<link rel="stylesheet" href="css/menu/css/styles.css" />
+<link rel="stylesheet" href="css/qTip2/qTip2.css" />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="js/layer_v2.0/skin/layer.css"/>
+<link href="css/components/skins/Aqua/css/ligerui-all.css"rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="css/components/skins/Aqua/css/ligerui-dialog.css"/>
+<style type="text/css">
+/*
+datepicker span
+*/
+.dpspan {
+	/* font: italic bold 12px/30px arial, cursive; */
+	font-family: Arial, Verdana, Sans-serif; font-size : 15px;
+	padding: 15px;
+	font-size: 15px;
+	font-weight: bolder;
+}
+/*
+div of datepicker & upload form
+*/
+.dp {
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+	_display: inline;
+	*display: inline;
+	zoom: 1;
+}
+/*
+parent div of datepicker & upload form
+*/
+/*
+target div:指标
+*/
+.pd {
+	text-align: left;
+	margin: 0 auto;
+	padding: 10px;
+	clear: both;
+}
+.ftd{
+	width:5%;
+	text-align: right;
+	font-family: cursive;
+	font-size: 15px;
+	font-weight: bolder;
+	color: #949494;
+}
+.std{
+	text-align: center;
+	font-family: cursive;
+	font-size: 8px;
+	font-weight: bolder;
+	color: #949494;
+}
+.row{
+	text-align: center;
+	color: #949494;
+}
+.ctd{
+	font-family: cursive;
+	font-size: 8px;
+	font-weight: bold;
+}
+#imgtable{
+	margin: 0 auto;
+	padding: 20px;
+}
+#imgtable tr td{
+	width: 160px;
+	height: 160px
+}
+#materialCondition tr td{
+	 cursor:pointer;
+}
+#conditionDiv span{
+	cursor:pointer;
+	padding: 25px;
+}
+</style>
+<script type="text/javascript" src="js/jquery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="js/ligerUI/js/ligerui.all.js"></script>
+<script type="text/javascript" src="js/jqueryui/jquery-ui.js"></script>
+<script type="text/javascript" src="js/prettyphoto/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="js/qTip2/qTip2.js"></script>
+<script type="text/javascript" src="js/qTip2/imagesloaded.pkgd.min.js"></script>
+<script src="js/layer_v2.0/layer.js" type="text/javascript"></script>
+<script src="js/jsMenu/modernizr.min.js" type="text/javascript"></script>
+<script src="js/jsMenu/modernizr-custom.js" type="text/javascript"></script>
+<script src="js/jsMenu/responsive-menu.js" type="text/javascript"></script>
+<script src="js/control/guanhuodata/util.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/ajaxfileupload.js"></script>
+<script src="js/control/guanhuodata/photoManager/photoManager.js" type="text/javascript"></script>
+</head>
+<body>
+	  <header>
+		<div class="wrapper">
+			<div class="wrapper">
+				<div class="brand"></div>
+				<div class="rm-container">
+					<a class="rm-toggle rm-button rm-nojs" href="#">导航菜单</a>
+					<nav class="rm-nav rm-nojs rm-lighten">
+						<ul>
+							<li><a href="#">系统管理</a>
+								<ul>
+									<li><a href="#">角色管理</a>
+										<ul>
+											<li><a href="#">角色列表</a></li>
+										</ul></li>
+									<li><a href="#">用户管理</a>
+										<ul>
+											<li><a href="#">用户列表</a></li>
+										</ul></li>
+									<li><a href="#">暂未开放菜单</a>
+										<ul>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+										</ul></li>
+									<li><a href="#">暂未开放菜单</a></li>
+									<li><a href="#">暂未开放菜单</a></li>
+								</ul></li>
+							<li><a href="#">报表分析</a>
+								<ul>
+									<li><a href="#" id="chartMgr" onclick="forwardToChartPerspective();return false;">Excel报表管理</a></li>
+									<li><a href="#">Excel报表分析</a>
+										<ul>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+										</ul></li>
+									<li><a href="#">用户池</a>
+										<ul>
+											<li><a href="#">用户体量</a></li>
+											<li><a href="#">获客成本</a></li>
+											<li><a href="#">回报率</a></li>
+											<li><a href="#">笔单价</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+										</ul>	
+									</li>
+									<li><a href="#">老用户</a>
+										<ul>
+											<li><a href="#">浏览用户</a></li>
+											<li><a href="#">关注用</a></li>
+											<li><a href="#">未付款</a></li>
+											<li><a href="#">交易用户</a></li>
+											<li><a href="#">沉默用户</a></li>
+										</ul>	
+									</li>
+									<li><a href="#">报表生成</a>
+										<ul>
+											<li><a href="#">运营报表</a></li>
+											<li><a href="#">市场报表报表</a></li>
+											<li><a href="#">设计报表</a></li>
+											<li><a href="#" id="chartExportUnderControl" onclick="forwardToChartImpAndExp();return false;">自主生成</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+										</ul>	
+									</li>
+								</ul></li>
+							<li><a href="#">素材管理</a>
+								<ul>
+									<li><a href="#" id="preViewMaterial" onclick="forwardToMaterialPage();return false;">素材预览</a></li>
+									<li><a href="#">素材分析</a></li>
+									<li><a href="#">暂未开放菜单</a>
+										<ul>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+										</ul></li>
+									<li><a href="#">暂未开放菜单</a></li>
+									<li><a href="#">暂未开放菜单</a></li>
+								</ul></li>
+							<li><a href="#">其他功能</a></li>
+							<li><a href="#">其他功能</a>
+								<ul>
+									<li><a href="#">暂未开放子菜单</a></li>
+									<li><a href="#">暂未开放子菜单</a>
+										<ul>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+										</ul></li>
+									<li><a href="#">暂未开放子菜单</a></li>
+									<li><a href="#">暂未开放子菜单</a></li>
+									<li><a href="#">暂未开放子菜单</a></li>
+								</ul></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</header>
+	<div class="pd">
+		<table id="materialCondition" cellspacing="0" cellpadding="0" width="100%" style="border-collapse: separate;border-spacing: 10px;">
+			<tr class="row">
+				<td class="ftd">品牌</td>
+				<td class="std">全部</td>
+				<td class="ctd">施华蔻</td>
+				<td class="ctd">泊美</td>
+				<td class="ctd">雪肌精</td>
+				<td class="ctd">雀巢</td>
+				<td class="ctd">嘻嘻羊</td>
+				<td colspan="12" class="ctd"></td>
+			</tr>
+			<tr class="row">
+				<td class="ftd">展位</td>
+				<td class="std">全部</td>
+				<td class="ctd">640*480</td>
+				<td class="ctd">425*320</td>
+				<td class="ctd">400*300</td>
+				<td class="ctd">300*250</td>
+				<td class="ctd">950*50</td>
+				<td class="ctd">320*200</td>
+				<td class="ctd">940*107</td>
+				<td class="ctd">300*350</td>
+				<td class="ctd">170*200</td>
+				<td class="ctd">728*90</td>
+				<td class="ctd">480*240</td>
+				<td class="ctd">490*250</td>
+				<td class="ctd">320*300</td>
+				<td class="ctd">640*320</td>
+				<td class="ctd">640*290</td>
+				<td class="ctd">586*325</td>
+				<td class="ctd">280*406</td>
+			</tr>
+			<tr class="row">
+				<td class="ftd">推广类型</td>
+				<td class="std">全部</td>
+				<td class="ctd">活动名称1</td>
+				<td class="ctd">活动名称2</td>
+				<td colspan="15" class="ctd"></td>
+				<!-- <td></td> -->
+			</tr>
+			<tr class="row">
+				<td class="ftd">投放人群</td>
+				<td class="std">全部</td>
+				<td class="ctd">目标用户</td>
+				<td class="ctd">浏览用户</td>
+				<td class="ctd">关注用户</td>
+				<td class="ctd">生成订单未支付用户</td>
+				<td class="ctd">交易用户</td>
+				<td class="ctd">沉默用户</td>
+				<td colspan="11" class="ctd"></td>
+			</tr>
+			<tr>
+				<td class="ftd">投放时间</td>
+				<td class="std"><input type="hidden" id="dateTime" name="dateTime" /></td>
+				<td colspan="17"></td>
+			</tr>
+		</table>
+	</div>
+	<table>
+	</table>
+	<div style="height: 65px;text-align: left;margin-left: 220px;" id="conditionDiv">
+		<span id="CTRCondition">点击率</span>
+		<span id="showCondition">展现</span>
+		<span id="consumeCondition">消耗</span>
+		<span id="showROICondition">展示ROI</span>
+		<span id="prickOffRIOCondition">点出ROI</span>
+		<span id="CPCCondition">CPC</span>
+		<input type="text" id="search" name="search" style="width: 170px;"/>
+		<a href="#" class="lightGraySearchButton" id="searchBtn" style="" onclick="searchBtn();return false;">搜&nbsp;&nbsp;索</a>
+		<select style="width: 150px;height: 30px;margin-left: 20px;">
+			<option>请选择</option>
+			<option>批量导出图片</option>
+			<option>导出到Excel</option>
+		</select>
+		<a href="#" class="lightGrayIExportChartButton" id="exportChartBtn" style="" onclick="exportChartBtn();return false;">导&nbsp;&nbsp;出</a>
+		<!-- <input type="file" id="importChart" name="importChart"/> -->
+		<div style="float: right;padding-right: 30px;">
+			<form enctype="multipart/form-data" id="uploadfile" name="form1">
+				<input type="file" id="fileLoad" name="filePath"  style="width: 170px;"/>
+				<a href="#" class="lightGrayImportChartButton" id="importChartBtn" style="" onclick="importChartBtn();return false;">导&nbsp;&nbsp;入</a>
+			</form>
+		</div>
+	</div>
+	<div id="viewImg" style="text-align: left;margin-left: 45px;"></div>
+</body>
+</html>
+

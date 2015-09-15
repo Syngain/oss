@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>观火数据Guanhuodata-报表上传组件</title>
+<link href="css/components/skins/Aqua/css/ligerui-all.css"rel="stylesheet" type="text/css" />
+<link href="css/menu/css/responsive-menu.css" rel="stylesheet" />
+<link href="css/menu/css/styles.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/style.css"/>
+<link rel="stylesheet" type="text/css" href="css/components/skins/Aqua/css/ligerui-dialog.css"/>
+<link rel="stylesheet" type="text/css" href="css/jqueryui/jquery-ui.css"/>
+<link rel="stylesheet" type="text/css" href="js/layer_v2.0/skin/layer.css"/>
+<style type="text/css">
+/*
+datepicker span
+*/
+.dpspan {
+	/* font: italic bold 12px/30px arial, cursive; */
+	font-family: Arial, Verdana, Sans-serif; font-size : 15px;
+	padding: 15px;
+	font-size: 15px;
+	font-weight: bolder;
+}
+/*
+div of datepicker & upload form
+*/
+.dp {
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+	_display: inline;
+	*display: inline;
+	zoom: 1;
+}
+/*
+parent div of datepicker & upload form
+*/
+/*
+target div:指标
+*/
+.pd {
+	style ="text-align: left;
+	margin: 0 auto;
+	padding: 10px;
+	clear: both;
+}
+input[type="button"]{
+	color: #000;
+}
+</style>
+<script type="text/javascript" src="js/jquery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="js/ligerUI/js/ligerui.all.js"></script>
+<script type="text/javascript" src="js/ligerUI/js/ligerui.min.js"></script>
+<script type="text/javascript" src="js/jqueryui/jquery-ui.js"></script>
+<script src="js/jsMenu/modernizr.min.js" type="text/javascript"></script>
+<script src="js/jsMenu/modernizr-custom.js" type="text/javascript"></script>
+<script src="js/jsMenu/responsive-menu.js" type="text/javascript"></script>
+<script src="js/layer_v2.0/layer.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/control/guanhuodata/util.js"></script>
+ <script type="text/javascript" src="js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="js/control/guanhuodata/chartImportAndExport/importAndExport.js"></script>
+</head>
+<body style="background-color: #FFF">
+	<header>
+		<div class="wrapper">
+			<div class="wrapper">
+				<div class="brand"></div>
+				<div class="rm-container">
+					<a class="rm-toggle rm-button rm-nojs" href="#">导航菜单</a>
+					<nav class="rm-nav rm-nojs rm-lighten">
+						<ul>
+							<li><a href="#">系统管理</a>
+								<ul>
+									<li><a href="#">角色管理</a>
+										<ul>
+											<li><a href="#">角色列表</a></li>
+										</ul></li>
+									<li><a href="#">用户管理</a>
+										<ul>
+											<li><a href="#">用户列表</a></li>
+										</ul></li>
+									<li><a href="#">暂未开放菜单</a>
+										<ul>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+										</ul></li>
+									<li><a href="#">暂未开放菜单</a></li>
+									<li><a href="#">暂未开放菜单</a></li>
+								</ul></li>
+							<li><a href="#">报表分析</a>
+								<ul>
+									<li><a href="#" id="chartMgr" onclick="forwardToChartPerspective();return false;">Excel报表管理</a></li>
+									<li><a href="#">Excel报表分析</a>
+										<ul>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+										</ul></li>
+									<li><a href="#">用户池</a>
+										<ul>
+											<li><a href="#">用户体量</a></li>
+											<li><a href="#">获客成本</a></li>
+											<li><a href="#">回报率</a></li>
+											<li><a href="#">笔单价</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+										</ul>	
+									</li>
+									<li><a href="#">老用户</a>
+										<ul>
+											<li><a href="#">浏览用户</a></li>
+											<li><a href="#">关注用</a></li>
+											<li><a href="#">未付款</a></li>
+											<li><a href="#">交易用户</a></li>
+											<li><a href="#">沉默用户</a></li>
+										</ul>	
+									</li>
+									<li><a href="#">报表生成</a>
+										<ul>
+											<li><a href="#">运营报表</a></li>
+											<li><a href="#">市场报表报表</a></li>
+											<li><a href="#">设计报表</a></li>
+											<li><a href="#" id="chartExportUnderControl" onclick="forwardToChartImpAndExp();return false;">自主生成</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+										</ul>	
+									</li>
+								</ul></li>
+							<li><a href="#">素材管理</a>
+								<ul>
+									<li><a href="#" id="preViewMaterial" onclick="forwardToMaterialPage();return false;">素材预览</a></li>
+									<li><a href="#">素材分析</a></li>
+									<li><a href="#">暂未开放菜单</a>
+										<ul>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+										</ul></li>
+									<li><a href="#">暂未开放菜单</a></li>
+									<li><a href="#">暂未开放菜单</a></li>
+								</ul></li>
+							<li><a href="#">其他功能</a></li>
+							<li><a href="#">其他功能</a>
+								<ul>
+									<li><a href="#">暂未开放子菜单</a></li>
+									<li><a href="#">暂未开放子菜单</a>
+										<ul>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+											<li><a href="#">暂未开放子菜单</a></li>
+										</ul></li>
+									<li><a href="#">暂未开放子菜单</a></li>
+									<li><a href="#">暂未开放子菜单</a></li>
+									<li><a href="#">暂未开放子菜单</a></li>
+								</ul></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</header>
+	<div class="pd">
+		<div class="dp">
+			<span class="dpspan">查询日期：</span>
+			<input id="startTime" name="startTime" class="w225"/>
+			到
+			<input id="endTime" name="endTime" class="w225"/>
+		</div>
+		<div class="dp" style="float: right;padding-right: 20px;">
+			<form enctype="multipart/form-data" id="uploadfile" name="form1">
+				<input type="file" id="fileLoad" name="filePath" class="ml100" />
+				<a href="#" class="uploadButton" id="uploadBtn" onclick="uploadFunc();return false">上&nbsp;&nbsp;&nbsp;&nbsp;传</a>
+				<!-- <input type="button" class="uploadButton" value=" 上&nbsp;&nbsp;传 " id="uploadBtn" /> -->
+			</form>
+		</div>
+	</div>
+	<!-- <div>
+		 <form>
+				<a class=btn_addPic href="#">
+					<span> 
+						<em>+</em>添加文件
+					</span>
+					<input class=filePrew title=支持jpg、jpeg、gif、png格式，文件小于5M tabIndex=3type=file size=3 name=pic>
+				</a>
+			</form> 
+		</div>-->
+		<!-- <div id="maingrid"></div> -->
+		<div class="pd">
+			<span class="dpspan">选择指标：</span>
+			<input type="checkbox" id="throng" name="throng" />人群
+			<input type="checkbox" id="booth" name="booth"/>展位
+			<input type="checkbox" id="redirectUrl" name="redirectUrl"/>承接页
+			<div style="margin-left: 110px;margin-top: 5px;">
+				<table cellpadding="" cellspacing="" id="targetCondition" style="float: left;" width="1350px;" >
+					<tr>
+						<td><input type="button" id="" name="" value="投放目的"/></td>
+						<td><input type="button" id="" name="" value="定向名称"/></td>
+						<td><input type="button" id="" name="" value="推广单元基本信息"/></td>
+						<td><input type="button" id="" name="" value="所属推广计划"/></td>
+						<td><input type="button" id="" name="" value="人群属性"/></td>
+						<td><input type="button" id="" name="" value="人群分层"/></td>
+						<td><input type="button" id="" name="" value="人群"/></td>
+						<td><input type="button" id="" name="" value="展位"/></td>
+					</tr>
+					<tr>
+						<td><input type="button" id="" name="" value="时间"/></td>
+						<td><input type="button" id="" name="" value="展现"/></td>
+						<td><input type="button" id="" name="" value="点击"/></td>
+						<td><input type="button" id="" name="" value="点击率(%)"/></td>
+						<td><input type="button" id="" name="" value="消耗"/></td>
+						<td><input type="button" id="" name="" value="千次展现成本(元)"/></td>
+						<td><input type="button" id="" name="" value="点击单价(元)"/></td>
+						<td><input type="button" id="" name="" value="3天回报率"/></td>
+					</tr>
+					<tr>
+						<td><input type="button" id="" name="" value="3天点击产出"/></td>
+						<td><input type="button" id="" name="" value="7天回报率"/></td>
+						<td><input type="button" id="" name="" value="7天点击产出"/></td>
+						<td><input type="button" id="" name="" value="15天回报率"/></td>
+						<td><input type="button" id="" name="" value="15天点击产出"/></td>
+						<td><input type="button" id="" name="" value="3天顾客订单数"/></td>
+						<td><input type="button" id="" name="" value="7天顾客订单数"/></td>
+						<td><input type="button" id="" name="" value="15天顾客订单数"/></td>
+					</tr>
+					<tr>
+						<td><input type="button" id="" name="" value="店铺收藏数"/></td>
+						<td><input type="button" id="" name="" value="宝贝收藏数"/></td>
+						<td><input type="button" id="" name="" value="访客"/></td>
+						<td><input type="button" id="" name="" value="访客获取成本"/></td>
+						<td><input type="button" id="" name="" value="触达用户"/></td>
+						<td><input type="button" id="" name="" value="触达频次"/></td>
+						<td><input type="button" id="" name="" value="收藏用户"/></td>
+						<td><input type="button" id="" name="" value="3天展示访客"/></td>
+					</tr>
+					<tr>
+						<td><input type="button" id="" name="" value="7天展示访客"/></td>
+						<td><input type="button" id="" name="" value="15天展示访客"/></td>
+						<td><input type="button" id="" name="" value="3天展示回报率"/></td>
+						<td><input type="button" id="" name="" value="3天展示产出"/></td>
+						<td><input type="button" id="" name="" value="7天展示回报率"/></td>
+						<td><input type="button" id="" name="" value="7天展示产出"/></td>
+						<td><input type="button" id="" name="" value="15天展示回报率"/></td>
+						<td><input type="button" id="" name="" value="15天展示产出"/></td>
+					</tr>
+					<tr>
+						<td><input type="button" id="" name="" value="7天订单金额"/></td>
+						<td><input type="button" id="" name="" value="15天订单金额"/></td>
+						<td colspan="6"></td>
+						<!-- <td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td> -->
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="pd">
+			<div style="margin-left: 110px;margin-top: 5px;">
+				<span style="font-weight: bold;font-size: 15px;">已选择</span>
+				<span id="choiceNum" title="最多可选择30个指标，对已选择指标拖拽可以改变导出指标的前后顺序" style="color: #4d90fe;font-size: 20px;font-weight: bold;padding: 5px;">0</span>
+				<span style="font-weight: bold;font-size: 15px;">个</span>
+			</div>
+		</div>
+		<div class="pd">
+			<div style="width: 1350px;height: 100px;border: 1px solid #ccc;margin-left: 110px;text-align: center;">
+				<span style="height: 100px; line-height: 100px; text-align: center; color: #ccc;">已选择的指标在此显示</span>
+			</div>
+		</div>
+		<div class="pd">
+			<div style="margin-left: 110px;margin-top: 5px;text-align: left;">
+				<a href="#" class="blueButton" id="preViewChartData" onclick="preViewChartData();return false;">预&nbsp;&nbsp;览&nbsp;&nbsp;数&nbsp;&nbsp;据</a>
+				<a href="#" class="blueButton" id="addToMyChart" style="margin-left: 50px;">加&nbsp;入&nbsp;我&nbsp;的&nbsp;报&nbsp;表</a>
+				<a href="#" class="lightGrayButton" id="reset" style="margin-left: 50px;" onclick="reset();return false;">重&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;置</a>
+			</div>
+		</div>
+		<div id="pop"></div>
+	</body>
+</html>

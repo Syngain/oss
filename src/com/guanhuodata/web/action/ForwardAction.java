@@ -15,13 +15,39 @@ public class ForwardAction implements Action {
 		String type = request.getParameter("type");
 		if("enterCheck".equals(type)){
 			enterCheck(request,response);
+		}else if("chartPerspectivePage".equals(type)){
+			chartPerspectivePage(request, response);
+		}else if("chartImpAndExpPage".equals(type)){
+			chartImpAndExpPage(request,response);
+		}else if("preViewChartDataPage".equals(type)){
+			preViewChartDataPage(request,response);
+		}else if("photoMaterialPage".equals(type)){
+			photoMaterialPage(request,response);
 		}
 	}
 	
-	private void enterCheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		LOG.info("ForwardAction to limit illegal user enter this project.");
-		request.getServletContext().getRequestDispatcher("/pages/main/main.html").forward(request, response);
+	private void photoMaterialPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		LOG.info("forward to photoMaterialPage.");
+		request.getRequestDispatcher("pages/photoManager/photoMaterial.html").forward(request, response);
 	}
 
+	private void preViewChartDataPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		LOG.info("forward to preViewChartDataPage.");
+		request.getRequestDispatcher("pages/chartImportAndExport/preViewChartData.html").forward(request, response);
+	}
+
+	private void chartImpAndExpPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		LOG.info("forward to chartPerspectiveAndViewList page.");
+		request.getRequestDispatcher("pages/chartImportAndExport/chartImportAndExport.html").forward(request, response);
+	}
+
+	private void enterCheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		LOG.info("ForwardAction to limit illegal user enter this project.");
+		request.getRequestDispatcher("pages/main/main.html").forward(request, response);
+	}
+
+	private void chartPerspectivePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		LOG.info("forward to chartPerspectiveAndViewList page.");
+		request.getRequestDispatcher("pages/chartPerspective/chartPerspectiveAndViewList.html").forward(request, response);
+	}
 }

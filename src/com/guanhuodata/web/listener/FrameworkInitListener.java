@@ -16,14 +16,15 @@ public class FrameworkInitListener implements ServletContextListener {
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(FrameworkInitListener.class);
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
-
+		
 	}
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
+		LOG.info("context init start.");
 		ServiceContext sc = ServiceContext.getInstance();
 		sce.getServletContext().setAttribute(CoreConstants.SERVICE_CTX,sc);
-		LOG.info("Module Registry Process complete.");
+		LOG.info("context init finished.");
 		/*LicenseService licenseService = sc.getService("licenseService",LicenseService.class);
 		License lic = licenseService.loadLicense();
 		sce.getServletContext().setAttribute("license",lic);
@@ -31,8 +32,8 @@ public class FrameworkInitListener implements ServletContextListener {
 		List<Module> modules = moduleLoader.loadModules();
 		for(Module m:modules){
 		    registerModule(m,licenseService);
-		}*/
-		/*for(Iterator<Module> it=ModuleRegistry.getRegisteredModules().iterator();it.hasNext();){
+		}
+		for(Iterator<Module> it=ModuleRegistry.getRegisteredModules().iterator();it.hasNext();){
             Module mod = it.next();
         }*/
 	}
