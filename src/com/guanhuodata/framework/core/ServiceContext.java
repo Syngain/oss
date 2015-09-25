@@ -7,7 +7,7 @@ public class ServiceContext {
     private static ServiceContext sc;
     private static ApplicationContext appCtx;
     private ServiceContext(){
-        appCtx = new ClassPathXmlApplicationContext("classpath*:application-*.xml","classpath*:/conf/application-*.xml");
+    	appCtx = new ClassPathXmlApplicationContext("classpath*:application-*.xml","classpath*:/conf/**/application-*.xml");
     };
     public static ServiceContext getInstance(){
         if(sc==null){

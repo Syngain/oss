@@ -117,6 +117,7 @@ public class ImageUtils {
 	 * @param bb
 	 *            比例不对时是否需要补白：true为补白; false为不补白;
 	 */
+	@SuppressWarnings("static-access")
 	public final static void scale2(String srcImageFile, String result, int height, int width, boolean bb) {
 		try {
 			double ratio = 0.0; // 缩放比例

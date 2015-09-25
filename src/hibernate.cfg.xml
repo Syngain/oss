@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+    	<!-- MySQL方言 -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+        <!-- 显示SQL语句 -->
+        <property name="hibernate.show_sql">true</property>
+        <!-- 格式化SQL -->
+        <property name="hibernate.format_sql">true</property>
+        <!-- 根据实体类Bean自动创建表 -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <!-- 解决：HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException -->
+        <property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
+        <!-- 实体类映射 -->
+        <mapping resource="com/guanhuodata/photo/bean/MaterialChartSplitBean.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>

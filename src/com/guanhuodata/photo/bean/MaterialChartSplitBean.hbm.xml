@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-9-16 9:35:31 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.guanhuodata.photo.bean.MaterialChartSplitBean" table="materialChart">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="increment" />
+        </id>
+        <property name="originalityName" type="java.lang.String">
+            <column name="originalityName" />
+        </property>
+        <property name="spreadUnitBasicInfo" type="java.lang.String">
+            <column name="spreadUnitBasicInfo" />
+        </property>
+        <property name="allowSpreadSchedule" type="java.lang.String">
+            <column name="allowSpreadSchedule" />
+        </property>
+        <property name="dateTime" type="java.lang.String">
+            <column name="dateTime" />
+        </property>
+        <property name="reveal" type="long">
+            <column name="reveal" />
+        </property>
+        <property name="click" type="long">
+            <column name="click" />
+        </property>
+        <property name="CTR" type="double">
+            <column name="CTR" scale="2"/>
+        </property>
+        <property name="consume" type="double">
+            <column name="consume" scale="2"/>
+        </property>
+        <property name="showCostOf1000" type="double">
+            <column name="showCostOf1000" scale="2"/>
+        </property>
+        <property name="unitPriceOfClick" type="double">
+            <column name="unitPriceOfClick" scale="2"/>
+        </property>
+        <property name="rateOfReturn_3" type="double">
+            <column name="rateOfReturn_3" scale="2"/>
+        </property>
+        <property name="rateOfReturn_7" type="double">
+            <column name="rateOfReturn_7" scale="2"/>
+        </property>
+        <property name="rateOfReturn_15" type="double">
+            <column name="rateOfReturn_15" scale="2"/>
+        </property>
+        <property name="customerOrderNum_3" type="long">
+            <column name="customerOrderNum_3" />
+        </property>
+        <property name="customerOrderNum_7" type="long">
+            <column name="customerOrderNum_7" />
+        </property>
+        <property name="customerOrderNum_15" type="long">
+            <column name="customerOrderNum_15" />
+        </property>
+        <property name="shopCollectNum" type="int">
+            <column name="shopCollectNum" />
+        </property>
+        <property name="goodsCollectNum" type="int">
+            <column name="goodsCollectNum" />
+        </property>
+        <property name="visitor" type="long">
+            <column name="visitor" />
+        </property>
+        <property name="touchOfUser" type="long">
+            <column name="touchOfUser" />
+        </property>
+        <property name="touchOfFrequency" type="double">
+            <column name="touchOfFrequency" scale="2"/>
+        </property>
+        <property name="collectUser" type="long">
+            <column name="collectUser" />
+        </property>
+        <property name="showVisitor_3" type="long">
+            <column name="showVisitor_3" />
+        </property>
+        <property name="showVisitor_7" type="long">
+            <column name="showVisitor_7" />
+        </property>
+        <property name="showVisitor_15" type="long">
+            <column name="showVisitor_15" />
+        </property>
+        <property name="showRateOfReturn_3" type="double">
+            <column name="showRateOfReturn_3" scale="2"/>
+        </property>
+        <property name="showRateOfReturn_7" type="double">
+            <column name="showRateOfReturn_7" scale="2"/>
+        </property>
+        <property name="showRateOfReturn_15" type="double">
+            <column name="showRateOfReturn_15" scale="2"/>
+        </property>
+        <property name="orderSum_7" type="double">
+            <column name="orderSum_7" scale="2"/>
+        </property>
+        <property name="orderSum_15" type="double">
+            <column name="orderSum_15" scale="2"/>
+        </property>
+        <property name="clickSum_15" type="double">
+            <column name="clickSum_15" scale="4"/>
+        </property>
+        <property name="showSum_15" type="double">
+            <column name="showSum_15" scale="4"/>
+        </property>
+        <property name="materialCrowd" type="java.lang.String">
+            <column name="materialCrowd" />
+        </property>
+        <property name="materialTheme" type="java.lang.String">
+            <column name="materialTheme" />
+        </property>
+        <property name="materialContinuePage" type="java.lang.String">
+            <column name="materialContinuePage" />
+        </property>
+        <property name="materialStandAbbreviation" type="java.lang.String">
+            <column name="materialStandAbbreviation" />
+        </property>
+        <property name="materialDesignAbbreviationAndSerialNumber" type="java.lang.String">
+            <column name="materialDesignAbbreviationAndSerialNumber" />
+        </property>
+        <property name="scheduleActivityTheme" type="java.lang.String">
+            <column name="scheduleActivityTheme" />
+        </property>
+        <property name="schedulePutInPurpose" type="java.lang.String">
+            <column name="schedulePutInPurpose" />
+        </property>
+        <property name="scheduleCrowdLayer" type="java.lang.String">
+            <column name="scheduleCrowdLayer" />
+        </property>
+        <property name="scheduleStandCategory" type="java.lang.String">
+            <column name="scheduleStandCategory" />
+        </property>
+        <property name="unitCrowd" type="java.lang.String">
+            <column name="unitCrowd" />
+        </property>
+        <property name="unitSpecificStand" type="java.lang.String">
+            <column name="unitSpecificStand" />
+        </property>
+        <property name="shopName" type="java.lang.String">
+            <column name="shopName" />
+        </property>
+        <property name="operateTime" type="java.lang.String">
+            <column name="operateTime" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -35,6 +35,9 @@ public class QImageInfoBean implements java.io.Serializable{
 	
 	@JsonTypeSpec(JsonType.STRING)
 	private String linkAddress;	//链接页面
+	
+	@JsonTypeSpec(JsonType.STRING)
+	private String originalityName;	//创意名称
 
 	public String getShop() {
 		return shop;
@@ -98,6 +101,14 @@ public class QImageInfoBean implements java.io.Serializable{
 
 	public void setLinkAddress(String linkAddress) {
 		this.linkAddress = linkAddress;
+	}
+
+	public String getOriginalityName() {
+		return originalityName;
+	}
+
+	public void setOriginalityName(String originalityName) {
+		this.originalityName = originalityName;
 	}
 	
 }

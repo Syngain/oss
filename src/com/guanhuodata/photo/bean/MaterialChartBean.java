@@ -14,6 +14,9 @@ public class MaterialChartBean implements Serializable {
 
 	private static final long serialVersionUID = 1137651115321295992L;
 
+	@JsonTypeSpec(JsonType.NUMBER)
+	private long id;	//记录id
+	
 	@JsonTypeSpec(JsonType.STRING)
 	private String originalityName;	//创意名称
 	
@@ -27,7 +30,7 @@ public class MaterialChartBean implements Serializable {
 	private String dateTime;		//时间
 	
 	@JsonTypeSpec(JsonType.NUMBER)
-	private long show;	//展现
+	private long reveal;	//展现
 	
 	@JsonTypeSpec(JsonType.NUMBER)
 	private long click;	//点击
@@ -110,6 +113,14 @@ public class MaterialChartBean implements Serializable {
 	@JsonTypeSpec(JsonType.NUMBER)
 	private double showSum_15;	//15天展示金额
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public String getOriginalityName() {
 		return originalityName;
 	}
@@ -142,12 +153,12 @@ public class MaterialChartBean implements Serializable {
 		this.dateTime = dateTime;
 	}
 
-	public long getShow() {
-		return show;
+	public long getReveal() {
+		return reveal;
 	}
 
-	public void setShow(long show) {
-		this.show = show;
+	public void setReveal(long reveal) {
+		this.reveal = reveal;
 	}
 
 	public long getClick() {

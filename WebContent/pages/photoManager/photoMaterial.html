@@ -13,6 +13,7 @@
 <link rel="stylesheet" type="text/css" href="js/layer_v2.0/skin/layer.css"/>
 <link href="css/components/skins/Aqua/css/ligerui-all.css"rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="css/components/skins/Aqua/css/ligerui-dialog.css"/>
+<link rel="stylesheet" type="text/css" href="css/page/jBootsrapPage.css"/>
 <style type="text/css">
 /*
 datepicker span
@@ -70,6 +71,7 @@ target div:指标
 	font-family: cursive;
 	font-size: 8px;
 	font-weight: bold;
+	text-align: left;
 }
 #imgtable{
 	margin: 0 auto;
@@ -87,7 +89,9 @@ target div:指标
 	padding: 25px;
 }
 </style>
-<script type="text/javascript" src="js/jquery/jquery-1.8.1.min.js"></script>
+<!-- 针对jBootstrapPage分页组件需要使用jquery1.10.2版本jquery -->
+<!-- <script type="text/javascript" src="js/jquery/jquery-1.8.1.min.js"></script> -->
+<script type="text/javascript" src="js/jquery/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="js/ligerUI/js/ligerui.all.js"></script>
 <script type="text/javascript" src="js/jqueryui/jquery-ui.js"></script>
 <script type="text/javascript" src="js/prettyphoto/jquery.prettyPhoto.js"></script>
@@ -99,6 +103,7 @@ target div:指标
 <script src="js/jsMenu/responsive-menu.js" type="text/javascript"></script>
 <script src="js/control/guanhuodata/util.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="js/page/jBootstrapPage.js"></script>
 <script src="js/control/guanhuodata/photoManager/photoManager.js" type="text/javascript"></script>
 </head>
 <body>
@@ -204,21 +209,21 @@ target div:指标
 		</div>
 	</header>
 	<div class="pd">
-		<table id="materialCondition" cellspacing="0" cellpadding="0" width="100%" style="border-collapse: separate;border-spacing: 10px;">
-			<tr class="row">
+		<table id="materialCondition" cellspacing="0" cellpadding="0" width="100%" style="border-collapse: separate;border-spacing: 10px;table-layout:fixed;">
+			<tr class="row" id="shopNameAll">
 				<td class="ftd">品牌</td>
-				<td class="std">全部</td>
-				<td class="ctd">施华蔻</td>
+				<td class="std" id="all1">全部</td>
+				<!-- <td class="ctd">施华蔻</td>
 				<td class="ctd">泊美</td>
 				<td class="ctd">雪肌精</td>
 				<td class="ctd">雀巢</td>
 				<td class="ctd">嘻嘻羊</td>
-				<td colspan="12" class="ctd"></td>
+				<td colspan="12" class="ctd"></td> -->
 			</tr>
-			<tr class="row">
+			<tr class="row" id="standAll">
 				<td class="ftd">展位</td>
-				<td class="std">全部</td>
-				<td class="ctd">640*480</td>
+				<td class="std" id="all2">全部</td>
+				<!-- <td class="ctd">640*480</td>
 				<td class="ctd">425*320</td>
 				<td class="ctd">400*300</td>
 				<td class="ctd">300*250</td>
@@ -234,31 +239,31 @@ target div:指标
 				<td class="ctd">640*320</td>
 				<td class="ctd">640*290</td>
 				<td class="ctd">586*325</td>
-				<td class="ctd">280*406</td>
+				<td class="ctd">280*406</td> -->
 			</tr>
-			<tr class="row">
+			<tr class="row" id="activityAll">
 				<td class="ftd">推广类型</td>
-				<td class="std">全部</td>
-				<td class="ctd">活动名称1</td>
+				<td class="std" id="all3">全部</td>
+				<!-- <td class="ctd">活动名称1</td>
 				<td class="ctd">活动名称2</td>
-				<td colspan="15" class="ctd"></td>
+				<td colspan="15" class="ctd"></td> -->
 				<!-- <td></td> -->
 			</tr>
-			<tr class="row">
+			<tr class="row" id="putInCrowdAll">
 				<td class="ftd">投放人群</td>
-				<td class="std">全部</td>
-				<td class="ctd">目标用户</td>
+				<td class="std" id="all4">全部</td>
+				<!-- <td class="ctd">目标用户</td>
 				<td class="ctd">浏览用户</td>
 				<td class="ctd">关注用户</td>
 				<td class="ctd">生成订单未支付用户</td>
 				<td class="ctd">交易用户</td>
 				<td class="ctd">沉默用户</td>
-				<td colspan="11" class="ctd"></td>
+				<td colspan="11" class="ctd"></td> -->
 			</tr>
 			<tr>
 				<td class="ftd">投放时间</td>
-				<td class="std"><input type="hidden" id="dateTime" name="dateTime" /></td>
-				<td colspan="17"></td>
+				<td class="std"><input type="hidden" id="dateTime" name="dateTime" style="padding-left: 100px;"/></td>
+				<!-- <td colspan="17"></td> -->
 			</tr>
 		</table>
 	</div>
@@ -269,7 +274,7 @@ target div:指标
 		<span id="showCondition">展现</span>
 		<span id="consumeCondition">消耗</span>
 		<span id="showROICondition">展示ROI</span>
-		<span id="prickOffRIOCondition">点出ROI</span>
+		<span id="prickOffRIOCondition">点击ROI</span>
 		<span id="CPCCondition">CPC</span>
 		<input type="text" id="search" name="search" style="width: 170px;"/>
 		<a href="#" class="lightGraySearchButton" id="searchBtn" style="" onclick="searchBtn();return false;">搜&nbsp;&nbsp;索</a>
@@ -288,6 +293,9 @@ target div:指标
 		</div>
 	</div>
 	<div id="viewImg" style="text-align: left;margin-left: 45px;"></div>
+	<div style="text-align: right;" id="paginationDiv">
+		<ul class="pagination" style="margin-right: 100px;"></ul>
+	</div>
 </body>
 </html>
 

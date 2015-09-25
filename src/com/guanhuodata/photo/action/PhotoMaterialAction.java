@@ -9,9 +9,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,9 +19,12 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 import com.guanhuodata.framework.core.Action;
 import com.guanhuodata.framework.util.JsonUtil;
-import com.guanhuodata.photo.bean.FileBean;
-import com.guanhuodata.photo.bean.QImageInfoBean;
+import com.guanhuodata.photo.bean.InitConditions;
+import com.guanhuodata.photo.bean.MaterialChartSplitBean;
+import com.guanhuodata.photo.bean.QueryCondition;
 import com.guanhuodata.photo.service.IMaterialService;
+import com.guanhuodata.photo.util.ActionUtils;
+import com.guanhuodata.photo.util.Page;
 
 public class PhotoMaterialAction implements Action {
 
@@ -39,12 +39,139 @@ public class PhotoMaterialAction implements Action {
 		LOG.info("according type judge the page to forward start.");
 		if("getImgPaths".equals(type)){
 			getImgPaths(request,response);
-		}else if("getImageByName".equals(type)){
-			getImageByName(request,response);
+		}else if("getImageById".equals(type)){
+			getImageById(request,response);
 		}else if("getQImgInfo".equals(type)){
 			getQImgInfo(request,response);
 		}else if("uploadMaterialExcel".equals(type)){
 			uploadMaterialExcel(request,response);
+		}else if("getPaginationInfo".equals(type)){
+			getPaginationInfo(request,response);
+		}else if("getPaginationInfoByCondition".equals(type)){
+			getPaginationInfoByCondition(request,response);
+		}else if("initConditions".equals(type)){
+			initConditions(request,response);
+		}else if("findByName".equals(type)){
+			findByName(request,response);
+		}else if("getPaginationInfoByName".equals(type)){
+			getPaginationInfoByName(request,response);
+		}
+	}
+	
+	private void getPaginationInfoByName(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+		LOG.info("get paginationInfo by name start.");
+		//封装查询条件
+		Page page = new Page();
+		page.setPageNumber(Integer.parseInt(request.getParameter("pageNumber")));
+		page.setPageSize(21);
+		String originalityName = new String(request.getParameter("originalityName").getBytes("ISO8859-1"),"UTF-8");
+		PrintWriter out = null;
+		try{
+			out = response.getWriter();
+			page = materialService.getPaginationInfoByName(page,originalityName);
+			String ret = JsonUtil.makeJson(page);
+			out.print(ret);
+		}catch(IOException e){
+			LOG.error("PrintWriter out has an IOException: " + e.getLocalizedMessage());
+			out.print("-1");
+			e.printStackTrace();
+		}
+	}
+
+	private void findByName(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+		LOG.info("find by img name start.");
+		//封装查询条件
+		Page page = new Page();
+		page.setPageNumber(Integer.parseInt(request.getParameter("pageNumber")));
+		page.setPageSize(21);
+		String originalityName = new String(request.getParameter("originalityName").getBytes("ISO8859-1"),"UTF-8");
+		PrintWriter out = null;
+		try {
+			out = response.getWriter();
+			//分页取出
+			List<MaterialChartSplitBean> list = materialService.findByName(page,originalityName);
+			//根据bean查找
+			ActionUtils actionUtils = new ActionUtils();
+			String ret = actionUtils.getImgPathsByListBean(list);
+			out.print(ret);
+			out.close();
+		} catch (IOException e) {
+			LOG.error("PrintWriter has an exception.");
+			out.print("-1");
+			e.printStackTrace();
+		}
+	}
+
+	//页面条件的初始化
+	private void initConditions(HttpServletRequest request, HttpServletResponse response) {
+		LOG.info("init conditions to page.");
+		PrintWriter out = null;
+		try {
+			 out = response.getWriter();
+			 InitConditions initConditions = materialService.getInitConditions();
+			 String ret = JsonUtil.makeJson(initConditions);
+			 System.out.println(ret);
+			 out.print(ret);
+		} catch (IOException e) {
+			LOG.error("PrintWriter out has an IOException: " + e.getLocalizedMessage());
+			out.print("-1");
+			e.printStackTrace();
+		}
+	}
+
+	/*获取分页信息*/
+	private void getPaginationInfo(HttpServletRequest request, HttpServletResponse response) {
+		LOG.info("getPaginationInfo invoke.");
+		PrintWriter out = null;
+		try{
+			out = response.getWriter();
+			Page page = new Page();
+			page.setPageSize(21);
+			page = materialService.getPaginationInfo(page);
+			String ret = JsonUtil.makeJson(page);
+			out.print(ret);
+		}catch(IOException e){
+			LOG.error("PrintWriter out has an IOException: " + e.getLocalizedMessage());
+			out.print("-1");
+			e.printStackTrace();
+		}
+	}
+	
+	/*获取分页信息*/
+	private void getPaginationInfoByCondition(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+		LOG.info("getPaginationInfo invoke.");
+		//封装查询条件
+		Page page = new Page();
+		page.setPageNumber(Integer.parseInt(request.getParameter("pageNumber")));
+		page.setPageSize(21);
+		QueryCondition queryCondition = new QueryCondition();
+		queryCondition.setShopName(new String(request.getParameter("shopName").getBytes("ISO8859-1"),"UTF-8"));
+		queryCondition.setStandSize(request.getParameter("standSize"));
+		queryCondition.setActivityName(new String(request.getParameter("activityName").getBytes("ISO8859-1"),"UTF-8"));
+		queryCondition.setPutInCrowd(new String(request.getParameter("putInCrowd").getBytes("ISO8859-1"),"UTF-8"));
+		queryCondition.setPutInDateTime(request.getParameter("putInDateTime").equals("") || request.getParameter("putInDateTime") == null ? "" : request.getParameter("putInDateTime"));
+		queryCondition.setCTR(request.getParameter("CTR").equals("") || request.getParameter("CTR") == null ? "" : request.getParameter("CTR"));
+		queryCondition.setCTROrder(request.getParameter("CTROrder").equals("") || request.getParameter("CTROrder") == null ? "" : request.getParameter("CTROrder"));
+		queryCondition.setReveal(request.getParameter("reveal").equals("") || request.getParameter("reveal") == null ? "" : request.getParameter("reveal"));
+		queryCondition.setRevealOrder(request.getParameter("revealOrder").equals("") || request.getParameter("revealOrder") == null ? "" : request.getParameter("revealOrder"));
+		queryCondition.setConsume(request.getParameter("consume").equals("") || request.getParameter("consume") == null ? "" : request.getParameter("consume"));
+		queryCondition.setConsumeOrder(request.getParameter("consumeOrder").equals("") || request.getParameter("consumeOrder") == null ? "" : request.getParameter("consumeOrder"));
+		queryCondition.setShowROI(request.getParameter("showROI").equals("") || request.getParameter("showROI") == null ? "" : request.getParameter("showROI"));
+		queryCondition.setShowROIOrder(request.getParameter("showROIOrder").equals("") || request.getParameter("showROIOrder") == null ? "" : request.getParameter("showROIOrder"));
+		queryCondition.setClickOutROI(request.getParameter("clickOutROI").equals("") || request.getParameter("clickOutROI") == null ? "" : request.getParameter("clickOutROI"));
+		queryCondition.setClickOutROIOrder(request.getParameter("clickOutROIOrder").equals("") || request.getParameter("clickOutROIOrder") == null ? "" : request.getParameter("clickOutROIOrder"));
+		queryCondition.setCPC(request.getParameter("CPC").equals("") || request.getParameter("CPC") == null ? "" : request.getParameter("CPC"));
+		queryCondition.setCPCOrder(request.getParameter("CPCOrder").equals("") || request.getParameter("CPCOrder") == null ? "" : request.getParameter("CPCOrder"));
+		PrintWriter out = null;
+		try{
+			out = response.getWriter();
+			page = materialService.getPaginationInfoByCondition(page,queryCondition);
+			String ret = JsonUtil.makeJson(page);
+			out.print(ret);
+		}catch(IOException e){
+			LOG.error("PrintWriter out has an IOException: " + e.getLocalizedMessage());
+			out.print("-1");
+			e.printStackTrace();
 		}
 	}
 
@@ -59,40 +186,17 @@ public class PhotoMaterialAction implements Action {
 		LOG.info("view img info with qTips by imgName. ");
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("image/*;charset=UTF-8");
-		String qImgName = request.getParameter("qImgName");
-		System.out.println("qImgName: " + qImgName);
-		String transedQImageName=new String(qImgName.getBytes("ISO8859-1"),"UTF-8");
-		System.out.println("transedQImageName: " + transedQImageName);
+		//String qImgName = request.getParameter("qImgName");
+		//String transedQImageName=new String(qImgName.getBytes("ISO8859-1"),"UTF-8");
+		long qImgId = Long.parseLong(request.getParameter("qImgId"));
 		PrintWriter out = null;
-		String ret = "";
 		try {
 			out = response.getWriter();
-			if(transedQImageName.equals("14.jpg")){
-				QImageInfoBean qBean = new QImageInfoBean();
-				qBean.setShop("施华蔻");
-				qBean.setCTR(5.5);
-				qBean.setPutInCrowd("浏览用户");
-				qBean.setTitle("日常活动");
-				qBean.setROI(8.8);
-				qBean.setImageSize("520*360");
-				qBean.setPutInTime("2015-09-14");
-				qBean.setLinkAddress("http://ju.taobao.com/tg/brand_items.html");
-				ret = JsonUtil.makeJson(qBean);
-			}else{
-				QImageInfoBean qBean = new QImageInfoBean();
-				qBean.setShop("雪肌精");
-				qBean.setCTR(1.8);
-				qBean.setPutInCrowd("浏览用户");
-				qBean.setTitle("日常活动");
-				qBean.setROI(6.6);
-				qBean.setImageSize("640*480");
-				qBean.setPutInTime("2015-09-14");
-				qBean.setLinkAddress("http://ju.taobao.com/tg/brand_items.html");
-				ret = JsonUtil.makeJson(qBean);
-			}
+			String ret = materialService.getQImageInfoByQImageId(qImgId);
 			out.print(ret);
 		} catch (IOException e) {
 			LOG.error("view img info has a exception: " + e.getLocalizedMessage());
+			out.print("-1");
 			e.printStackTrace();
 		}
 	}
@@ -105,15 +209,15 @@ public class PhotoMaterialAction implements Action {
 	 * 前台prettyphoto根据imgName请求创建点击图片预览
 	 * 
 	 */
-	private void getImageByName(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+	private void getImageById(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		LOG.info("get image by image name.");
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("image/*;charset=UTF-8");
-		String imageName = request.getParameter("imageName");
-		System.out.println("imageName: " + imageName);
-		String transedImageName=new String(imageName.getBytes("ISO8859-1"),"UTF-8");
-		System.out.println("name: " + transedImageName);
-		String path = "d:" + File.separator + "img" + File.separator + transedImageName;
+		//String imageName = request.getParameter("imageName");
+		//String transedImageName=new String(imageName.getBytes("ISO8859-1"),"UTF-8");
+		long imageId = Long.parseLong(request.getParameter("imageId"));
+		String imageName = materialService.getOriginalityNameById(imageId);
+		String path = "d:" + File.separator + "img" + File.separator + imageName + "." + imageName.split("_")[imageName.split("_").length - 1];
 		InputStream in = null;
 		OutputStream out = null;
 		File file = new File(path);
@@ -156,34 +260,48 @@ public class PhotoMaterialAction implements Action {
 	 * @param request
 	 * @param response
 	 * 服务器端返回图片存储路径
+	 * @throws UnsupportedEncodingException 
 	 * 
 	 */
-	private void getImgPaths(HttpServletRequest request, HttpServletResponse response) {
+	private void getImgPaths(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		LOG.info("get image paths start.");
+		//封装查询条件
+		Page page = new Page();
+		page.setPageNumber(Integer.parseInt(request.getParameter("pageNumber")));
+		page.setPageSize(21);
+		QueryCondition queryCondition = new QueryCondition();
+		queryCondition.setShopName(new String(request.getParameter("shopName").getBytes("ISO8859-1"),"UTF-8"));
+		queryCondition.setStandSize(request.getParameter("standSize"));
+		queryCondition.setActivityName(new String(request.getParameter("activityName").getBytes("ISO8859-1"),"UTF-8"));
+		queryCondition.setPutInCrowd(new String(request.getParameter("putInCrowd").getBytes("ISO8859-1"),"UTF-8"));
+		queryCondition.setPutInDateTime(request.getParameter("putInDateTime").equals("") || request.getParameter("putInDateTime") == null ? "" : request.getParameter("putInDateTime"));
+		queryCondition.setCTR(request.getParameter("CTR").equals("") || request.getParameter("CTR") == null ? "" : request.getParameter("CTR"));
+		queryCondition.setCTROrder(request.getParameter("CTROrder").equals("") || request.getParameter("CTROrder") == null ? "" : request.getParameter("CTROrder"));
+		queryCondition.setReveal(request.getParameter("reveal").equals("") || request.getParameter("reveal") == null ? "" : request.getParameter("reveal"));
+		queryCondition.setRevealOrder(request.getParameter("revealOrder").equals("") || request.getParameter("revealOrder") == null ? "" : request.getParameter("revealOrder"));
+		queryCondition.setConsume(request.getParameter("consume").equals("") || request.getParameter("consume") == null ? "" : request.getParameter("consume"));
+		queryCondition.setConsumeOrder(request.getParameter("consumeOrder").equals("") || request.getParameter("consumeOrder") == null ? "" : request.getParameter("consumeOrder"));
+		queryCondition.setShowROI(request.getParameter("showROI").equals("") || request.getParameter("showROI") == null ? "" : request.getParameter("showROI"));
+		queryCondition.setShowROIOrder(request.getParameter("showROIOrder").equals("") || request.getParameter("showROIOrder") == null ? "" : request.getParameter("showROIOrder"));
+		queryCondition.setClickOutROI(request.getParameter("clickOutROI").equals("") || request.getParameter("clickOutROI") == null ? "" : request.getParameter("clickOutROI"));
+		queryCondition.setClickOutROIOrder(request.getParameter("clickOutROIOrder").equals("") || request.getParameter("clickOutROIOrder") == null ? "" : request.getParameter("clickOutROIOrder"));
+		queryCondition.setCPC(request.getParameter("CPC").equals("") || request.getParameter("CPC") == null ? "" : request.getParameter("CPC"));
+		queryCondition.setCPCOrder(request.getParameter("CPCOrder").equals("") || request.getParameter("CPCOrder") == null ? "" : request.getParameter("CPCOrder"));
+		//素材路径
+		//String path = "d:" + File.separator  + "img";
 		PrintWriter out = null;
-		List<FileBean> fileBeanList = new ArrayList<FileBean>();
 		try {
 			out = response.getWriter();
-			String path = "d:" + File.separator  + "img";
-			File files = new File(path);
-			if(files.exists() && files.isDirectory()){
-				for(File file:files.listFiles()){
-					System.out.println(file.getPath());
-					FileBean fileBean = new FileBean();
-					fileBean.setFileName(file.getName());
-					fileBeanList.add(fileBean);
-				}
-				String ret = JsonUtil.makeListJson(fileBeanList);
-				System.out.println(ret);
-				out.print(ret);
-			}else{
-				LOG.error("directory is not exist. ");
-				out.print("-1");
-				throw new FileNotFoundException("目录不存在.");
-			}
-		} catch (Exception e) {
-			LOG.error("search image path has a exception: " + e.getLocalizedMessage());
-			out.print("-2");
+			//分页取出
+			List<MaterialChartSplitBean> list = materialService.getPagedMaterialInfos(page,queryCondition);
+			//根据bean查找
+			ActionUtils actionUtils = new ActionUtils();
+			String ret = actionUtils.getImgPathsByListBean(list);
+			out.print(ret);
+			out.close();
+		} catch (IOException e) {
+			LOG.error("PrintWriter has an exception.");
+			out.print("-1");
 			e.printStackTrace();
 		}
 	}
@@ -249,6 +367,7 @@ public class PhotoMaterialAction implements Action {
 						LOG.info("start to read material excel & insert to db.");
 						//在上传素材报表文件结束后开始读取文件并入库MySQL
 						boolean flag = materialService.readMaterialExcelInsertToDB(filePath);
+						//boolean flag = true;
 						if(flag){
 							pw.print("0");
 							LOG.info("Upload material excel & read material excel & insert to mysql db Success.");
@@ -280,6 +399,26 @@ public class PhotoMaterialAction implements Action {
 		}
 	}
 
+	/**
+	 * 根据请求封装查询条件
+	 * @return
+	 */
+	public QueryCondition getQueryCondition(HttpServletRequest request){
+		QueryCondition queryCondition = new QueryCondition();
+		queryCondition.setShopName(request.getParameter("shopName"));
+		queryCondition.setStandSize(request.getParameter("standSize"));
+		queryCondition.setActivityName(request.getParameter("activityName"));
+		queryCondition.setPutInCrowd(request.getParameter("putInCrowd"));
+		queryCondition.setPutInDateTime(request.getParameter("putInDateTime"));
+		queryCondition.setCTR(request.getParameter("CTR"));
+		queryCondition.setReveal(request.getParameter("reveal"));
+		queryCondition.setConsume(request.getParameter("consume"));
+		queryCondition.setShowROI(request.getParameter("showROI"));
+		queryCondition.setClickOutROI(request.getParameter("clickOutROI"));
+		queryCondition.setCPC(request.getParameter("CPC"));
+		return queryCondition;
+	}
+	
 	public IMaterialService getMaterialService() {
 		return materialService;
 	}
