@@ -27,5 +27,7 @@ public interface IMaterialDAO {
 	public List<MaterialChartSplitBean> findByName(Page page,String originalityName);
 
 	public Page getPaginationInfoByName(Page page,String originalityName);
+
+	public List<MaterialChartSplitBean> getListByCondition(QueryCondition queryCondition);
 	
 }

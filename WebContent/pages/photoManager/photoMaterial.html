@@ -278,10 +278,11 @@ target div:指标
 		<span id="CPCCondition">CPC</span>
 		<input type="text" id="search" name="search" style="width: 170px;"/>
 		<a href="#" class="lightGraySearchButton" id="searchBtn" style="" onclick="searchBtn();return false;">搜&nbsp;&nbsp;索</a>
-		<select style="width: 150px;height: 30px;margin-left: 20px;">
-			<option>请选择</option>
-			<option>批量导出图片</option>
-			<option>导出到Excel</option>
+		<select style="width: 150px;height: 30px;margin-left: 20px;" id="select">
+			<option value="0">请选择</option>
+			<option value="1">批量导入图片</option>
+			<option value="2">批量导出图片</option>
+			<option value="3">导出到Excel</option>
 		</select>
 		<a href="#" class="lightGrayIExportChartButton" id="exportChartBtn" style="" onclick="exportChartBtn();return false;">导&nbsp;&nbsp;出</a>
 		<!-- <input type="file" id="importChart" name="importChart"/> -->
@@ -296,6 +297,25 @@ target div:指标
 	<div style="text-align: right;" id="paginationDiv">
 		<ul class="pagination" style="margin-right: 100px;"></ul>
 	</div>
+	<form id="downloadForm">
+		<input type="hidden" name="shopName" />
+		<input type="hidden" name="standSize"/>
+		<input type="hidden" name="activityName"/>
+		<input type="hidden" name="putInCrowd"/>
+		<input type="hidden" name="putInDateTime"/>
+		<input type="hidden" name="CTR"/>
+		<input type="hidden" name="CTROrder"/>
+		<input type="hidden" name="reveal"/>
+		<input type="hidden" name="revealOrder"/>
+		<input type="hidden" name="consume"/>
+		<input type="hidden" name="consumeOrder"/>
+		<input type="hidden" name="showROI"/>
+		<input type="hidden" name="showROIOrder"/>
+		<input type="hidden" name="clickOutROI"/>
+		<input type="hidden" name="clickOutROIOrder"/>
+		<input type="hidden" name="CPC"/>
+		<input type="hidden" name="CPCOrder"/>
+	</form>
 </body>
 </html>
 

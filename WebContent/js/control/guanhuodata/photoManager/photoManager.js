@@ -106,7 +106,10 @@ $(function() {
 						getImgPaths();
 						// prettyphoto 图片预览初始化
 						$("a[rel*='prettyPhoto']").prettyPhoto({
-							show_title : false
+							show_title : false,
+							//modal: true,
+							default_width: 300,
+							default_height: 144
 						});
 						tips();
 						//createPage(pageSize, buttons, total)：pageSize(每页记录数)/buttons(按钮数目)/total(记录总数)
@@ -122,7 +125,10 @@ $(function() {
 	
 	// prettyphoto 图片预览初始化
 	$("a[rel*='prettyPhoto']").prettyPhoto({
-		show_title : false
+		show_title : false,
+		//modal: true,
+		default_width: 300,
+		default_height: 144
 	});
 	tips();
 	//请求分页信息
@@ -171,7 +177,10 @@ $(function() {
 						getImgPaths();
 						// prettyphoto 图片预览初始化
 						$("a[rel*='prettyPhoto']").prettyPhoto({
-							show_title : false
+							show_title : false,
+							//modal: true,
+							default_width: 300,
+							default_height: 144
 						});
 						tips();
 						//createPage(pageSize, buttons, total)：pageSize(每页记录数)/buttons(按钮数目)/total(记录总数)
@@ -183,6 +192,19 @@ $(function() {
 				$.ligerDialog.error('加载分页信息出现异常,请重试.');
 			}
 		});
+	});
+	//进行下拉框选择的监听，如果选中了批量上传图片，页面跳转
+	$("#select").change(function(){
+		if($(this).val() == 1)
+			layer.open({
+			    type: 2,
+			    title: '素材图片上传页',
+			    shadeClose: false,
+			    shade: 0.8,
+			    area: ['400px', '60%'],
+			    content: getContextPath() + "/action?actionid=forwardAction&type=uploadifyPage"
+			}); 
+		
 	});
 });
 
@@ -381,7 +403,10 @@ function conditionClick(val) {
 					getImgPaths();
 					// prettyphoto 图片预览初始化
 					$("a[rel*='prettyPhoto']").prettyPhoto({
-						show_title : false
+						show_title : false,
+						//modal: true,
+						default_width: 300,
+						default_height: 144
 					});
 					tips();
 					//createPage(pageSize, buttons, total)：pageSize(每页记录数)/buttons(按钮数目)/total(记录总数)
@@ -409,7 +434,7 @@ function getImgPaths(){
 				$.ligerDialog.error('获取素材图片信息失败.');
 			}else{
 				for (var i = 0; i < data.Rows.length; i++) {
-					$("#viewImg").append("<a href='action?actionid=photoMaterialAction&type=getImageById&imageId=" + data.Rows[i].id + "' rel='prettyPhoto' title='This is the description' style='padding:15px;'><img width='160' height='160' style='padding:10px;' alt='This is the title' src='action?actionid=photoMaterialAction&type=getImageById&imageId=" + data.Rows[i].id + "'/></a>");
+					$("#viewImg").append("<a href='action?actionid=photoMaterialAction&type=getImageById&imageId=" + data.Rows[i].id + "' rel='prettyPhoto' title='创意名称：" + data.Rows[i].fileName + ",店铺：" +  data.Rows[i].shopName + ",活动：" + data.Rows[i].materialTheme + ",展位：" + data.Rows[i].materialStandAbbreviation + ",点击率：" + data.Rows[i].CTR + ",点击数：" + data.Rows[i].click + ",展现数：" + data.Rows[i].reveal + ",ROI：" + data.Rows[i].showRateOfReturn_15 + ",消耗：" + data.Rows[i].consume + ",投放时间：" + data.Rows[i].dateTime + ",投放人群：" + data.Rows[i].materialCrowd + ",链接页面：" + data.Rows[i].materialContinuePage + "' style='padding:15px;'><img width='160' height='160' style='padding:10px;' alt='This is the title' src='action?actionid=photoMaterialAction&type=getImageById&imageId=" + data.Rows[i].id + "'/></a>");
 				}
 			}
 		},
@@ -545,13 +570,16 @@ function createPage(pageSize, buttons, total) {
       			}else{
       				$("#viewImg").empty();
       				for (var i = 0; i < data.Rows.length; i++) {
-    					$("#viewImg").append("<a href='action?actionid=photoMaterialAction&type=getImageById&imageId=" + data.Rows[i].id + "' rel='prettyPhoto' title='This is the description' style='padding:15px;'><img width='160' height='160' style='padding:10px;' alt='This is the title' src='action?actionid=photoMaterialAction&type=getImageById&imageId=" + data.Rows[i].id + "'/></a>");
-    				}
+      					$("#viewImg").append("<a href='action?actionid=photoMaterialAction&type=getImageById&imageId=" + data.Rows[i].id + "' rel='prettyPhoto' title='创意名称：" + data.Rows[i].fileName + ",店铺：" +  data.Rows[i].shopName + ",活动：" + data.Rows[i].materialTheme + ",展位：" + data.Rows[i].materialStandAbbreviation + ",点击率：" + data.Rows[i].CTR + ",点击数：" + data.Rows[i].click + ",展现数：" + data.Rows[i].reveal + ",ROI：" + data.Rows[i].showRateOfReturn_15 + ",消耗：" + data.Rows[i].consume + ",投放时间：" + data.Rows[i].dateTime + ",投放人群：" + data.Rows[i].materialCrowd + ",链接页面：" + data.Rows[i].materialContinuePage + "' style='padding:15px;'><img width='160' height='160' style='padding:10px;' alt='This is the title' src='action?actionid=photoMaterialAction&type=getImageById&imageId=" + data.Rows[i].id + "'/></a>");
+      				}
       				//createPage(pageSize, buttons, total)：pageSize(每页记录数)/buttons(按钮数目)/total(记录总数)
       				//createPage(data.pageSize, 5, data.totalRecords);
       				// prettyphoto 图片预览初始化
       				$("a[rel*='prettyPhoto']").prettyPhoto({
-      					show_title : false
+      					show_title : false,
+      					//modal: true,
+      					default_width: 300,
+      					default_height: 144
       				});
       				tips();
       			}
@@ -662,7 +690,7 @@ function findByName(){
 				$.ligerDialog.error('获取素材图片信息失败.');
 			}else{
 				for (var i = 0; i < data.Rows.length; i++) {
-					$("#viewImg").append("<a href='action?actionid=photoMaterialAction&type=getImageById&imageId=" + data.Rows[i].id + "' rel='prettyPhoto' title='This is the description' style='padding:15px;'><img width='160' height='160' style='padding:10px;' alt='This is the title' src='action?actionid=photoMaterialAction&type=getImageById&imageId=" + data.Rows[i].id + "'/></a>");
+					$("#viewImg").append("<a href='action?actionid=photoMaterialAction&type=getImageById&imageId=" + data.Rows[i].id + "' rel='prettyPhoto' title='创意名称：" + data.Rows[i].fileName + ",店铺：" +  data.Rows[i].shopName + ",活动：" + data.Rows[i].materialTheme + ",展位：" + data.Rows[i].materialStandAbbreviation + ",点击率：" + data.Rows[i].CTR + ",点击数：" + data.Rows[i].click + ",展现数：" + data.Rows[i].reveal + ",ROI：" + data.Rows[i].showRateOfReturn_15 + ",消耗：" + data.Rows[i].consume + ",投放时间：" + data.Rows[i].dateTime + ",投放人群：" + data.Rows[i].materialCrowd + ",链接页面：" + data.Rows[i].materialContinuePage + "' style='padding:15px;'><img width='160' height='160' style='padding:10px;' alt='This is the title' src='action?actionid=photoMaterialAction&type=getImageById&imageId=" + data.Rows[i].id + "'/></a>");
 				}
 			}
 		},
@@ -702,7 +730,10 @@ function searchBtn(){
 					findByName();
 					// prettyphoto 图片预览初始化
 					$("a[rel*='prettyPhoto']").prettyPhoto({
-						show_title : false
+						show_title : false,
+						//modal: true,
+						default_width: 300,
+						default_height: 144
 					});
 					tips();
 					//createPage(pageSize, buttons, total)：pageSize(每页记录数)/buttons(按钮数目)/total(记录总数)
@@ -728,18 +759,104 @@ function importChartBtn(){
 
 //导出按钮点击事件
 function exportChartBtn(){
-	//询问框
-	layer.confirm('请选择导出报表类型:自用/客户', {
-		title: '导出报表类型',
-		closeBtn: false,
-		btn: ['客户','自用','取消'] //按钮
-		,btn3: function(index,layerobj){
-			//取消按钮的回调
-			layer.msg('取消', {icon: 1});
-		}
-	}, function(index,layerobj){
-	    layer.msg('客户', {icon: 1});
-	}, function(index,layerobj){
-	    layer.msg('自用', {icon: 1},{shift: 0});
-	});
+	if($("#select").val() == 2){
+		//询问框
+		layer.confirm('批量导出图片',{
+			title: '批量导出图片',
+			closeBtn: false,
+			btn: ['确定','取消'] //按钮
+		},function(index,layerobj){
+			//批量下载素材图片
+			var form = $("#downloadForm");
+			form.attr('target','');
+			form.attr('method','POST');
+			form.attr('action',getContextPath()+'/action?actionid=photoMaterialAction&type=batchDownloadMaterialImage');
+			var inputs = $("#downloadForm").children();
+			inputs[0].value = params.shopName;
+			inputs[1].value = params.standSize;
+			inputs[2].value = params.activityName;
+			inputs[3].value = params.putInCrowd
+			inputs[4].value = params.putInDateTime;
+			inputs[5].value = params.CTR;
+			inputs[6].value = params.CTROrder;
+			inputs[7].value = params.reveal;
+			inputs[8].value = params.revealOrder;
+			inputs[9].value = params.consume;
+			inputs[10].value = params.consumeOrder;
+			inputs[11].value = params.showROI;
+			inputs[12].value = params.showROIOrder;
+			inputs[13].value = params.clickOutROI;
+			inputs[14].value = params.clickOutROIOrder;
+			inputs[15].value = params.CPC;
+			inputs[16].value = params.CPCOrder;
+			form.submit();
+			layer.msg('图片导出成功', {icon: 1});
+		},function(index,layerobj){
+			layer.msg('取消', {icon: 1},{shift: 0});
+		});
+	}
+	if($("#select").val() == 3){
+		//询问框
+		layer.confirm('请选择导出报表类型:自用/客户', {
+			title: '导出报表类型',
+			closeBtn: false,
+			btn: ['客户','自用','取消'] //按钮
+			,btn3: function(index,layerobj){
+				//取消按钮的回调
+				layer.msg('取消', {icon: 1});
+			}
+		}, function(index,layerobj){
+			//客户报表下载
+			var form = $("#downloadForm");
+			form.attr('target','');
+			form.attr('method','POST');
+			form.attr('action',getContextPath()+'/action?actionid=photoMaterialAction&type=downloadCustomerExcel');
+			var inputs = $("#downloadForm").children();
+			inputs[0].value = params.shopName;
+			inputs[1].value = params.standSize;
+			inputs[2].value = params.activityName;
+			inputs[3].value = params.putInCrowd
+			inputs[4].value = params.putInDateTime;
+			inputs[5].value = params.CTR;
+			inputs[6].value = params.CTROrder;
+			inputs[7].value = params.reveal;
+			inputs[8].value = params.revealOrder;
+			inputs[9].value = params.consume;
+			inputs[10].value = params.consumeOrder;
+			inputs[11].value = params.showROI;
+			inputs[12].value = params.showROIOrder;
+			inputs[13].value = params.clickOutROI;
+			inputs[14].value = params.clickOutROIOrder;
+			inputs[15].value = params.CPC;
+			inputs[16].value = params.CPCOrder;
+			form.submit();
+		    layer.msg('客户报表下载完成', {icon: 1});
+		}, function(index,layerobj){
+			//自用报表下载
+			var form = $("#downloadForm");
+			form.attr('target','');
+			form.attr('method','POST');
+			form.attr('action',getContextPath()+'/action?actionid=photoMaterialAction&type=downloadSelfExcel');
+			var inputs = $("#downloadForm").children();
+			inputs[0].value = params.shopName;
+			inputs[1].value = params.standSize;
+			inputs[2].value = params.activityName;
+			inputs[3].value = params.putInCrowd
+			inputs[4].value = params.putInDateTime;
+			inputs[5].value = params.CTR;
+			inputs[6].value = params.CTROrder;
+			inputs[7].value = params.reveal;
+			inputs[8].value = params.revealOrder;
+			inputs[9].value = params.consume;
+			inputs[10].value = params.consumeOrder;
+			inputs[11].value = params.showROI;
+			inputs[12].value = params.showROIOrder;
+			inputs[13].value = params.clickOutROI;
+			inputs[14].value = params.clickOutROIOrder;
+			inputs[15].value = params.CPC;
+			inputs[16].value = params.CPCOrder;
+			form.submit();
+			layer.msg('自用报表下载完成', {icon: 1},{shift: 0});
+		});
+	}
 }

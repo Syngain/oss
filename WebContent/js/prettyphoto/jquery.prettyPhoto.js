@@ -60,8 +60,18 @@
 												<a href="#" class="pp_arrow_next">Next</a> \
 											</div> \
 											<p class="pp_description"></p> \
+											<p class="pp_description_ctr"></p> \
+											<p class="pp_description_click"></p> \
+											<p class="pp_description_reveal"></p> \
+											<p class="pp_description_roi"></p> \
+											<p class="pp_description_consume"></p> \
+											<p class="pp_description_datetime"></p> \
+											<p class="pp_description_crowd"></p> \
+											<p class="pp_description_continuepage"></p> \
+											<p class="pp_description_originalityname"></p> \
 											<div class="pp_social">{pp_social}</div> \
 											<a class="pp_close" href="#">Close</a> \
+											<a class="pp_download" href="#">download</a> \
 										</div> \
 									</div> \
 								</div> \
@@ -211,9 +221,30 @@
 			// Display the current position
 			$pp_pic_holder.find('.currentTextHolder').text((set_position+1) + settings.counter_separator_label + $(pp_images).size());
 
+			
+			/*
+			 * 修改部分
+			 * // Set the description
+			 * if(typeof pp_descriptions[set_position] != 'undefined' && pp_descriptions[set_position] != ""){
+			 * 		$pp_pic_holder.find('.pp_description').show().html(unescape(pp_descriptions[set_position]));
+			 * }else{
+			 * 		$pp_pic_holder.find('.pp_description').hide();
+			 * 	}
+			*/
 			// Set the description
+			//Array{创意名称,店铺,活动,展位,点击率,点击数,展现数,ROI,消耗,投放时间,投放人群,链接页面}
 			if(typeof pp_descriptions[set_position] != 'undefined' && pp_descriptions[set_position] != ""){
-				$pp_pic_holder.find('.pp_description').show().html(unescape(pp_descriptions[set_position]));
+				var pp_descriptionsArray = pp_descriptions[set_position].split(',');
+				$pp_pic_holder.find('.pp_description').show().html(pp_descriptionsArray[1] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + pp_descriptionsArray[2] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + pp_descriptionsArray[3]);
+				$pp_pic_holder.find('.pp_description_ctr').show().html(unescape(pp_descriptionsArray[4]));
+				$pp_pic_holder.find('.pp_description_click').show().html(unescape(pp_descriptionsArray[5]));
+				$pp_pic_holder.find('.pp_description_reveal').show().html(unescape(pp_descriptionsArray[6]));
+				$pp_pic_holder.find('.pp_description_roi').show().html(unescape(pp_descriptionsArray[7]));
+				$pp_pic_holder.find('.pp_description_consume').show().html(unescape(pp_descriptionsArray[8]));
+				$pp_pic_holder.find('.pp_description_datetime').show().html(unescape(pp_descriptionsArray[9]));
+				$pp_pic_holder.find('.pp_description_crowd').show().html(unescape(pp_descriptionsArray[10]));
+				$pp_pic_holder.find('.pp_description_continuepage').show().html(unescape(pp_descriptionsArray[11]));
+				$pp_pic_holder.find('.pp_description_originalityname').show().html(unescape(pp_descriptionsArray[0]));
 			}else{
 				$pp_pic_holder.find('.pp_description').hide();
 			}
@@ -368,8 +399,8 @@
 					// Show content
 					_showContent();
 				};
+				
 			});
-
 			return false;
 		};
 
@@ -832,6 +863,26 @@
 				});
 
 			$('a.pp_close').bind('click',function(){ $.prettyPhoto.close(); return false; });
+			/**
+			 * 为素材图片下载绑定click事件
+			 */
+			$('a.pp_download').bind('click',function(){ 
+				/*$.prettyPhoto.download(); return false; */
+				alert("download click");
+				/**
+				 * 添加下载按钮的点击事件
+				 * */
+				/*alert(typeof pp_images.toString());
+				for(var i in pp_images){
+					alert(pp_images[i]);
+				}*/
+				var imageId = pp_images.toString().split("&")[2].split("=")[1];
+				//var imageId = 54;
+				var url = 'action?actionid=photoMaterialAction&type=downloadImageById&imageId=' + imageId;
+				alert(url);
+				var downloadbtn = $pp_pic_holder.find('.pp_download');
+				downloadbtn.attr("href",url);
+			});
 
 
 			if(settings.allow_expand) {

@@ -7,12 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
 import com.guanhuodata.framework.util.JsonUtil;
 import com.guanhuodata.photo.bean.InitConditions;
 import com.guanhuodata.photo.bean.MaterialChartSplitBean;
@@ -32,6 +30,51 @@ public class IMaterialDAOImpl implements IMaterialDAO{
 	
 	private SessionFactory sessionFactory;
 
+	@Override
+	public List<MaterialChartSplitBean> getListByCondition(QueryCondition queryCondition) {
+		Session session = getSession();
+		//使用占位符
+		StringBuffer hql = new StringBuffer("from MaterialChartSplitBean as m where 1=1");
+		if(!queryCondition.getShopName().equals("all")){
+			hql.append(" and m.shopName='").append(queryCondition.getShopName()).append("'");
+		}
+		if(!queryCondition.getStandSize().equals("all")){
+			hql.append(" and m.materialStandAbbreviation='").append(MaterialChartUtil.regexpStandAbbreviation(queryCondition.getStandSize())).append("'");
+		}
+		if(!queryCondition.getActivityName().equals("all")){
+			hql.append(" and m.materialTheme='").append(queryCondition.getActivityName()).append("'");
+		}
+		if(!queryCondition.getPutInCrowd().equals("all")){
+			hql.append(" and m.materialCrowd='").append(queryCondition.getPutInCrowd()).append("'");
+		}
+		if(!queryCondition.getPutInDateTime().equals("")){
+			hql.append(" and m.dateTime='").append(queryCondition.getPutInDateTime()).append("'");
+		}
+		if(!queryCondition.getCTR().equals("")){
+			hql.append(" order by ").append(queryCondition.getCTR()).append(" ").append(queryCondition.getCTROrder());
+		}
+		if(!queryCondition.getReveal().equals("")){
+			hql.append(" order by ").append(queryCondition.getReveal()).append(" ").append(queryCondition.getRevealOrder());
+		}
+		if(!queryCondition.getConsume().equals("")){
+			hql.append(" order by ").append(queryCondition.getConsume()).append(" ").append(queryCondition.getConsumeOrder());
+		}
+		if(!queryCondition.getShowROI().equals("")){
+			hql.append(" order by ").append(queryCondition.getShowROI()).append(" ").append(queryCondition.getShowROIOrder());
+		}
+		if(!queryCondition.getClickOutROI().equals("")){
+			hql.append(" order by ").append(queryCondition.getClickOutROI()).append(" ").append(queryCondition.getClickOutROIOrder());
+		}
+		if(!queryCondition.getCPC().equals("")){
+			hql.append(" order by ").append(queryCondition.getCPC()).append(" ").append(queryCondition.getCPCOrder());
+		}
+		//hql.append(" limit ").append(page.getTotal()).append(",").append(page.getPageSize());
+		Query query = session.createQuery(hql.toString());
+		List<MaterialChartSplitBean> list = query.list();
+		session.close();
+		return list;
+	}
+	
 	@Override
 	public Page getPaginationInfoByName(Page page,String originalityName) {
 		Session session = getSession();

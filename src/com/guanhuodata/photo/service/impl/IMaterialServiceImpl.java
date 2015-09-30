@@ -15,6 +15,12 @@ public class IMaterialServiceImpl implements IMaterialService{
 	private IMaterialDAO materialDAO;
 	
 	@Override
+	public List<MaterialChartSplitBean> getListByCondition(QueryCondition queryCondition) {
+		// TODO Auto-generated method stub
+		return materialDAO.getListByCondition(queryCondition);
+	}
+	
+	@Override
 	public Page getPaginationInfoByName(Page page,String originalityName) {
 		// TODO Auto-generated method stub
 		return materialDAO.getPaginationInfoByName(page,originalityName);

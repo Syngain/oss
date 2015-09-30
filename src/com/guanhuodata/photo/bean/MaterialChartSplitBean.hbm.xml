@@ -6,36 +6,36 @@
     <class name="com.guanhuodata.photo.bean.MaterialChartSplitBean" table="materialChart">
         <id name="id" type="long">
             <column name="id" />
-            <generator class="increment" />
+            <generator class="identity" />
         </id>
-        <property name="originalityName" type="java.lang.String">
+        <property name="originalityName" type="java.lang.String" index="oriNameIndex" not-null="true">
             <column name="originalityName" />
         </property>
-        <property name="spreadUnitBasicInfo" type="java.lang.String">
+        <property name="spreadUnitBasicInfo" type="java.lang.String" not-null="true">
             <column name="spreadUnitBasicInfo" />
         </property>
-        <property name="allowSpreadSchedule" type="java.lang.String">
+        <property name="allowSpreadSchedule" type="java.lang.String" not-null="true">
             <column name="allowSpreadSchedule" />
         </property>
-        <property name="dateTime" type="java.lang.String">
+        <property name="dateTime" type="java.lang.String" not-null="true">
             <column name="dateTime" />
         </property>
-        <property name="reveal" type="long">
+        <property name="reveal" type="long" index="revealIndex" not-null="true">
             <column name="reveal" />
         </property>
         <property name="click" type="long">
             <column name="click" />
         </property>
-        <property name="CTR" type="double">
+        <property name="CTR" type="double" index="CTRIndex" not-null="true">
             <column name="CTR" scale="2"/>
         </property>
-        <property name="consume" type="double">
+        <property name="consume" type="double" index="consumeIndex" not-null="true">
             <column name="consume" scale="2"/>
         </property>
         <property name="showCostOf1000" type="double">
             <column name="showCostOf1000" scale="2"/>
         </property>
-        <property name="unitPriceOfClick" type="double">
+        <property name="unitPriceOfClick" type="double" index="unitPriceOfClickIndex" not-null="true">
             <column name="unitPriceOfClick" scale="2"/>
         </property>
         <property name="rateOfReturn_3" type="double">
@@ -44,7 +44,7 @@
         <property name="rateOfReturn_7" type="double">
             <column name="rateOfReturn_7" scale="2"/>
         </property>
-        <property name="rateOfReturn_15" type="double">
+        <property name="rateOfReturn_15" type="double" index="rateOfReturn_15Index" not-null="true">
             <column name="rateOfReturn_15" scale="2"/>
         </property>
         <property name="customerOrderNum_3" type="long">
@@ -89,7 +89,7 @@
         <property name="showRateOfReturn_7" type="double">
             <column name="showRateOfReturn_7" scale="2"/>
         </property>
-        <property name="showRateOfReturn_15" type="double">
+        <property name="showRateOfReturn_15" type="double" index="showRateOfReturn_15Index" not-null="true">
             <column name="showRateOfReturn_15" scale="2"/>
         </property>
         <property name="orderSum_7" type="double">
@@ -137,7 +137,7 @@
         <property name="unitSpecificStand" type="java.lang.String">
             <column name="unitSpecificStand" />
         </property>
-        <property name="shopName" type="java.lang.String">
+        <property name="shopName" type="java.lang.String" index="shopNameIndex" not-null="true">
             <column name="shopName" />
         </property>
         <property name="operateTime" type="java.lang.String">

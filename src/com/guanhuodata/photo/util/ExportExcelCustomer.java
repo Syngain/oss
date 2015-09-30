@@ -1,8 +1,5 @@
 package com.guanhuodata.photo.util;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -14,9 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -28,7 +23,6 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.util.CellRangeAddress;
 import com.guanhuodata.photo.bean.MaterialChartSplitBean;
 
 /**
@@ -40,17 +34,28 @@ import com.guanhuodata.photo.bean.MaterialChartSplitBean;
  */
 public class ExportExcelCustomer<T> {
 	
-	public void exportExcel(Collection<T> dataset, OutputStream out) throws SQLException, IOException {
-		exportExcel("测试POI导出EXCEL文档", null, dataset, out, "yyyy-MM-dd");
-	}
+	/*public void exportExcel(Collection<T> dataset, OutputStream out,Map<String,List<T>> map) throws SQLException {
+	exportExcel("测试POI导出EXCEL文档", null, dataset, out, "yyyy-MM-dd",map);
+}
 
-	public void exportExcel(String[] headers, Collection<T> dataset, OutputStream out) throws SQLException, IOException {
-		exportExcel("测试POI导出EXCEL文档", headers, dataset, out, "yyyy-MM-dd");
-	}
+public void exportExcel(String[] headers, Collection<T> dataset, OutputStream out,Map<String,List<T>> map) throws SQLException {
+	exportExcel("测试POI导出EXCEL文档", headers, dataset, out, "yyyy-MM-dd",map);
+}
 
-	public void exportExcel(String[] headers, Collection<T> dataset, OutputStream out, String pattern) throws SQLException, IOException {
-		exportExcel("测试POI导出EXCEL文档", headers, dataset, out, pattern);
-	}
+public void exportExcel(String[] headers, Collection<T> dataset, OutputStream out, String pattern,Map<String,List<T>> map) throws SQLException {
+	exportExcel("测试POI导出EXCEL文档", headers, dataset, out, pattern,map);
+}*/
+public void exportExcel(OutputStream out,Map<String,List<T>> map) throws SQLException, IOException {
+	exportExcel("测试POI导出EXCEL文档", null, out, "yyyy-MM-dd",map);
+}
+
+public void exportExcel(String[] headers, OutputStream out,Map<String,List<T>> map) throws SQLException, IOException {
+	exportExcel("测试POI导出EXCEL文档", headers, out, "yyyy-MM-dd",map);
+}
+
+public void exportExcel(String[] headers, OutputStream out, String pattern,Map<String,List<T>> map) throws SQLException, IOException {
+	exportExcel("测试POI导出EXCEL文档", headers, out, pattern,map);
+}
 
 	/**
 	 * 这是一个通用的方法，利用了JAVA的反射机制，可以将放置在JAVA集合中并且符号一定条件的数据以EXCEL 的形式输出到指定IO设备上
@@ -70,7 +75,7 @@ public class ExportExcelCustomer<T> {
 	 * @throws IOException 
 	 */
 	@SuppressWarnings("deprecation")
-	public void exportExcel(String title, String[] headers, Collection<T> dataset, OutputStream out, String pattern) throws SQLException, IOException {
+	public void exportExcel(String title, String[] headers, OutputStream out, String pattern,Map<String,List<T>> map) throws SQLException, IOException {
 		// 声明一个工作薄
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		// 生成一个表格
@@ -130,13 +135,10 @@ public class ExportExcelCustomer<T> {
 		 */
 		//素材读取路径
 		String path = "d://img//";
-		List<MaterialChartSplitBean> list = MaterialChartUtil.loadData();
-		Map<String,List<MaterialChartSplitBean>> map = MaterialChartUtil.partitionCustomer(list);
+		//List<MaterialChartSplitBean> list = MaterialChartUtil.loadData();
+		//Map<String,List<MaterialChartSplitBean>> map = MaterialChartUtil.partitionCustomer(list);
 		int index = 0;
 		for(String key:map.keySet()){
-			/*int len = sheet.getLastRowNum();
-			System.out.println(len);*/
-			String names = "";
 			for(int i = 0; i < map.get(key).size();i++){
 				index++;
 				row = sheet.createRow(index);
@@ -262,47 +264,10 @@ public class ExportExcelCustomer<T> {
 				   }
 			}
 		}
-		/*int lastNumRow = sheet.getLastRowNum();
-		for(int k = 1;k<lastNumRow;k++){
-			
-		}*/
-		/*int mergedRegions = sheet.getNumMergedRegions();
-		for(int p = 0;p < mergedRegions;p++){
-			int startRow = sheet.getMergedRegion(p).getFirstRow();
-			int endRow = sheet.getMergedRegion(p).getLastRow();
-			int startCol = sheet.getMergedRegion(p).getFirstColumn();
-			int endCol = sheet.getMergedRegion(p).getLastColumn();
-			if(startCol == 1 && endCol == 1){
-				System.out.println("eq:1 col");
-				System.out.println("startRow: " + startRow + " endRow: " + endRow);
-				String originalityName = sheet.getRow(startRow).getCell(endCol + 1).getStringCellValue();
-				BufferedImage bufferImg = null;     
-	   	        //先把读进来的图片放到一个ByteArrayOutputStream中，以便产生ByteArray
-	   	        ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
-	   	        try{
-	   	            bufferImg = ImageIO.read(new File(path + originalityName + ".jpg"));     
-	   	            ImageIO.write(bufferImg, "jpg", byteArrayOut);  
-	   	        }catch(IOException e){
-	   	        	e.printStackTrace();
-	   	        }
-	   	        finally{
-	   	        	try {
-						byteArrayOut.close();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-	   	        }
-	   			//插入图片    
-	   			//anchor主要用于设置图片的属性  
-	   			HSSFClientAnchor anchor = new HSSFClientAnchor(10, 10, 1000, 245,(short) 1, (endRow + startRow)/2, (short) 1, (endRow + startRow)/2 + 1);
-	   			anchor.setAnchorType(3);     
-	   			patriarch.createPicture(anchor, workbook.addPicture(byteArrayOut.toByteArray(), HSSFWorkbook.PICTURE_TYPE_JPEG));
-			}
-		}*/
 	   try{
 		   //FileOutputStream fout = new FileOutputStream("d://materialchart.xls");  
-	       workbook.write(out);  
+		   workbook.writeProtectWorkbook("123456", "fudk");
+	       workbook.write(out);
 	   }catch(FileNotFoundException e){
 		   e.printStackTrace();
 	   }catch(IOException e){
@@ -429,8 +394,9 @@ public class ExportExcelCustomer<T> {
 		try {
 			OutputStream out = new FileOutputStream("d://materialchartCustomer.xls");
 			ExportExcelCustomer<MaterialChartSplitBean> ex = new ExportExcelCustomer<MaterialChartSplitBean>();
+			Map<String,List<MaterialChartSplitBean>> map = null;
 			try {
-				ex.exportExcel(headersCustomer, dataset, out);
+				ex.exportExcel(headersCustomer, out,map);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

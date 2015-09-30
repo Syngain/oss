@@ -23,9 +23,16 @@ public class ForwardAction implements Action {
 			preViewChartDataPage(request,response);
 		}else if("photoMaterialPage".equals(type)){
 			photoMaterialPage(request,response);
+		}else if("uploadifyPage".equals(type)){
+			uploadifyPage(request,response);
 		}
 	}
 	
+	private void uploadifyPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		LOG.info("forward to uploadify image Page.");
+		request.getRequestDispatcher("pages/uploadify/uploadifyPage.html").forward(request, response);
+	}
+
 	private void photoMaterialPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		LOG.info("forward to photoMaterialPage.");
 		request.getRequestDispatcher("pages/photoManager/photoMaterial.html").forward(request, response);

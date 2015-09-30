@@ -432,13 +432,19 @@ public class Test {
         wb.write(out);
         // 关闭流对象
         out.close();*/
-		String oname = "竞品品牌_99大促爆发_首页_无线640_L63_jpg汇总";
+		/*String oname = "竞品品牌_99大促爆发_首页_无线640_L63_jpg汇总";
 		String name = "";
 		if((oname.substring(oname.length() - 2, oname.length())).equals("汇总")){
 			name = oname.substring(0, oname.length() - 2);
 		}else{
 			name = oname;
 		}
-		System.out.println(name);
+		System.out.println(name);*/
+		String s = "aa明星店铺1111";
+		if(s.contains("明星店铺")){
+			System.out.println("contains");
+		}else{
+			System.out.println("not");
+		}
 	}
 }

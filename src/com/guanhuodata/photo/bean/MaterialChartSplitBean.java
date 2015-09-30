@@ -57,7 +57,7 @@ public class MaterialChartSplitBean implements Serializable{
 	
 	@JsonTypeSpec(JsonType.NUMBER)
 	private double rateOfReturn_15;	//15天回报率
-	
+	 
 	@JsonTypeSpec(JsonType.NUMBER)
 	private long customerOrderNum_3;	//3天顾客订单数
 	
@@ -137,7 +137,7 @@ public class MaterialChartSplitBean implements Serializable{
 	private String schedulePutInPurpose;	//投放目的
 	
 	@JsonTypeSpec(JsonType.STRING)
-	private String scheduleCrowdLayer;	//人群分层
+	private String scheduleCrowdLayer;	//人群分层/所属类目
 	
 	@JsonTypeSpec(JsonType.STRING)
 	private String scheduleStandCategory;	//展位类别

@@ -34,16 +34,27 @@ import com.guanhuodata.photo.bean.MaterialChartSplitBean;
  */
 public class ExportExcelSelf<T> {
 	
-	public void exportExcel(Collection<T> dataset, OutputStream out) throws SQLException {
-		exportExcel("测试POI导出EXCEL文档", null, dataset, out, "yyyy-MM-dd");
+	/*public void exportExcel(Collection<T> dataset, OutputStream out,Map<String,List<T>> map) throws SQLException {
+		exportExcel("测试POI导出EXCEL文档", null, dataset, out, "yyyy-MM-dd",map);
 	}
 
-	public void exportExcel(String[] headers, Collection<T> dataset, OutputStream out) throws SQLException {
-		exportExcel("测试POI导出EXCEL文档", headers, dataset, out, "yyyy-MM-dd");
+	public void exportExcel(String[] headers, Collection<T> dataset, OutputStream out,Map<String,List<T>> map) throws SQLException {
+		exportExcel("测试POI导出EXCEL文档", headers, dataset, out, "yyyy-MM-dd",map);
 	}
 
-	public void exportExcel(String[] headers, Collection<T> dataset, OutputStream out, String pattern) throws SQLException {
-		exportExcel("测试POI导出EXCEL文档", headers, dataset, out, pattern);
+	public void exportExcel(String[] headers, Collection<T> dataset, OutputStream out, String pattern,Map<String,List<T>> map) throws SQLException {
+		exportExcel("测试POI导出EXCEL文档", headers, dataset, out, pattern,map);
+	}*/
+	public void exportExcel(OutputStream out,Map<String,List<T>> map) throws SQLException {
+		exportExcel("测试POI导出EXCEL文档", null, out, "yyyy-MM-dd",map);
+	}
+
+	public void exportExcel(String[] headers, OutputStream out,Map<String,List<T>> map) throws SQLException {
+		exportExcel("测试POI导出EXCEL文档", headers, out, "yyyy-MM-dd",map);
+	}
+
+	public void exportExcel(String[] headers, OutputStream out, String pattern,Map<String,List<T>> map) throws SQLException {
+		exportExcel("测试POI导出EXCEL文档", headers, out, pattern,map);
 	}
 
 	/**
@@ -63,14 +74,13 @@ public class ExportExcelSelf<T> {
 	 * @throws SQLException 
 	 */
 	@SuppressWarnings("deprecation")
-	public void exportExcel(String title, String[] headers, Collection<T> dataset, OutputStream out, String pattern) throws SQLException {
+	public void exportExcel(String title, String[] headers, OutputStream out, String pattern,Map<String,List<T>> map) throws SQLException {
 		// 声明一个工作薄
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		// 生成一个表格
 		HSSFSheet sheet = workbook.createSheet(title);
 		// 设置表格默认列宽度为15个字节
 	    sheet.setDefaultColumnWidth(45);
-		//sheet.setColumnWidth(0, 100*256);
 	    //画图的顶级管理器，一个sheet只能获取一个（一定要注意这点）  
 	    HSSFPatriarch patriarch = sheet.createDrawingPatriarch();     
 	    // 创建一个居中格式  
@@ -103,33 +113,13 @@ public class ExportExcelSelf<T> {
 	        HSSFRichTextString text = new HSSFRichTextString(headers[i]);
 	        cell.setCellValue(text);
 		}
-		
-		/**
-		 * public HSSFClientAnchor(int dx1,int dy1,int dx2,int dy2,short col1,int row1,short col2,int row2);
-		 * Creates a new client anchor and sets the top-left and bottom-right coordinates of the anchor.
-		 * Parameters:
-		 * dx1 - the x coordinate within the first cell.
-		 * dy1 - the y coordinate within the first cell.
-		 * dx2 - the x coordinate within the second cell.
-		 * dy2 - the y coordinate within the second cell.
-		 * col1 - the column (0 based); of the first cell.
-		 * row1 - the row (0 based); of the first cell.
-		 * col2 - the column (0 based); of the second cell.
-		 * row2 - the row (0 based); of the second cell.
-		 * col1 图片的左上角放在第几个列cell， 
-		 * row1 图片的左上角放在第几个行cell， 
-		 * col2 图片的右下角放在第几个列cell， 
-		 * row2 图片的右下角放在第几个行cell，
-		 */
 		//素材读取路径
 		String path = "d://img//";
-		List<MaterialChartSplitBean> list = MaterialChartUtil.loadData();
-		Map<String,List<MaterialChartSplitBean>> map = MaterialChartUtil.partitionSelf(list);
+		//List<MaterialChartSplitBean> list = MaterialChartUtil.loadData();
+		//Map<String,List<MaterialChartSplitBean>> map = MaterialChartUtil.partitionSelf(dataset);
 		int index = 0;
 		int len = 0;
 		for(String key:map.keySet()){
-			/*int len = sheet.getLastRowNum();
-			System.out.println(len);*/
 			for(int i = 0; i < map.get(key).size();i++){
 				index++;
 				row = sheet.createRow(index);
@@ -238,7 +228,6 @@ public class ExportExcelSelf<T> {
 				   }
 			}
 			//合并单元格
-			//System.out.println("sheet.getLastRowNum() - 1: " + (sheet.getLastRowNum() - 1));
 			if(len == 0){
 				sheet.addMergedRegion(new CellRangeAddress(sheet.getFirstRowNum() + 1, sheet.getLastRowNum(), 0, 0));
 				sheet.addMergedRegion(new CellRangeAddress(sheet.getFirstRowNum() + 1, sheet.getLastRowNum(), 1, 1));
@@ -264,8 +253,8 @@ public class ExportExcelSelf<T> {
 			int startCol = sheet.getMergedRegion(p).getFirstColumn();
 			int endCol = sheet.getMergedRegion(p).getLastColumn();
 			if(startCol == 1 && endCol == 1){
-				System.out.println("eq:1 col");
-				System.out.println("startRow: " + startRow + " endRow: " + endRow);
+				//System.out.println("eq:1 col");
+				//System.out.println("startRow: " + startRow + " endRow: " + endRow);
 				String originalityName = sheet.getRow(startRow).getCell(endCol + 1).getStringCellValue();
 				BufferedImage bufferImg = null;     
 	   	        //先把读进来的图片放到一个ByteArrayOutputStream中，以便产生ByteArray
@@ -286,7 +275,7 @@ public class ExportExcelSelf<T> {
 	   	        }
 	   			//插入图片    
 	   			//anchor主要用于设置图片的属性  
-	   			HSSFClientAnchor anchor = new HSSFClientAnchor(10, 10, 1000, 245,(short) 1, (endRow + startRow)/2, (short) 1, (endRow + startRow)/2 + 1);
+	   			HSSFClientAnchor anchor = new HSSFClientAnchor(15, 15, 1000, 245,(short) 1, (endRow + startRow)/2, (short) 1, (endRow + startRow)/2 + 1);
 	   			anchor.setAnchorType(3);     
 	   			patriarch.createPicture(anchor, workbook.addPicture(byteArrayOut.toByteArray(), HSSFWorkbook.PICTURE_TYPE_JPEG));
 			}
@@ -420,8 +409,9 @@ public class ExportExcelSelf<T> {
 		try {
 			OutputStream out = new FileOutputStream("d://materialchartSelf.xls");
 			ExportExcelSelf<MaterialChartSplitBean> ex = new ExportExcelSelf<MaterialChartSplitBean>();
+			Map<String,List<MaterialChartSplitBean>> map = null;
 			try {
-				ex.exportExcel(headersSelf, dataset, out);
+				ex.exportExcel(headersSelf, out,map);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -30,6 +30,7 @@
 	div.pp_default .pp_contract { background: url(../../images/prettyPhoto/default/sprite.png) 0 -84px no-repeat; cursor: pointer; width: 28px; height: 28px; } /* Contract button */
 	div.pp_default .pp_contract:hover { background: url(../../images/prettyPhoto/default/sprite.png) 0 -113px no-repeat; cursor: pointer; } /* Contract button hover */
 	div.pp_default .pp_close { width: 30px; height: 30px; background: url(../../images/prettyPhoto/default/sprite.png) 2px 1px no-repeat; cursor: pointer; } /* Close button */
+	div.pp_default .pp_download { width: 30px; height: 30px; background: url(../../images/download.png) no-repeat 0 center;cursor: pointer; } /* download button */
 	div.pp_default #pp_full_res .pp_inline { color: #000; } 
 	div.pp_default .pp_gallery ul li a { background: url(../../images/prettyPhoto/default/default_thumb.png) center center #f8f8f8; border:1px solid #aaa; }
 	div.pp_default .pp_gallery ul li a:hover,
@@ -52,6 +53,15 @@
 	div.pp_default .pp_close:hover, div.pp_default .pp_nav .pp_play:hover, div.pp_default .pp_nav .pp_pause:hover, div.pp_default .pp_arrow_next:hover, div.pp_default .pp_arrow_previous:hover { opacity:0.7; }
 
 	div.pp_default .pp_description{ font-size: 11px; font-weight: bold; line-height: 14px; margin: 5px 50px 5px 0; }
+	div.pp_default .pp_description_ctr{ font-size: 11px; font-weight: bold; line-height: 14px; margin: 5px 50px 5px 0; }
+	div.pp_default .pp_description_click{ font-size: 11px; font-weight: bold; line-height: 14px; margin: 5px 50px 5px 0; }
+	div.pp_default .pp_description_reveal{ font-size: 11px; font-weight: bold; line-height: 14px; margin: 5px 50px 5px 0; }
+	div.pp_default .pp_description_roi{ font-size: 11px; font-weight: bold; line-height: 14px; margin: 5px 50px 5px 0; }
+	div.pp_default .pp_description_consume{ font-size: 11px; font-weight: bold; line-height: 14px; margin: 5px 50px 5px 0; }
+	div.pp_default .pp_description_datetime{ font-size: 11px; font-weight: bold; line-height: 14px; margin: 5px 50px 5px 0; }
+	div.pp_default .pp_description_crowd{ font-size: 11px; font-weight: bold; line-height: 14px; margin: 5px 50px 5px 0; }
+	div.pp_default .pp_description_continuepage{ font-size: 11px; font-weight: bold; line-height: 14px; margin: 5px 50px 5px 0; }
+	div.pp_default .pp_description_originalityname{ font-size: 11px; font-weight: bold; line-height: 14px; margin: 5px 50px 5px 0; }
 
 	div.pp_default .pp_bottom .pp_left { background: url(../../images/prettyPhoto/default/sprite.png) -78px -127px no-repeat; } /* Bottom left corner */
 	div.pp_default .pp_bottom .pp_middle { background: url(../../images/prettyPhoto/default/sprite_x.png) bottom left repeat-x; } /* Bottom pattern/color */
@@ -327,6 +337,17 @@
 					margin: 0;
 				}
 				
+				/* .pp_description {
+					display: none;
+					margin: 0;
+					word-wrap:break-word; 
+					word-break:normal;
+					width: 400px;
+					height: 100px;
+					text-wrap:normal;
+					display: table-row; ! important
+				} */
+				
 				.pp_social { float: left; margin: 0; }
 				.pp_social .facebook { float: left; margin-left: 5px; width: 55px; overflow: hidden; }
 				.pp_social .twitter { float: left; }
@@ -459,9 +480,18 @@
 			
 		a.pp_close {
 			position: absolute; right: 0; top: 0; 
+			/* display: block;  */
+			display: none; 
+			line-height:22px;
+			text-indent: -10000px;
+		}
+		
+		a.pp_download {
+			position: absolute; right: 0; top: 0; 
 			display: block;
 			line-height:22px;
 			text-indent: -10000px;
+			margin-top: 165px;
 		}
 		
 		.pp_bottom {
