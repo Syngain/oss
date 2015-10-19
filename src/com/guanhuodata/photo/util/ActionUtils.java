@@ -26,7 +26,7 @@ public class ActionUtils {
 			fileBean.setShowRateOfReturn_15(bean.getShowRateOfReturn_15());//展示ROI
 			fileBean.setConsume(bean.getConsume());//消耗
 			//fileBean.setcj(bean.getcj);//成交
-			fileBean.setDateTime(bean.getDateTime());//投放时间
+			fileBean.setDateTime(bean.getDateTimes());//投放时间
 			fileBean.setMaterialCrowd(bean.getMaterialCrowd());//投放人群
 			fileBean.setMaterialContinuePage(bean.getMaterialContinuePage());//承接页
 			fileBean.setShopName(bean.getShopName());//店铺名称

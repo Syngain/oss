@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
 import org.apache.poi.xssf.usermodel.XSSFComment;
@@ -19,7 +18,6 @@ import org.apache.poi.xssf.usermodel.XSSFDrawing;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import com.guanhuodata.photo.bean.MaterialChartSplitBean;
 
 public class Test {
@@ -440,11 +438,19 @@ public class Test {
 			name = oname;
 		}
 		System.out.println(name);*/
-		String s = "aa明星店铺1111";
+		/*String s = "aa明星店铺1111";
 		if(s.contains("明星店铺")){
 			System.out.println("contains");
 		}else{
 			System.out.println("not");
+		}*/
+		String s = "洗护_聚变上海预热_活动页_无线640_F167_jpg,护发_聚变上海预热_首页_无线640_F181_jpg,洗护_聚变上海预热_首页_淘宝首焦_L175_jpg,洗护_聚变上海预热_首页_3屏通栏大b_L165_jpg,洗护_聚变上海预热_首页_3屏通栏大b_F161_jpg";
+		String[] arr = s.split(",");
+		System.out.println(arr.length);
+		for(String ss : arr){
+			if(ss.contains("3屏通栏大b")){
+				System.out.println("contains");
+			}
 		}
 	}
 }

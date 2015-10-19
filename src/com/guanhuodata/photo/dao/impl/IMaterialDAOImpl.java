@@ -48,7 +48,7 @@ public class IMaterialDAOImpl implements IMaterialDAO{
 			hql.append(" and m.materialCrowd='").append(queryCondition.getPutInCrowd()).append("'");
 		}
 		if(!queryCondition.getPutInDateTime().equals("")){
-			hql.append(" and m.dateTime='").append(queryCondition.getPutInDateTime()).append("'");
+			hql.append(" and m.dateTimes='").append(queryCondition.getPutInDateTime()).append("'");
 		}
 		if(!queryCondition.getCTR().equals("")){
 			hql.append(" order by ").append(queryCondition.getCTR()).append(" ").append(queryCondition.getCTROrder());
@@ -173,7 +173,7 @@ public class IMaterialDAOImpl implements IMaterialDAO{
 			hql.append(" and m.materialCrowd='").append(queryCondition.getPutInCrowd()).append("'");
 		}
 		if(!queryCondition.getPutInDateTime().equals("")){
-			hql.append(" and m.dateTime='").append(queryCondition.getPutInDateTime()).append("'");
+			hql.append(" and m.dateTimes='").append(queryCondition.getPutInDateTime()).append("'");
 		}
 		if(!queryCondition.getCTR().equals("")){
 			hql.append(" order by ").append(queryCondition.getCTR()).append(" ").append(queryCondition.getCTROrder());
@@ -246,7 +246,7 @@ public class IMaterialDAOImpl implements IMaterialDAO{
 			hql.append(" and m.materialCrowd='").append(queryCondition.getPutInCrowd()).append("'");
 		}
 		if(!queryCondition.getPutInDateTime().equals("")){
-			hql.append(" and m.dateTime='").append(queryCondition.getPutInDateTime()).append("'");
+			hql.append(" and m.dateTimes='").append(queryCondition.getPutInDateTime()).append("'");
 		}
 		if(!queryCondition.getCTR().equals("")){
 			hql.append(" order by ").append(queryCondition.getCTR()).append(" ").append(queryCondition.getCTROrder());
@@ -289,7 +289,7 @@ public class IMaterialDAOImpl implements IMaterialDAO{
 		qBean.setROI(bean.getShowRateOfReturn_15());
 		//枚举获得展位尺寸
 		qBean.setImageSize(MaterialChartUtil.regexpStandSize(bean.getMaterialStandAbbreviation()));
-		qBean.setPutInTime(bean.getDateTime());
+		qBean.setPutInTime(bean.getDateTimes());
 		qBean.setLinkAddress(bean.getMaterialContinuePage());
 		String ret = JsonUtil.makeJson(qBean);
 		session.close();
@@ -304,7 +304,18 @@ public class IMaterialDAOImpl implements IMaterialDAO{
 			for(MaterialChartSplitBean bean : list){
 				Session session = getSession();
 				Transaction ts = session.beginTransaction();
-				session.save(bean);
+				Query query = session.createQuery("from MaterialChartSplitBean where originalityName=:originalityName and spreadUnitBasicInfo=:spreadUnitBasicInfo and allowSpreadSchedule=:allowSpreadSchedule and dateTimes=:dateTimes");
+				query.setParameter("originalityName", bean.getOriginalityName());
+				query.setParameter("spreadUnitBasicInfo", bean.getSpreadUnitBasicInfo());
+				query.setParameter("allowSpreadSchedule", bean.getAllowSpreadSchedule());
+				query.setParameter("dateTimes", bean.getDateTimes());
+				List<MaterialChartSplitBean> querylist = query.list();
+				if(querylist.size() == 0){
+					session.save(bean);
+				}else{
+					bean.setId(querylist.get(0).getId());
+					session.refresh(bean);
+				}
 				ts.commit();
 				session.close();
 			}
@@ -324,5 +335,5 @@ public class IMaterialDAOImpl implements IMaterialDAO{
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
+	
 }

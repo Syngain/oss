@@ -7,15 +7,17 @@
   <link rel="Bookmark" href="favicon.ico"/>
   <link rel="stylesheet" type="text/css" href="css/style.css"/>
   <link rel="stylesheet" type="text/css" href="css/login.css"/>
+  <link rel="stylesheet" type="text/css" href="js/layer_v2.0/skin/layer.css"/>
   <script type="text/javascript" src="js/jquery/jquery-1.8.1.min.js"></script>
+  <script src="js/layer_v2.0/layer.js" type="text/javascript"></script>
   <script type="text/javascript" src="js/control/guanhuodata/util.js"></script>
-  <script type="text/javascript" src="js/control/guanhuodata/login.js"></script>
+  <script type="text/javascript" src="js/control/guanhuodata/login/login.js"></script>
 </head>
 <body>
   <!--主体内容堆栈-->
   <div class="login_wrap">
     <div class="logoBox">
-      <img src="img/login/logo.png" />
+      <!-- <img src="img/login/logo.png" /> -->
     </div>
     <div class="login_content">
       <div class=" fl mr3">
@@ -53,7 +55,7 @@
                 </div>
               </div>
               <div class=" h30 lh30 fr w80 hand saveFavorite">
-                <a class="login_submit tnone loginButton">登录</a>
+                <a class="login_submit tnone loginButton" name="loginBtn" id="loginBtn">登录</a>
               </div>
             </li>
           </ul>

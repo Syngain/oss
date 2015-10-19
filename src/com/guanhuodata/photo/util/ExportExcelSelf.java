@@ -23,6 +23,8 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+
+import com.guanhuodata.framework.util.PathProperty;
 import com.guanhuodata.photo.bean.MaterialChartSplitBean;
 
 /**
@@ -114,7 +116,8 @@ public class ExportExcelSelf<T> {
 	        cell.setCellValue(text);
 		}
 		//素材读取路径
-		String path = "d://img//";
+		//String path = "d://img//";
+		String path = PathProperty.loadAttribute("exportExcelSelfImageReadPath");
 		//List<MaterialChartSplitBean> list = MaterialChartUtil.loadData();
 		//Map<String,List<MaterialChartSplitBean>> map = MaterialChartUtil.partitionSelf(dataset);
 		int index = 0;
@@ -124,8 +127,26 @@ public class ExportExcelSelf<T> {
 				index++;
 				row = sheet.createRow(index);
 				MaterialChartSplitBean bean = (MaterialChartSplitBean)map.get(key).get(i);
+				//创意名称汇总
+				String name = "";
+				String nameSuffix = "";
+				if((bean.getOriginalityName().substring(bean.getOriginalityName().length() - 2, bean.getOriginalityName().length())).equals("汇总")){
+					name = bean.getOriginalityName().substring(0, bean.getOriginalityName().length() - 2);
+					nameSuffix = bean.getOriginalityName().substring(bean.getOriginalityName().length() - 2, bean.getOriginalityName().length());
+				}else{
+					name = bean.getOriginalityName();
+				}
+				String crowdName = "";
+				String crowdNameSuffix = "";
+				if((bean.getMaterialCrowd().substring(bean.getMaterialCrowd().length() - 2, bean.getMaterialCrowd().length())).equals("汇总")){
+					crowdName = bean.getMaterialCrowd().substring(0, bean.getMaterialCrowd().length() - 2);
+					crowdNameSuffix = bean.getMaterialCrowd().substring(bean.getMaterialCrowd().length() - 2, bean.getMaterialCrowd().length());
+				}else{
+					crowdName = bean.getMaterialCrowd();
+				}
+				//推广人群汇总
 				row.setHeight((short) 600);
-				for(int j = 0;j <= headers.length; j++){
+				for(int j = 0;j < headers.length; j++){
 					   HSSFCell cell = row.createCell(j);
 					   switch(j){
 					   		case 0:
@@ -146,7 +167,7 @@ public class ExportExcelSelf<T> {
 					   			break;
 					   		case 4:
 					   			cell.setCellStyle(style);
-					   			cell.setCellValue(bean.getDateTime());	//推广时间
+					   			cell.setCellValue(bean.getDateTimes());	//推广时间
 					   			break;
 					   		case 5:
 					   			cell.setCellStyle(cellStyle);
@@ -170,11 +191,11 @@ public class ExportExcelSelf<T> {
 					   			break;
 					   		case 10:
 					   			cell.setCellStyle(cellStyle);
-					   			cell.setCellValue(bean.getClickSum_15());	//15天点击产出
+					   			cell.setCellValue(bean.getConsume()*bean.getRateOfReturn_15());
 					   			break;
 					   		case 11:
 					   			cell.setCellStyle(cellStyle);
-					   			cell.setCellValue(bean.getShowSum_15());	//15天展示产出
+					   			cell.setCellValue(bean.getConsume()*bean.getShowRateOfReturn_15());	
 					   			break;
 					   		case 12:
 					   			cell.setCellStyle(cellStyle);
@@ -182,7 +203,7 @@ public class ExportExcelSelf<T> {
 					   			break;
 					   		case 13:
 					   			cell.setCellStyle(cellStyle);
-					   			cell.setCellValue(bean.getShowCostOf1000());//千次展现成本
+					   			cell.setCellValue((bean.getConsume()/bean.getReveal() * 1000));//千次展现成本
 					   			break;
 					   		case 14:
 					   			cell.setCellStyle(cellStyle);
@@ -190,11 +211,12 @@ public class ExportExcelSelf<T> {
 					   			break;
 					   		case 15:
 					   			cell.setCellStyle(cellStyle);
-					   			cell.setCellValue(bean.getRateOfReturn_15());	//15天回报率
+					   			cell.setCellValue(bean.getRateOfReturn_15());	//15天点击回报率
 					   			break;
 					   		case 16:
 					   			cell.setCellStyle(cellStyle);
 					   			cell.setCellValue(bean.getShowRateOfReturn_15());	//15天展示回报率
+					   			//cell.setCellValue(5555.000);
 					   			break;
 					   		case 17:
 					   			cell.setCellStyle(cellStyle);
@@ -269,7 +291,6 @@ public class ExportExcelSelf<T> {
 	   	        	try {
 						byteArrayOut.close();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 	   	        }
@@ -311,7 +332,7 @@ public class ExportExcelSelf<T> {
 		bean1.setCustomerOrderNum_15(1);
 		bean1.setCustomerOrderNum_3(1);
 		bean1.setCustomerOrderNum_7(1);
-		bean1.setDateTime("2015-09-21");
+		bean1.setDateTimes("2015-09-21");
 		bean1.setGoodsCollectNum(1);
 		bean1.setId(1);
 		bean1.setMaterialContinuePage("http://www.mail.sina.com");
@@ -346,7 +367,7 @@ public class ExportExcelSelf<T> {
 		bean2.setCustomerOrderNum_15(2);
 		bean2.setCustomerOrderNum_3(2);
 		bean2.setCustomerOrderNum_7(2);
-		bean2.setDateTime("2015-09-21");
+		bean2.setDateTimes("2015-09-21");
 		bean2.setGoodsCollectNum(1);
 		bean2.setId(1);
 		bean2.setMaterialContinuePage("http://www.mail.sina.com");
@@ -381,7 +402,7 @@ public class ExportExcelSelf<T> {
 		bean3.setCustomerOrderNum_15(3);
 		bean3.setCustomerOrderNum_3(3);
 		bean3.setCustomerOrderNum_7(3);
-		bean3.setDateTime("2015-09-22");
+		bean3.setDateTimes("2015-09-22");
 		bean3.setGoodsCollectNum(3);
 		bean3.setId(3);
 		bean3.setMaterialContinuePage("http://www.mail.sina.com");

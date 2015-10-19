@@ -160,7 +160,7 @@ public class ExportExcel<T> {
 			   			break;
 			   		case 4:
 			   			cell.setCellStyle(style);
-			   			cell.setCellValue(bean.getDateTime());	//时间
+			   			cell.setCellValue(bean.getDateTimes());	//时间
 			   			break;
 			   		case 5:
 			   			cell.setCellStyle(cellStyle);
@@ -327,7 +327,7 @@ public class ExportExcel<T> {
 		bean1.setCustomerOrderNum_15(1);
 		bean1.setCustomerOrderNum_3(1);
 		bean1.setCustomerOrderNum_7(1);
-		bean1.setDateTime("2015-09-21");
+		bean1.setDateTimes("2015-09-21");
 		bean1.setGoodsCollectNum(1);
 		bean1.setId(1);
 		bean1.setMaterialContinuePage("http://www.mail.sina.com");
@@ -362,7 +362,7 @@ public class ExportExcel<T> {
 		bean2.setCustomerOrderNum_15(2);
 		bean2.setCustomerOrderNum_3(2);
 		bean2.setCustomerOrderNum_7(2);
-		bean2.setDateTime("2015-09-21");
+		bean2.setDateTimes("2015-09-21");
 		bean2.setGoodsCollectNum(1);
 		bean2.setId(1);
 		bean2.setMaterialContinuePage("http://www.mail.sina.com");
@@ -397,7 +397,7 @@ public class ExportExcel<T> {
 		bean3.setCustomerOrderNum_15(3);
 		bean3.setCustomerOrderNum_3(3);
 		bean3.setCustomerOrderNum_7(3);
-		bean3.setDateTime("2015-09-22");
+		bean3.setDateTimes("2015-09-22");
 		bean3.setGoodsCollectNum(3);
 		bean3.setId(3);
 		bean3.setMaterialContinuePage("http://www.mail.sina.com");

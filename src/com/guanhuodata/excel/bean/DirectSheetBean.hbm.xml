@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-10-5 15:25:55 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.guanhuodata.excel.bean.DirectSheetBean" table="directsheet">
+        <id name="id" type="long">
+            <column name="ID" />
+            <generator class="increment" />
+        </id>
+        <property name="directoryName" type="java.lang.String" index="directoryNameIndex" not-null="true">
+            <column name="directoryName" />
+        </property>
+        <property name="unitName" type="java.lang.String" index="unitNameIndex" not-null="true">
+            <column name="unitName" />
+        </property>
+        <property name="spreadSchedule" type="java.lang.String" not-null="true">
+            <column name="spreadSchedule" />
+        </property>
+        <property name="paltform" type="java.lang.String">
+            <column name="paltform" />
+        </property>
+        <property name="putInPurpose" type="java.lang.String">
+            <column name="putInPurpose" />
+        </property>
+        <property name="crowdInfo" type="java.lang.String">
+            <column name="crowdInfo" />
+        </property>
+        <property name="userOrigin" type="java.lang.String">
+            <column name="userOrigin" />
+        </property>
+        <property name="crowdLayer" type="java.lang.String">
+            <column name="crowdLayer" />
+        </property>
+        <property name="crowdAttr" type="java.lang.String">
+            <column name="crowdAttr" />
+        </property>
+        <property name="standInfo" type="java.lang.String">
+            <column name="standInfo" />
+        </property>
+        <property name="allowdSpreadTheme" type="java.lang.String">
+            <column name="allowdSpreadTheme" />
+        </property>
+        <property name="allowSpreadSchedule" type="java.lang.String">
+            <column name="allowSpreadSchedule" />
+        </property>
+        <property name="timeInterval" type="java.lang.String">
+            <column name="timeInterval" />
+        </property>
+        <property name="isTest" type="java.lang.String">
+            <column name="isTest" />
+        </property>
+        <property name="allowCategory" type="java.lang.String">
+            <column name="allowCategory" />
+        </property>
+        <property name="dateTimes" type="java.util.Date">
+            <column name="dateTimes" />
+        </property>
+        <property name="reveal" type="double">
+            <column name="reveal" scale="2"/>
+        </property>
+        <property name="click" type="double">
+            <column name="click" scale="2"/>
+        </property>
+        <property name="CTR" type="double">
+            <column name="CTR" scale="2"/>
+        </property>
+        <property name="consume" type="double">
+            <column name="consume" scale="2"/>
+        </property>
+        <property name="showCostOf1000" type="double">
+            <column name="showCostOf1000" scale="2"/>
+        </property>
+        <property name="unitPriceOfClick" type="double">
+            <column name="unitPriceOfClick" scale="2"/>
+        </property>
+        <property name="rateOfReturn_3" type="double">
+            <column name="rateOfReturn_3" scale="2"/>
+        </property>
+        <property name="rateOfReturn_7" type="double">
+            <column name="rateOfReturn_7" scale="2"/>
+        </property>
+        <property name="rateOfReturn_15" type="double">
+            <column name="rateOfReturn_15" scale="2"/>
+        </property>
+        <property name="outputOfClick_3" type="double">
+            <column name="outputOfClick_3" scale="2"/>
+        </property>
+        <property name="outputOfClick_7" type="double">
+            <column name="outputOfClick_7" scale="2"/>
+        </property>
+        <property name="outputOfClick_15" type="double">
+            <column name="outputOfClick_15" scale="2"/>
+        </property>
+        <property name="customerOrderNum_3" type="long">
+            <column name="customerOrderNum_3" />
+        </property>
+        <property name="customerOrderNum_7" type="long">
+            <column name="customerOrderNum_7" />
+        </property>
+        <property name="customerOrderNum_15" type="long">
+            <column name="customerOrderNum_15" />
+        </property>
+        <property name="shopCollectNum" type="int">
+            <column name="shopCollectNum" />
+        </property>
+        <property name="goodsCollectNum" type="int">
+            <column name="goodsCollectNum" />
+        </property>
+        <property name="visitor" type="long">
+            <column name="visitor" />
+        </property>
+        <property name="getUserCost" type="double">
+            <column name="getUserCost" />
+        </property>
+        <property name="touchOfUser" type="long">
+            <column name="touchOfUser" />
+        </property>
+        <property name="touchOfFrequency" type="double">
+            <column name="touchOfFrequency" scale="2"/>
+        </property>
+        <property name="collectUser" type="long">
+            <column name="collectUser" />
+        </property>
+        <property name="showVisitor_3" type="long">
+            <column name="showVisitor_3" />
+        </property>
+        <property name="showVisitor_7" type="long">
+            <column name="showVisitor_7" />
+        </property>
+        <property name="showVisitor_15" type="long">
+            <column name="showVisitor_15" />
+        </property>
+        <property name="showRateOfReturn_3" type="double">
+            <column name="showRateOfReturn_3" scale="2"/>
+        </property>
+        <property name="showRateOfReturn_7" type="double">
+            <column name="showRateOfReturn_7" scale="2"/>
+        </property>
+        <property name="showRateOfReturn_15" type="double">
+            <column name="showRateOfReturn_15" scale="2"/>
+        </property>
+        <property name="outputOfReveal_3" type="double">
+            <column name="outputOfReveal_3" scale="2"/>
+        </property>
+        <property name="outputOfReveal_7" type="double">
+            <column name="outputOfReveal_7" scale="2"/>
+        </property>
+        <property name="outputOfReveal_15" type="double">
+            <column name="outputOfReveal_15" scale="2"/>
+        </property>
+        <property name="orderSum_7" type="double">
+            <column name="orderSum_7" scale="2"/>
+        </property>
+        <property name="orderSum_15" type="double">
+            <column name="orderSum_15" scale="2"/>
+        </property>
+        <property name="orderPercentConversion_15" type="double">
+            <column name="orderPercentConversion_15" scale="2"/>
+        </property>
+        <property name="timestamps" type="java.util.Date">
+            <column name="timestamps" />
+        </property>
+    </class>
+</hibernate-mapping>

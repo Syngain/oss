@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>计划报表转换工具</title>
+<link rel="stylesheet" type="text/css" href="css/menu/css/responsive-menu.css" />
+<link rel="stylesheet" type="text/css" href="css/menu/css/styles.css" />
+<link rel="stylesheet" href="css/style.css" />
+<link href="css/components/skins/Aqua/css/ligerui-all.css"rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="css/components/skins/Aqua/css/ligerui-dialog.css"/>
+<!-- 针对jBootstrapPage分页组件需要使用jquery1.10.2版本jquery -->
+<!-- <script type="text/javascript" src="js/jquery/jquery-1.8.1.min.js"></script> -->
+<script type="text/javascript" src="js/jquery/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="js/jqueryui/jquery-ui.js"></script>
+<script type="text/javascript" src="js/ligerUI/js/ligerui.all.js"></script>
+<script type="text/javascript" src="js/layer_v2.0/layer.js"></script>
+<script type="text/javascript" src="js/jsMenu/modernizr.min.js" ></script>
+<script type="text/javascript" src="js/jsMenu/modernizr-custom.js" ></script>
+<script type="text/javascript" src="js/jsMenu/responsive-menu.js" ></script>
+<script type="text/javascript" src="js/control/guanhuodata/util.js" ></script>
+<script type="text/javascript" src="js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="js/control/guanhuodata/scheduleConvert/scheduleConvert.js" ></script>
+<script type="text/javascript">
+	$(function() {
+		var menu = $(".rm-nav").rMenu({
+			minWidth : "960px",
+		});
+	});
+</script>
+</head>
+<body>
+	<header>
+	<div class="wrapper">
+		<div class="wrapper">
+			<div class="brand"></div>
+			<div class="rm-container">
+				<a class="rm-toggle rm-button rm-nojs" href="#">导航菜单</a>
+				<nav class="rm-nav rm-nojs rm-lighten">
+				<ul>
+					<li><a href="#">系统管理</a>
+						<ul>
+							<li><a href="#">角色管理</a>
+								<ul>
+									<li><a href="#">角色列表</a></li>
+								</ul></li>
+							<li><a href="#">用户管理</a>
+								<ul>
+									<li><a href="#">用户列表</a></li>
+								</ul></li>
+							<li><a href="#">暂未开放菜单</a>
+								<ul>
+									<li><a href="#">暂未开放子菜单</a></li>
+									<li><a href="#">暂未开放子菜单</a></li>
+									<li><a href="#">暂未开放子菜单</a></li>
+									<li><a href="#">暂未开放子菜单</a></li>
+									<li><a href="#">暂未开放子菜单</a></li>
+								</ul></li>
+							<li><a href="#">暂未开放菜单</a></li>
+							<li><a href="#">暂未开放菜单</a></li>
+						</ul></li>
+					<li><a href="#">报表分析</a>
+						<ul>
+							<li><a href="#" id="chartMgr"
+								onclick="forwardToChartPerspective();return false;">Excel报表管理</a></li>
+							<li><a href="#">Excel报表分析</a>
+								<ul>
+									<li><a href="#">暂未开放子菜单</a></li>
+									<li><a href="#">暂未开放子菜单</a></li>
+									<li><a href="#">暂未开放子菜单</a></li>
+									<li><a href="#">暂未开放子菜单</a></li>
+									<li><a href="#">暂未开放子菜单</a></li>
+								</ul></li>
+							<li><a href="#">用户池</a>
+								<ul>
+									<li><a href="#">用户体量</a></li>
+									<li><a href="#">获客成本</a></li>
+									<li><a href="#">回报率</a></li>
+									<li><a href="#">笔单价</a></li>
+									<li><a href="#">暂未开放子菜单</a></li>
+								</ul></li>
+							<li><a href="#">老用户</a>
+								<ul>
+									<li><a href="#">浏览用户</a></li>
+									<li><a href="#">关注用</a></li>
+									<li><a href="#">未付款</a></li>
+									<li><a href="#">交易用户</a></li>
+									<li><a href="#">沉默用户</a></li>
+								</ul></li>
+							<li><a href="#">报表生成</a>
+								<ul>
+									<li><a href="#">运营报表</a></li>
+									<li><a href="#">市场报表报表</a></li>
+									<li><a href="#">设计报表</a></li>
+									<li><a href="#" id="chartExportUnderControl"
+										onclick="forwardToChartImpAndExp();return false;">自主生成</a></li>
+									<li><a href="#">暂未开放子菜单</a></li>
+								</ul></li>
+						</ul></li>
+					<li><a href="#">素材管理</a>
+						<ul>
+							<li><a href="#" id="preViewMaterial"
+								onclick="forwardToMaterialPage();return false;">素材预览</a></li>
+							<li><a href="#">素材分析</a></li>
+							<li><a href="#">暂未开放菜单</a>
+								<ul>
+									<li><a href="#">暂未开放子菜单</a></li>
+									<li><a href="#">暂未开放子菜单</a></li>
+									<li><a href="#">暂未开放子菜单</a></li>
+								</ul></li>
+							<li><a href="#">暂未开放菜单</a></li>
+							<li><a href="#">暂未开放菜单</a></li>
+						</ul></li>
+					<li><a href="#">报表工具</a>
+						<ul>
+							<li><a href="#" id="scheduleConvertUtil"
+								onclick="forwardToScheduleConvertUtil();return false;">投放计划</a></li>
+							<li><a href="#"  id="summarySheet" onclick="forwardToSummarySheet();return false;">承接部门报表汇总</a></li>
+							<li><a href="#">暂未开放菜单</a>
+								<ul>
+									<li><a href="#">暂未开放子菜单</a></li>
+									<li><a href="#">暂未开放子菜单</a></li>
+									<li><a href="#">暂未开放子菜单</a></li>
+								</ul></li>
+							<li><a href="#">暂未开放菜单</a></li>
+							<li><a href="#">暂未开放菜单</a></li>
+						</ul></li>
+					<li><a href="#">其他功能</a>
+						<ul>
+							<li><a href="#">暂未开放子菜单</a></li>
+							<li><a href="#">暂未开放子菜单</a>
+								<ul>
+									<li><a href="#">暂未开放子菜单</a></li>
+									<li><a href="#">暂未开放子菜单</a></li>
+									<li><a href="#">暂未开放子菜单</a></li>
+								</ul></li>
+							<li><a href="#">暂未开放子菜单</a></li>
+							<li><a href="#">暂未开放子菜单</a></li>
+							<li><a href="#">暂未开放子菜单</a></li>
+						</ul></li>
+				</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+	</header>
+	<div style="margin: 0 auto;text-align: center;">
+	<div style="height: 20px;"></div>
+		<div style="text-align: left; width: 46%;margin: 0 auto;padding: 10px;">
+			<h1 style="color: #FF8247">Tips:上传的报表中人群类这一列如果存在多个值必须用逗号隔开</h1>
+			<h1 style="color: #FF7256;">Tips:上传的报表中展位简称这一列如果存在多个值必须用逗号隔开</h1>
+			<h1 style="color: #FF6347">Tips:如果需要进行计划转换，必须先上传ZIP格式的素材图片压缩包，否则无法提取创意名称列</h1>
+		</div>
+		<div style="text-align: left; width: 46%;margin: 0 auto;padding: 10px;">
+			<a href="#" class="lightGrayImportChartButton" id="readFileNameBtn" onclick="readFileNameBtn();return false;">读&nbsp;&nbsp;取</a>
+			<form enctype="multipart/form-data" id="uploadfile" name="uploadForm" style="margin: 0;display: inline;padding-left: 40px;">
+				<input type="file" id="fileLoad" name="filePath"  style="width: 170px;"/>
+				<a href="#" class="lightGrayImportChartButton" id="importChartBtn" onclick="importChartBtn();return false;">导&nbsp;&nbsp;入</a>
+			</form>
+		</div>
+		<form id="downloadForm" name="downloadForm"></form>
+	</div>
+</body>
+</html>
+

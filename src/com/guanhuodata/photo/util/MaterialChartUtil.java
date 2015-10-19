@@ -31,6 +31,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipOutputStream;
 
+import com.guanhuodata.excel.util.SummarySheetUtil;
+import com.guanhuodata.framework.exception.NameSchemaException;
 import com.guanhuodata.photo.bean.MaterialChartSplitBean;
 import com.guanhuodata.photo.constant.StandAbbreviationSpec;
 
@@ -56,7 +58,9 @@ public class MaterialChartUtil {
 		String suffix = fileName.substring(fileName.lastIndexOf("."), fileName.length());
 		// 判断店铺名称
 		// String shopName = getShopName(fileName);
-		String shopName = "雪肌精";
+		//String shopName = "雪肌精";
+		//String shopName = "凤凰色";
+		String shopName = file.getName().split("_")[0];
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
 			is = new FileInputStream(file);
@@ -106,6 +110,7 @@ public class MaterialChartUtil {
 			int colNum = sb.toString().split(",").length;
 			System.out.println(colNum);
 			System.out.println("********************************");
+			
 			// 遍历行
 			for (int j = 1; j < rows; j++) {
 				Row row_n = sheet.getRow(j);
@@ -143,7 +148,7 @@ public class MaterialChartUtil {
 						materialChartSplitBean.setOriginalityName(cellVal[0]);
 						materialChartSplitBean.setSpreadUnitBasicInfo(cellVal[1]);
 						materialChartSplitBean.setAllowSpreadSchedule(cellVal[2]);
-						materialChartSplitBean.setDateTime(cellVal[3]);
+						materialChartSplitBean.setDateTimes(cellVal[3]);
 						// 在读取该cell时取出的数据为double类型的，需要转换为long
 						materialChartSplitBean.setReveal((long) Double.parseDouble(cellVal[4]));
 						materialChartSplitBean.setClick((long) Double.parseDouble(cellVal[5]));
@@ -169,7 +174,8 @@ public class MaterialChartUtil {
 						materialChartSplitBean.setShowVisitor_15((long) Double.parseDouble(cellVal[24]));
 						materialChartSplitBean.setShowRateOfReturn_3(Double.parseDouble(cellVal[25]));
 						materialChartSplitBean.setShowRateOfReturn_7(Double.parseDouble(cellVal[26]));
-						materialChartSplitBean.setRateOfReturn_15(Double.parseDouble(cellVal[27]));
+						//materialChartSplitBean.setRateOfReturn_15(Double.parseDouble(cellVal[27]));
+						materialChartSplitBean.setShowRateOfReturn_15(Double.parseDouble(cellVal[27]));
 						materialChartSplitBean.setOrderSum_7(Double.parseDouble(cellVal[28]));
 						materialChartSplitBean.setOrderSum_15(Double.parseDouble(cellVal[29]));
 						if (colNum > 30 && colNum <= 32) {
@@ -183,7 +189,8 @@ public class MaterialChartUtil {
 							throw new Exception("素材报表的列数量不在匹配范围处理失败.");
 						}
 						/**
-						 * 素材命名：人群_主题_承接页_展位简称_设计简写+编号 计划命名：活动主题_投放目的_人群分层_展位类别
+						 * 素材命名：人群_主题_承接页_展位简称_设计简写+编号 
+						 * 计划命名：活动主题_投放目的_人群分层_展位类别
 						 * 单元命名：人群_具体展位 带material：素材命名 带schedule：计划命名 带unit：单元命名
 						 * clo[0]：素材名称 col[1]：推广单元基本信息 col[2]：推广计划
 						 */
@@ -213,8 +220,9 @@ public class MaterialChartUtil {
 						/**
 						 * important
 						 */
-
-						// 推广单元拆分
+						
+						//旧的拆分规则
+						/*// 推广单元拆分
 						String[] unitSplit = cellVal[1].split("_");
 						materialChartSplitBean.setUnitCrowd(unitSplit[0]);
 						materialChartSplitBean.setUnitSpecificStand(unitSplit[1]);
@@ -223,13 +231,38 @@ public class MaterialChartUtil {
 						materialChartSplitBean.setScheduleActivityTheme(scheduleSplit[0]);
 						materialChartSplitBean.setSchedulePutInPurpose(scheduleSplit[1]);
 						materialChartSplitBean.setScheduleCrowdLayer(scheduleSplit[2]);
-						materialChartSplitBean.setScheduleStandCategory(scheduleSplit[3]);
+						materialChartSplitBean.setScheduleStandCategory(scheduleSplit[3]);*/
+						
+						//新的拆分规则
+						//单元拆分
+						//计划拆分
+						String[] unitSplit = cellVal[1].split("_");
+						String[] scheduleSplit = cellVal[2].split("_");
+						if(unitSplit.length == 3 && scheduleSplit.length == 4){
+							materialChartSplitBean.setSchedulePutInPurpose("品宣");
+							materialChartSplitBean.setScheduleStandCategory(SummarySheetUtil.isChinese(unitSplit[2]) ? unitSplit[2] : SummarySheetUtil.regexpStandInfo(unitSplit[2]));
+							materialChartSplitBean.setScheduleActivityTheme(scheduleSplit[0]);
+							//人群属性为：全网用户、类目池用户、品牌池用户时
+							//人群分层为：目标用户	用户来源为：非店铺自有用户		所属推广计划为：用户拓展
+							String crowdInfo = SummarySheetUtil.isChinese(scheduleSplit[1].trim()) ? scheduleSplit[1].trim() : SummarySheetUtil.regexpCrowdInfo(scheduleSplit[1].trim());
+							if(crowdInfo.contains("全网用户") || crowdInfo.contains("类目池用户") || crowdInfo.contains("品牌池用户")){
+								materialChartSplitBean.setScheduleCrowdLayer("目标用户");
+							}
+							materialChartSplitBean.setUnitCrowd(SummarySheetUtil.isChinese(unitSplit[1]) ? unitSplit[1] : SummarySheetUtil.regexpCrowdInfo(unitSplit[1]));
+						}else if(unitSplit.length == 2 && scheduleSplit.length == 3){
+							materialChartSplitBean.setSchedulePutInPurpose("销售");
+							materialChartSplitBean.setScheduleCrowdLayer(SummarySheetUtil.isChinese(scheduleSplit[1]) ? scheduleSplit[1] : SummarySheetUtil.regexpCrowdLayer(scheduleSplit[1]));
+							materialChartSplitBean.setScheduleActivityTheme(scheduleSplit[0]);
+							materialChartSplitBean.setScheduleStandCategory(SummarySheetUtil.isChinese(unitSplit[1]) ? unitSplit[1] : SummarySheetUtil.regexpStandInfo(unitSplit[1]));
+							materialChartSplitBean.setUnitCrowd(SummarySheetUtil.isChinese(unitSplit[0]) ? unitSplit[0] : SummarySheetUtil.regexpCrowdInfo(unitSplit[0]));
+						}else{
+							throw new NameSchemaException("单元/计划命名不符合规范(unknown length of unit/schedule) unit length: " + unitSplit.length + " schedule length: " + scheduleSplit.length);
+						}
 						// 按照店铺名称来分
 						materialChartSplitBean.setShopName(shopName);
 						// 扩展字段:operateTime
 						materialChartSplitBean.setOperateTime(sdf.format(new Date()));
 						list.add(materialChartSplitBean);
-
 					}
 				}
 			}
@@ -411,7 +444,7 @@ public class MaterialChartUtil {
 				System.out.println(dateRegexpList.get(k).getOriginalityName() + " *** " + "materialTheme: "
 						+ dateRegexpList.get(k).getMaterialTheme() + " *** " + "materialCrowd: "
 						+ dateRegexpList.get(k).getMaterialCrowd() + " *** " + "dateTime: "
-						+ dateRegexpList.get(k).getDateTime());
+						+ dateRegexpList.get(k).getDateTimes());
 			}
 		}
 		System.out.println(chooseMap.size());
@@ -436,27 +469,44 @@ public class MaterialChartUtil {
 			MaterialChartSplitBean extraBean = new MaterialChartSplitBean();
 			for (int j = 0; j < dataset.size(); j++) {
 				MaterialChartSplitBean ibean = dataset.get(j);
-				if (ibean.getMaterialTheme().equals(obean.getMaterialTheme())
-						&& ibean.getOriginalityName().equals(obean.getOriginalityName())) {
+				if (ibean.getMaterialTheme().equals(obean.getMaterialTheme()) && ibean.getOriginalityName().equals(obean.getOriginalityName())) {
+					//System.out.println("click: " + ibean.getClick() + " reveal: " + ibean.getReveal() + "extraBeanClick: " + extraBean.getClick() + " extraBeanReveal: " + extraBean.getReveal());
+					//System.out.println("rateOfReturn:" + ibean.getRateOfReturn_15() + " showRateOfReturn: " + ibean.getShowRateOfReturn_15());
 					// if(ibean.getMaterialTheme().equals(obean.getMaterialTheme())){
 					extraBean.setOriginalityName(ibean.getOriginalityName());
 					extraBean.setMaterialTheme(ibean.getMaterialTheme());
 					extraBean.setMaterialCrowd(ibean.getMaterialCrowd() + "汇总");
+					//存储单个展现
 					extraBean.setReveal(ibean.getReveal() + extraBean.getReveal());
+					//存储单个点击
 					extraBean.setClick(ibean.getClick() + extraBean.getClick());
+					//存储单个消耗
+					extraBean.setConsume(ibean.getConsume() + extraBean.getConsume());
+					
 					extraBean.setTouchOfUser(ibean.getTouchOfUser() + extraBean.getTouchOfUser());
 					extraBean.setTouchOfFrequency(ibean.getTouchOfFrequency() + extraBean.getTouchOfFrequency());
-					extraBean.setConsume(ibean.getConsume() + extraBean.getConsume());
-					extraBean.setClickSum_15(ibean.getClickSum_15() + extraBean.getClickSum_15());
-					extraBean.setShowSum_15(ibean.getShowSum_15() + extraBean.getShowSum_15());
-					extraBean.setCTR(ibean.getCTR() + extraBean.getCTR());
-					extraBean.setShowCostOf1000(ibean.getShowCostOf1000() + extraBean.getShowCostOf1000());
+					
+					extraBean.setClickSum_15(ibean.getClickSum_15() + extraBean.getClick());
+					//15天点击产出
+					extraBean.setClickOutput_15(ibean.getConsume() * ibean.getRateOfReturn_15());
+					//15天展示产出
+					extraBean.setShowOutput_15(ibean.getConsume() * ibean.getShowRateOfReturn_15());
+					
+					extraBean.setCTR(extraBean.getClick()/extraBean.getReveal()*100);
+					
+					extraBean.setShowCostOf1000((ibean.getConsume()/ibean.getReveal() * 1000) + extraBean.getShowCostOf1000());
 					extraBean.setUnitPriceOfClick(ibean.getUnitPriceOfClick() + extraBean.getUnitPriceOfClick());
+					
+					//15天点击回报率
+					//extraBean.setRateOfReturn_15(extraBean.getClickOutput_15()/extraBean.getConsume());
 					extraBean.setRateOfReturn_15(ibean.getRateOfReturn_15() + extraBean.getRateOfReturn_15());
-					extraBean.setShowRateOfReturn_15(
-							ibean.getShowRateOfReturn_15() + extraBean.getShowRateOfReturn_15());
-					extraBean.setCustomerOrderNum_15(
-							ibean.getCustomerOrderNum_15() + extraBean.getCustomerOrderNum_15());
+					//15天展示回报率
+					extraBean.setShowRateOfReturn_15(ibean.getRateOfReturn_15() + extraBean.getRateOfReturn_15());
+					
+					//System.out.println("consume: " + ibean.getConsume() + "rateOfReturn:" + ibean.getRateOfReturn_15() + " showRateOfReturn: " + ibean.getShowRateOfReturn_15());
+					//System.out.println("setClickOutput_15:" + extraBean.getClickOutput_15() + " setShowOutput_15: " + extraBean.getShowOutput_15());
+					//System.out.println("name: " + ibean.getOriginalityName() + " showSum_15: " + ibean.getShowRateOfReturn_15() + " consume: " + ibean.getConsume() + " data: " + (ibean.getShowRateOfReturn_15() * ibean.getConsume()));
+					extraBean.setCustomerOrderNum_15(ibean.getCustomerOrderNum_15() + extraBean.getCustomerOrderNum_15());
 					extraBean.setShopCollectNum(ibean.getShopCollectNum() + extraBean.getShopCollectNum());
 					extraBean.setGoodsCollectNum(ibean.getGoodsCollectNum() + extraBean.getGoodsCollectNum());
 					extraBean.setVisitor(ibean.getVisitor() + extraBean.getVisitor());
@@ -470,17 +520,15 @@ public class MaterialChartUtil {
 			choose.add(extraBean);
 			map.put(obean.getOriginalityName(), choose);
 		}
-		System.out.println(map.size());
+		/*System.out.println(map.size());
 		for (String key : map.keySet()) {
 			List<MaterialChartSplitBean> dateRegexpList = map.get(key);
 			System.out.println(key + " : " + map.get(key).size());
 			for (int k = 0; k < dateRegexpList.size(); k++) {
-				System.out.println(dateRegexpList.get(k).getOriginalityName() + " *** " + "materialTheme: "
-						+ dateRegexpList.get(k).getMaterialTheme() + " *** " + "materialCrowd: "
-						+ dateRegexpList.get(k).getMaterialCrowd() + " *** " + "dateTime: "
-						+ dateRegexpList.get(k).getDateTime());
+				//System.out.println(dateRegexpList.get(k).getOriginalityName() + " *** " + "materialTheme: " + dateRegexpList.get(k).getMaterialTheme() + " *** " + "materialCrowd: " + dateRegexpList.get(k).getMaterialCrowd() + " *** " + "dateTime: " + dateRegexpList.get(k).getDateTimes() + "***CTR" + dateRegexpList.get(k).getCTR());
+				System.out.println(dateRegexpList.get(k).getOriginalityName() + " *** " + "setShowSum_15: " + dateRegexpList.get(k).getShowSum_15() + " *** " + "setClickSum_15: " + dateRegexpList.get(k).getClickSum_15());
 			}
-		}
+		}*/
 		return map;
 	}
 
@@ -500,27 +548,43 @@ public class MaterialChartUtil {
 			MaterialChartSplitBean extraBean = new MaterialChartSplitBean();
 			for (int j = 0; j < dataset.size(); j++) {
 				MaterialChartSplitBean ibean = dataset.get(j);
-				if (ibean.getMaterialTheme().equals(obean.getMaterialTheme())
-						&& ibean.getOriginalityName().equals(obean.getOriginalityName())) {
+				if (ibean.getMaterialTheme().equals(obean.getMaterialTheme()) && ibean.getOriginalityName().equals(obean.getOriginalityName())) {
 					// if(ibean.getMaterialTheme().equals(obean.getMaterialTheme())){
 					extraBean.setOriginalityName(ibean.getOriginalityName());
 					extraBean.setMaterialTheme(ibean.getMaterialTheme());
 					extraBean.setMaterialCrowd(ibean.getMaterialCrowd() + "汇总");
-					extraBean.setReveal(ibean.getReveal() + extraBean.getReveal());
-					extraBean.setClick(ibean.getClick() + extraBean.getClick());
 					extraBean.setTouchOfUser(ibean.getTouchOfUser() + extraBean.getTouchOfUser());
 					extraBean.setTouchOfFrequency(ibean.getTouchOfFrequency() + extraBean.getTouchOfFrequency());
+					
+					//存储单个展现
+					extraBean.setReveal(ibean.getReveal() + extraBean.getReveal());
+					//存储单个点击
+					extraBean.setClick(ibean.getClick() + extraBean.getClick());
+					//存储单个消耗
 					extraBean.setConsume(ibean.getConsume() + extraBean.getConsume());
-					extraBean.setClickSum_15(ibean.getClickSum_15() + extraBean.getClickSum_15());
-					extraBean.setShowSum_15(ibean.getShowSum_15() + extraBean.getShowSum_15());
-					extraBean.setCTR(ibean.getCTR() + extraBean.getCTR());
-					extraBean.setShowCostOf1000(ibean.getShowCostOf1000() + extraBean.getShowCostOf1000());
+					
+					extraBean.setClickSum_15(ibean.getClickSum_15() + extraBean.getClick());
+					//15天点击产出
+					extraBean.setClickOutput_15(ibean.getConsume() * ibean.getRateOfReturn_15());
+					//15天展示产出
+					extraBean.setShowOutput_15(ibean.getConsume() * ibean.getShowRateOfReturn_15());
+					
+					extraBean.setCTR(extraBean.getClick()/extraBean.getReveal()*100);
+					
+					extraBean.setShowCostOf1000((ibean.getConsume()/ibean.getReveal() * 1000) + extraBean.getShowCostOf1000());
 					extraBean.setUnitPriceOfClick(ibean.getUnitPriceOfClick() + extraBean.getUnitPriceOfClick());
+					
+					//15天点击回报率
+					//extraBean.setRateOfReturn_15(extraBean.getClickOutput_15()/extraBean.getConsume());
 					extraBean.setRateOfReturn_15(ibean.getRateOfReturn_15() + extraBean.getRateOfReturn_15());
-					extraBean.setShowRateOfReturn_15(
-							ibean.getShowRateOfReturn_15() + extraBean.getShowRateOfReturn_15());
-					extraBean.setCustomerOrderNum_15(
-							ibean.getCustomerOrderNum_15() + extraBean.getCustomerOrderNum_15());
+					//15天展示回报率
+					extraBean.setShowRateOfReturn_15(ibean.getRateOfReturn_15() + extraBean.getRateOfReturn_15());
+					
+					//System.out.println("consume: " + ibean.getConsume() + "rateOfReturn:" + ibean.getRateOfReturn_15() + " showRateOfReturn: " + ibean.getShowRateOfReturn_15());
+					//System.out.println("setClickOutput_15:" + extraBean.getClickOutput_15() + " setShowOutput_15: " + extraBean.getShowOutput_15());
+					
+					
+					extraBean.setCustomerOrderNum_15(ibean.getCustomerOrderNum_15() + extraBean.getCustomerOrderNum_15());
 					extraBean.setShopCollectNum(ibean.getShopCollectNum() + extraBean.getShopCollectNum());
 					extraBean.setGoodsCollectNum(ibean.getGoodsCollectNum() + extraBean.getGoodsCollectNum());
 					extraBean.setVisitor(ibean.getVisitor() + extraBean.getVisitor());
@@ -533,7 +597,7 @@ public class MaterialChartUtil {
 			choose.add(extraBean);
 			map.put(obean.getOriginalityName(), choose);
 		}
-		System.out.println(map.size());
+		/*System.out.println(map.size());
 		for (String key : map.keySet()) {
 			List<MaterialChartSplitBean> dateRegexpList = map.get(key);
 			System.out.println(key + " : " + map.get(key).size());
@@ -541,9 +605,9 @@ public class MaterialChartUtil {
 				System.out.println(dateRegexpList.get(k).getOriginalityName() + " *** " + "materialTheme: "
 						+ dateRegexpList.get(k).getMaterialTheme() + " *** " + "materialCrowd: "
 						+ dateRegexpList.get(k).getMaterialCrowd() + " *** " + "dateTime: "
-						+ dateRegexpList.get(k).getDateTime());
+						+ dateRegexpList.get(k).getDateTimes());
 			}
-		}
+		}*/
 		return map;
 	}
 
@@ -580,7 +644,7 @@ public class MaterialChartUtil {
 			bean1.setCustomerOrderNum_15(rs.getLong("customerOrderNum_15"));
 			bean1.setCustomerOrderNum_3(rs.getLong("customerOrderNum_3"));
 			bean1.setCustomerOrderNum_7(rs.getLong("customerOrderNum_7"));
-			bean1.setDateTime(rs.getString("dateTime"));
+			bean1.setDateTimes(rs.getString("dateTime"));
 			bean1.setGoodsCollectNum(rs.getInt("goodsCollectNum"));
 			bean1.setId(rs.getLong("id"));
 			bean1.setMaterialContinuePage(rs.getString("materialContinuePage"));

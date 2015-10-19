@@ -15,9 +15,14 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
+
+import javax.imageio.ImageIO;
 /*import java.util.zip.ZipOutputStream;*/
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,9 +32,9 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 import org.apache.tools.zip.ZipOutputStream;
-
 import com.guanhuodata.framework.core.Action;
 import com.guanhuodata.framework.util.JsonUtil;
+import com.guanhuodata.framework.util.PathProperty;
 import com.guanhuodata.photo.bean.InitConditions;
 import com.guanhuodata.photo.bean.MaterialChartSplitBean;
 import com.guanhuodata.photo.bean.QueryCondition;
@@ -39,6 +44,8 @@ import com.guanhuodata.photo.util.ExportExcelCustomer;
 import com.guanhuodata.photo.util.ExportExcelSelf;
 import com.guanhuodata.photo.util.MaterialChartUtil;
 import com.guanhuodata.photo.util.Page;
+import com.guanhuodata.photo.util.ScaleImageUtils;
+import com.guanhuodata.photo.util.ScaleImageUtils.ImageQuality;
 
 public class PhotoMaterialAction implements Action {
 
@@ -48,9 +55,8 @@ public class PhotoMaterialAction implements Action {
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String type = request.getParameter("type");
 		LOG.info("according type judge the page to forward start.");
+		String type = request.getParameter("type");
 		if("getImgPaths".equals(type)){
 			getImgPaths(request,response);
 		}else if("getImageById".equals(type)){
@@ -109,17 +115,35 @@ public class PhotoMaterialAction implements Action {
 		try {
 			os = response.getOutputStream();
 			List<MaterialChartSplitBean> list = materialService.getListByCondition(queryCondition);
+			//去重
+			Set<String> originalityNameSet = new HashSet<String>();
+			for(MaterialChartSplitBean mbean : list){
+				originalityNameSet.add(mbean.getOriginalityName());
+			}
+			System.out.println("set size: " + originalityNameSet.size());
 			List<File> files = new ArrayList<File>();
-			for(MaterialChartSplitBean bean : list){
-				String path = "d:" + File.separator + "img" + File.separator + bean.getOriginalityName() + ".jpg";
+			/*Iterator it = originalityNameSet.iterator();
+			while(it.hasNext()){
+				System.out.println(it.next());
+				String path = "d:" + File.separator + "img" + File.separator + it.next() + ".jpg";
 				File file = new File(path);
 				files.add(file);
 				fileLength += file.length();
 				index++;
+			}*/
+			Iterator it = originalityNameSet.iterator();
+			while(it.hasNext()){
+				//System.out.println(it.next());
+				//String path = "d:" + File.separator + "img" + File.separator + it.next() + ".jpg";
+				String path = PathProperty.loadAttribute("batchDownloadMaterialImagePath") + it.next() + ".jpg";
+				File file = new File(path);
+				files.add(file);
 			}
+			System.out.println("files size: " + files.size());
 			String fileName = UUID.randomUUID().toString() + ".zip";
 			//在服务器端创建打包下载的临时文件
-	        String outFilePath = "d:\\" + fileName;
+	        //String outFilePath = "d:\\" + fileName;
+			String outFilePath = PathProperty.loadAttribute("batchDownloadMaterialImageTempZIPFilePath") + fileName;
 	        File file = new File(outFilePath);
 	        //文件输出流
 	        FileOutputStream outStream = new FileOutputStream(file);
@@ -163,7 +187,8 @@ public class PhotoMaterialAction implements Action {
 		//String transedImageName=new String(imageName.getBytes("ISO8859-1"),"UTF-8");
 		long imageId = Long.parseLong(request.getParameter("imageId"));
 		String imageName = materialService.getOriginalityNameById(imageId);
-		String path = "d:" + File.separator + "img" + File.separator + imageName + "." + imageName.split("_")[imageName.split("_").length - 1];
+		//String path = "d:" + File.separator + "img" + File.separator + imageName + "." + imageName.split("_")[imageName.split("_").length - 1];
+		String path = PathProperty.loadAttribute("downloadImageByIdPath") + imageName + "." + imageName.split("_")[imageName.split("_").length - 1];
 		//response.setHeader("content-disposition", "attachment;fileName="+URLEncoder.encode(path, "UTF-8"));
 		response.setHeader("content-disposition", "attachment;fileName=" + (new String((imageName + ".jpg").getBytes(),"ISO8859-1")));
 		InputStream in = null;
@@ -239,8 +264,8 @@ public class PhotoMaterialAction implements Action {
 					 */
 					String fileName = item.getName();
 					fileName = fileName.substring(fileName.lastIndexOf("\\") + 1);// 获取文件名（不包括路径）
-					System.out.println("fileName:" + fileName);
-					System.out.println("path:" + path);
+					//System.out.println("fileName:" + fileName);
+					//System.out.println("path:" + path);
 					//SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 					// 重命名上传文件名称：源文件名称加下划线与当前日期yyyyMMddHHmmss
 					//fileName = fileName.substring(0, fileName.lastIndexOf(".")) + "_" + sdf.format(new Date()) + fileName.substring(fileName.lastIndexOf("."), fileName.length());
@@ -252,10 +277,19 @@ public class PhotoMaterialAction implements Action {
 						// 将文件写入指定位置
 						//目前不确定到底是怎么区分店铺，如果区分店铺的话，上传路径就是该店铺的目录
 						//String savePath = "d:" + File.separator  + "materialImagesRepo" + File.separator;
-						String savePath = "d:" + File.separator  + "img" + File.separator;
+						//String savePath = "d:" + File.separator  + "img" + File.separator;
+						String savePath = PathProperty.loadAttribute("uploadifyImagesPath");
 						// 真正将上传文件写到磁盘上
+						//原图
 						File filePath = new File(savePath + fileName);
 						item.write(filePath);// 第三方提供的
+						//压缩图
+						File serverImageUploadPath = new File(path + "imageRepo" + File.separator  + fileName);
+						//System.out.println("serverImageUploadPathDir" + serverImageUploadPath);
+						//压缩率(medium:50%)
+						ScaleImageUtils.resize(ScaleImageUtils.ImageQuality.medium.getQuality(), serverImageUploadPath.getPath(), filePath);
+						//System.out.println(ScaleImageUtils.resize(ScaleImageUtils.ImageQuality.medium.getQuality(), serverImageUploadPath.getPath(), filePath));
+						//item.write(serverImageUploadPath);
 						LOG.info("Upload material images Success.");
 						// 我们自己来写一个
 						/*
@@ -267,7 +301,6 @@ public class PhotoMaterialAction implements Action {
 						 * in.read(buf)) != -1){ //从buf数组中取出数据写到磁盘上
 						 * out.write(buf, 0, length); } in.close(); out.close();
 						 */
-						
 					}
 				}
 			}
@@ -539,7 +572,8 @@ public class PhotoMaterialAction implements Action {
 		//String transedImageName=new String(imageName.getBytes("ISO8859-1"),"UTF-8");
 		long imageId = Long.parseLong(request.getParameter("imageId"));
 		String imageName = materialService.getOriginalityNameById(imageId);
-		String path = "d:" + File.separator + "img" + File.separator + imageName + "." + imageName.split("_")[imageName.split("_").length - 1];
+		//String path = "d:" + File.separator + "img" + File.separator + imageName + "." + imageName.split("_")[imageName.split("_").length - 1];
+		String path = PathProperty.loadAttribute("getImageById") + imageName + "." + imageName.split("_")[imageName.split("_").length - 1];
 		InputStream in = null;
 		OutputStream out = null;
 		File file = new File(path);
@@ -681,7 +715,8 @@ public class PhotoMaterialAction implements Action {
 					} else {
 						// 将文件写入指定位置
 						//目前不确定到底是怎么区分店铺，如果区分店铺的话，上传路径就是该店铺的目录
-						String savePath = "d:" + File.separator  + "materialRepo" + File.separator;
+						//String savePath = "d:" + File.separator  + "materialRepo" + File.separator;
+						String savePath = PathProperty.loadAttribute("uploadMaterialExcel");
 						// 真正将上传文件写到磁盘上
 						File filePath = new File(savePath + fileName);
 						item.write(filePath);// 第三方提供的

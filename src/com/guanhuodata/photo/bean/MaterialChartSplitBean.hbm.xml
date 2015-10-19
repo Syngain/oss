@@ -3,10 +3,10 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2015-9-16 9:35:31 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.guanhuodata.photo.bean.MaterialChartSplitBean" table="materialChart">
+    <class name="com.guanhuodata.photo.bean.MaterialChartSplitBean" table="materialchart">
         <id name="id" type="long">
             <column name="id" />
-            <generator class="identity" />
+            <generator class="increment" />
         </id>
         <property name="originalityName" type="java.lang.String" index="oriNameIndex" not-null="true">
             <column name="originalityName" />
@@ -17,8 +17,8 @@
         <property name="allowSpreadSchedule" type="java.lang.String" not-null="true">
             <column name="allowSpreadSchedule" />
         </property>
-        <property name="dateTime" type="java.lang.String" not-null="true">
-            <column name="dateTime" />
+        <property name="dateTimes" type="java.lang.String" not-null="true">
+            <column name="dateTimes" />
         </property>
         <property name="reveal" type="long" index="revealIndex" not-null="true">
             <column name="reveal" />
@@ -27,25 +27,25 @@
             <column name="click" />
         </property>
         <property name="CTR" type="double" index="CTRIndex" not-null="true">
-            <column name="CTR" scale="2"/>
+            <column name="CTR" />
         </property>
         <property name="consume" type="double" index="consumeIndex" not-null="true">
-            <column name="consume" scale="2"/>
+            <column name="consume" />
         </property>
         <property name="showCostOf1000" type="double">
-            <column name="showCostOf1000" scale="2"/>
+            <column name="showCostOf1000" />
         </property>
         <property name="unitPriceOfClick" type="double" index="unitPriceOfClickIndex" not-null="true">
-            <column name="unitPriceOfClick" scale="2"/>
+            <column name="unitPriceOfClick" />
         </property>
         <property name="rateOfReturn_3" type="double">
-            <column name="rateOfReturn_3" scale="2"/>
+            <column name="rateOfReturn_3" />
         </property>
         <property name="rateOfReturn_7" type="double">
-            <column name="rateOfReturn_7" scale="2"/>
+            <column name="rateOfReturn_7" />
         </property>
-        <property name="rateOfReturn_15" type="double" index="rateOfReturn_15Index" not-null="true">
-            <column name="rateOfReturn_15" scale="2"/>
+        <property name="rateOfReturn_15" type="double">
+            <column name="rateOfReturn_15"/>
         </property>
         <property name="customerOrderNum_3" type="long">
             <column name="customerOrderNum_3" />
@@ -69,7 +69,7 @@
             <column name="touchOfUser" />
         </property>
         <property name="touchOfFrequency" type="double">
-            <column name="touchOfFrequency" scale="2"/>
+            <column name="touchOfFrequency" />
         </property>
         <property name="collectUser" type="long">
             <column name="collectUser" />
@@ -84,19 +84,19 @@
             <column name="showVisitor_15" />
         </property>
         <property name="showRateOfReturn_3" type="double">
-            <column name="showRateOfReturn_3" scale="2"/>
+            <column name="showRateOfReturn_3" />
         </property>
         <property name="showRateOfReturn_7" type="double">
-            <column name="showRateOfReturn_7" scale="2"/>
+            <column name="showRateOfReturn_7" />
         </property>
-        <property name="showRateOfReturn_15" type="double" index="showRateOfReturn_15Index" not-null="true">
-            <column name="showRateOfReturn_15" scale="2"/>
+        <property name="showRateOfReturn_15" type="double">
+            <column name="showRateOfReturn_15" />
         </property>
         <property name="orderSum_7" type="double">
-            <column name="orderSum_7" scale="2"/>
+            <column name="orderSum_7" />
         </property>
         <property name="orderSum_15" type="double">
-            <column name="orderSum_15" scale="2"/>
+            <column name="orderSum_15" />
         </property>
         <property name="clickSum_15" type="double">
             <column name="clickSum_15" scale="4"/>

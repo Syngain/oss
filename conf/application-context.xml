@@ -20,6 +20,8 @@
 	
 	<bean id="image" class="com.guanhuodata.web.action.ImageAction" ></bean>
 	
+	<bean id="login" class="com.guanhuodata.admin.action.LoginAction"></bean>
+	
 	<bean id="forwardAction" class="com.guanhuodata.web.action.ForwardAction" ></bean>
 	
 	<bean id="excelAction" class="com.guanhuodata.excel.action.ExcelAction">
@@ -41,6 +43,20 @@
 	</bean>
 	
 	<bean id="IMaterialDAO" class="com.guanhuodata.photo.dao.impl.IMaterialDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="scheduleConvertAction" class="com.guanhuodata.utilHandle.action.ScheduleConvertHandlerAction"></bean>
+	
+	<bean id="summarySheetAction" class="com.guanhuodata.excel.action.SummarySheetAction">
+		<property name="summarySheetService" ref="ISummarySheetService"></property>
+	</bean>
+	
+	<bean id="ISummarySheetService" class="com.guanhuodata.excel.service.impl.ISummarySheetServiceImpl">
+		<property name="summarySheetDAO" ref="ISummarySheetDAO"></property>
+	</bean>
+	
+	<bean id="ISummarySheetDAO" class="com.guanhuodata.excel.dao.impl.ISummarySheetDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	

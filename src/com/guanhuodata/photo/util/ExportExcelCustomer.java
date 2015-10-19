@@ -23,6 +23,8 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
+
+import com.guanhuodata.framework.util.PathProperty;
 import com.guanhuodata.photo.bean.MaterialChartSplitBean;
 
 /**
@@ -134,7 +136,8 @@ public void exportExcel(String[] headers, OutputStream out, String pattern,Map<S
 		 * row2 图片的右下角放在第几个行cell，
 		 */
 		//素材读取路径
-		String path = "d://img//";
+		//String path = "d://img//";
+		String path = PathProperty.loadAttribute("exportExcelCustomerImageReadPath");
 		//List<MaterialChartSplitBean> list = MaterialChartUtil.loadData();
 		//Map<String,List<MaterialChartSplitBean>> map = MaterialChartUtil.partitionCustomer(list);
 		int index = 0;
@@ -158,7 +161,7 @@ public void exportExcel(String[] headers, OutputStream out, String pattern,Map<S
 				byte[] bytes = IOUtils.toByteArray(is);
 				pictureIndex = workbook.addPicture(bytes, Workbook.PICTURE_TYPE_JPEG);
 				is.close();
-				for(int j = 0;j <= headers.length; j++){
+				for(int j = 0;j < headers.length; j++){
 					   HSSFCell cell = row.createCell(j);
 					   switch(j){
 					   		case 0:
@@ -206,11 +209,11 @@ public void exportExcel(String[] headers, OutputStream out, String pattern,Map<S
 					   			break;
 					   		case 5:
 					   			cell.setCellStyle(cellStyle);
-					   			cell.setCellValue(bean.getClickSum_15());	//15天点击产出
-					   			break;
+					   			cell.setCellValue(bean.getConsume()*bean.getRateOfReturn_15());
+						   		break;
 					   		case 6:
 					   			cell.setCellStyle(cellStyle);
-					   			cell.setCellValue(bean.getShowSum_15());	//15天展示产出
+					   			cell.setCellValue(bean.getConsume()*bean.getShowRateOfReturn_15());	
 					   			break;
 					   		case 7:
 					   			cell.setCellStyle(cellStyle);
@@ -218,7 +221,7 @@ public void exportExcel(String[] headers, OutputStream out, String pattern,Map<S
 					   			break;
 					   		case 8:
 					   			cell.setCellStyle(cellStyle);
-					   			cell.setCellValue(bean.getShowCostOf1000());//千次展现成本
+					   			cell.setCellValue((bean.getConsume()/bean.getReveal() * 1000));//千次展现成本
 					   			break;
 					   		case 9:
 					   			cell.setCellStyle(cellStyle);
@@ -226,11 +229,12 @@ public void exportExcel(String[] headers, OutputStream out, String pattern,Map<S
 					   			break;
 					   		case 10:
 					   			cell.setCellStyle(cellStyle);
-					   			cell.setCellValue(bean.getRateOfReturn_15());	//15天回报率
+					   			cell.setCellValue(bean.getRateOfReturn_15());	//15天点击回报率
 					   			break;
 					   		case 11:
 					   			cell.setCellStyle(cellStyle);
 					   			cell.setCellValue(bean.getShowRateOfReturn_15());	//15天展示回报率
+					   			//cell.setCellValue(5555.000);
 					   			break;
 					   		case 12:
 					   			cell.setCellStyle(cellStyle);
@@ -296,7 +300,7 @@ public void exportExcel(String[] headers, OutputStream out, String pattern,Map<S
 		bean1.setCustomerOrderNum_15(1);
 		bean1.setCustomerOrderNum_3(1);
 		bean1.setCustomerOrderNum_7(1);
-		bean1.setDateTime("2015-09-21");
+		bean1.setDateTimes("2015-09-21");
 		bean1.setGoodsCollectNum(1);
 		bean1.setId(1);
 		bean1.setMaterialContinuePage("http://www.mail.sina.com");
@@ -331,7 +335,7 @@ public void exportExcel(String[] headers, OutputStream out, String pattern,Map<S
 		bean2.setCustomerOrderNum_15(2);
 		bean2.setCustomerOrderNum_3(2);
 		bean2.setCustomerOrderNum_7(2);
-		bean2.setDateTime("2015-09-21");
+		bean2.setDateTimes("2015-09-21");
 		bean2.setGoodsCollectNum(1);
 		bean2.setId(1);
 		bean2.setMaterialContinuePage("http://www.mail.sina.com");
@@ -366,7 +370,7 @@ public void exportExcel(String[] headers, OutputStream out, String pattern,Map<S
 		bean3.setCustomerOrderNum_15(3);
 		bean3.setCustomerOrderNum_3(3);
 		bean3.setCustomerOrderNum_7(3);
-		bean3.setDateTime("2015-09-22");
+		bean3.setDateTimes("2015-09-22");
 		bean3.setGoodsCollectNum(3);
 		bean3.setId(3);
 		bean3.setMaterialContinuePage("http://www.mail.sina.com");

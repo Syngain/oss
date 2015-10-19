@@ -55,7 +55,10 @@ public enum StandAbbreviationSpec {
 		//新浪首页左侧画中画
 		SINAFPAGELEFTHZH("新浪首页左侧画中画","240*355"),
 		//新浪网图集通栏
-		SINAIMGCOMMON("新浪网图集通栏","1000*90");
+		SINAIMGCOMMON("新浪网图集通栏","1000*90"),
+		//腾讯文章页画中画
+		TENCENTWENZHANGYEHUAZHONGHUA("腾讯文章页画中画","300*250");
+	
 	
 		private final String standAbbreviation;
 		private final String standSize;

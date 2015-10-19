@@ -201,10 +201,13 @@ $(function() {
 			    title: '素材图片上传页',
 			    shadeClose: false,
 			    shade: 0.8,
+			    //closeBtn: 2,
 			    area: ['400px', '60%'],
-			    content: getContextPath() + "/action?actionid=forwardAction&type=uploadifyPage"
+			    content: getContextPath() + "/action?actionid=forwardAction&type=uploadifyPage",
+			    cancel: function(index){
+			    	forwardToMaterialPage();
+			    }
 			}); 
-		
 	});
 });
 
@@ -434,7 +437,7 @@ function getImgPaths(){
 				$.ligerDialog.error('获取素材图片信息失败.');
 			}else{
 				for (var i = 0; i < data.Rows.length; i++) {
-					$("#viewImg").append("<a href='action?actionid=photoMaterialAction&type=getImageById&imageId=" + data.Rows[i].id + "' rel='prettyPhoto' title='创意名称：" + data.Rows[i].fileName + ",店铺：" +  data.Rows[i].shopName + ",活动：" + data.Rows[i].materialTheme + ",展位：" + data.Rows[i].materialStandAbbreviation + ",点击率：" + data.Rows[i].CTR + ",点击数：" + data.Rows[i].click + ",展现数：" + data.Rows[i].reveal + ",ROI：" + data.Rows[i].showRateOfReturn_15 + ",消耗：" + data.Rows[i].consume + ",投放时间：" + data.Rows[i].dateTime + ",投放人群：" + data.Rows[i].materialCrowd + ",链接页面：" + data.Rows[i].materialContinuePage + "' style='padding:15px;'><img width='160' height='160' style='padding:10px;' alt='This is the title' src='action?actionid=photoMaterialAction&type=getImageById&imageId=" + data.Rows[i].id + "'/></a>");
+					$("#viewImg").append("<a href='action?actionid=photoMaterialAction&type=getImageById&imageId=" + data.Rows[i].id + "' rel='prettyPhoto' title='创意名称：" + data.Rows[i].fileName + ",店铺：" +  data.Rows[i].shopName + ",活动：" + data.Rows[i].materialTheme + ",展位：" + data.Rows[i].materialStandAbbreviation + ",点击率：" + data.Rows[i].CTR + ",点击数：" + data.Rows[i].click + ",展现数：" + data.Rows[i].reveal + ",ROI：" + data.Rows[i].showRateOfReturn_15 + ",消耗：" + data.Rows[i].consume + ",投放时间：" + data.Rows[i].dateTime + ",投放人群：" + data.Rows[i].materialCrowd + ",链接页面：" + data.Rows[i].materialContinuePage + "' style='padding:15px;'><img width='160' height='160' style='padding:10px;' alt='Image not found' src='imageRepo/" + data.Rows[i].fileName + ".jpg'/></a>");
 				}
 			}
 		},
@@ -447,14 +450,15 @@ function getImgPaths(){
 function ajaxFileUpload(){
 	//layer.load(3);
 	$.ajaxFileUpload({  
-	    url: getContextPath() + '/action?d='+(new Date().getMilliseconds()) + '&actionid=photoMaterialAction&type=uploadMaterialExcel',            //需要链接到服务器地址  
+	    url: getContextPath() + '/action?d='+(new Date().getMilliseconds()) + '&actionid=photoMaterialAction&type=uploadMaterialExcel',	//需要链接到服务器地址  
 	    secureuri: false,  
 	    fileElementId: 'fileLoad',                        //文件选择框的id属性  
 	    dataType: 'JSON',                                     //服务器返回的格式，可以是json  
 	    success: function (data, status){
 	    	//layer.load(3);
 	    	 if(data == '0'){
-	    		 $.ligerDialog.success('文件上传成功.');
+	    		 //$.ligerDialog.success(content, title, onBtnClick)	 	成功提示框
+	    		 $.ligerDialog.success('文件上传成功.','上传提示',forwardToMaterialPage());
 	    	 }
 	    	 if(data == '-1'){
 	    		 $.ligerDialog.warn('上传文件不是Excel文件，目前只支持Excel，其他文件上传功能后续开放.');
@@ -509,40 +513,80 @@ function tips(){
 						}
 					});
 					//提示框显示位置判断：提示框位置默认为右侧显示，如果是每行的最后两个素材时提示框显示在素材图片左侧
-					if($(this).index() == 5 || $(this).index() == 6 || $(this).index() == 12 || $(this).index() == 13 ||  $(this).index() == 19 || $(this).index() == 20){
-						$(this).qtip({
-							content : {
-								text : tipDiv,	//qTips提示内容
-							},
-							position : {			//qTips提示框位置
-								my : 'right center',
-								at : 'left top'
-							// target: 'mouse'	//qTips是否跟随鼠标
-							},
-							style : {			//qTips样式
-								classes : 'qtip-blue ui-tooltip-rounded qtip-bootstrap'
-							},
-							show : {			//是否延迟加载qTips
-								delay : 100
-							}
-						});
-					}else{
-						$(this).qtip({
-							content : {
-								text : tipDiv,	//qTips提示内容
-							},
-							position : {			//qTips提示框位置
-								my : 'left center',
-								at : 'right top'
-							// target: 'mouse'	//qTips是否跟随鼠标
-							},
-							style : {			//qTips样式
-								classes : 'qtip-blue ui-tooltip-rounded qtip-bootstrap'
-							},
-							show : {			//是否延迟加载qTips
-								delay : 100
-							}
-						});
+					//先来判读分辨率
+					if(screen.height == 900 && screen.width == 1600){
+						if($(this).index() == 5 || $(this).index() == 6 || $(this).index() == 12 || $(this).index() == 13 ||  $(this).index() == 19 || $(this).index() == 20){
+							$(this).qtip({
+								content : {
+									text : tipDiv,	//qTips提示内容
+								},
+								position : {			//qTips提示框位置
+									my : 'right center',
+									at : 'left top'
+								// target: 'mouse'	//qTips是否跟随鼠标
+								},
+								style : {			//qTips样式
+									classes : 'qtip-blue ui-tooltip-rounded qtip-bootstrap'
+								},
+								show : {			//是否延迟加载qTips
+									delay : 100
+								}
+							});
+						}else{
+							$(this).qtip({
+								content : {
+									text : tipDiv,	//qTips提示内容
+								},
+								position : {			//qTips提示框位置
+									my : 'left center',
+									at : 'right top'
+								// target: 'mouse'	//qTips是否跟随鼠标
+								},
+								style : {			//qTips样式
+									classes : 'qtip-blue ui-tooltip-rounded qtip-bootstrap'
+								},
+								show : {			//是否延迟加载qTips
+									delay : 100
+								}
+							});
+						}
+					}
+					if(screen.height == 1080 && screen.width == 1920){
+						if($(this).index() == 6 || $(this).index() == 7 || $(this).index() == 14 ||  $(this).index() == 15){
+							$(this).qtip({
+								content : {
+									text : tipDiv,	//qTips提示内容
+								},
+								position : {			//qTips提示框位置
+									my : 'right center',
+									at : 'left top'
+								// target: 'mouse'	//qTips是否跟随鼠标
+								},
+								style : {			//qTips样式
+									classes : 'qtip-blue ui-tooltip-rounded qtip-bootstrap'
+								},
+								show : {			//是否延迟加载qTips
+									delay : 100
+								}
+							});
+						}else{
+							$(this).qtip({
+								content : {
+									text : tipDiv,	//qTips提示内容
+								},
+								position : {			//qTips提示框位置
+									my : 'left center',
+									at : 'right top'
+								// target: 'mouse'	//qTips是否跟随鼠标
+								},
+								style : {			//qTips样式
+									classes : 'qtip-blue ui-tooltip-rounded qtip-bootstrap'
+								},
+								show : {			//是否延迟加载qTips
+									delay : 100
+								}
+							});
+						}
 					}
 				});
 }
@@ -570,7 +614,7 @@ function createPage(pageSize, buttons, total) {
       			}else{
       				$("#viewImg").empty();
       				for (var i = 0; i < data.Rows.length; i++) {
-      					$("#viewImg").append("<a href='action?actionid=photoMaterialAction&type=getImageById&imageId=" + data.Rows[i].id + "' rel='prettyPhoto' title='创意名称：" + data.Rows[i].fileName + ",店铺：" +  data.Rows[i].shopName + ",活动：" + data.Rows[i].materialTheme + ",展位：" + data.Rows[i].materialStandAbbreviation + ",点击率：" + data.Rows[i].CTR + ",点击数：" + data.Rows[i].click + ",展现数：" + data.Rows[i].reveal + ",ROI：" + data.Rows[i].showRateOfReturn_15 + ",消耗：" + data.Rows[i].consume + ",投放时间：" + data.Rows[i].dateTime + ",投放人群：" + data.Rows[i].materialCrowd + ",链接页面：" + data.Rows[i].materialContinuePage + "' style='padding:15px;'><img width='160' height='160' style='padding:10px;' alt='This is the title' src='action?actionid=photoMaterialAction&type=getImageById&imageId=" + data.Rows[i].id + "'/></a>");
+      					$("#viewImg").append("<a href='action?actionid=photoMaterialAction&type=getImageById&imageId=" + data.Rows[i].id + "' rel='prettyPhoto' title='创意名称：" + data.Rows[i].fileName + ",店铺：" +  data.Rows[i].shopName + ",活动：" + data.Rows[i].materialTheme + ",展位：" + data.Rows[i].materialStandAbbreviation + ",点击率：" + data.Rows[i].CTR + ",点击数：" + data.Rows[i].click + ",展现数：" + data.Rows[i].reveal + ",ROI：" + data.Rows[i].showRateOfReturn_15 + ",消耗：" + data.Rows[i].consume + ",投放时间：" + data.Rows[i].dateTime + ",投放人群：" + data.Rows[i].materialCrowd + ",链接页面：" + data.Rows[i].materialContinuePage + "' style='padding:15px;'><img width='160' height='160' style='padding:10px;' alt='Image not found' src='imageRepo/" + data.Rows[i].fileName + ".jpg'/></a>");
       				}
       				//createPage(pageSize, buttons, total)：pageSize(每页记录数)/buttons(按钮数目)/total(记录总数)
       				//createPage(data.pageSize, 5, data.totalRecords);
@@ -690,7 +734,7 @@ function findByName(){
 				$.ligerDialog.error('获取素材图片信息失败.');
 			}else{
 				for (var i = 0; i < data.Rows.length; i++) {
-					$("#viewImg").append("<a href='action?actionid=photoMaterialAction&type=getImageById&imageId=" + data.Rows[i].id + "' rel='prettyPhoto' title='创意名称：" + data.Rows[i].fileName + ",店铺：" +  data.Rows[i].shopName + ",活动：" + data.Rows[i].materialTheme + ",展位：" + data.Rows[i].materialStandAbbreviation + ",点击率：" + data.Rows[i].CTR + ",点击数：" + data.Rows[i].click + ",展现数：" + data.Rows[i].reveal + ",ROI：" + data.Rows[i].showRateOfReturn_15 + ",消耗：" + data.Rows[i].consume + ",投放时间：" + data.Rows[i].dateTime + ",投放人群：" + data.Rows[i].materialCrowd + ",链接页面：" + data.Rows[i].materialContinuePage + "' style='padding:15px;'><img width='160' height='160' style='padding:10px;' alt='This is the title' src='action?actionid=photoMaterialAction&type=getImageById&imageId=" + data.Rows[i].id + "'/></a>");
+					$("#viewImg").append("<a href='action?actionid=photoMaterialAction&type=getImageById&imageId=" + data.Rows[i].id + "' rel='prettyPhoto' title='创意名称：" + data.Rows[i].fileName + ",店铺：" +  data.Rows[i].shopName + ",活动：" + data.Rows[i].materialTheme + ",展位：" + data.Rows[i].materialStandAbbreviation + ",点击率：" + data.Rows[i].CTR + ",点击数：" + data.Rows[i].click + ",展现数：" + data.Rows[i].reveal + ",ROI：" + data.Rows[i].showRateOfReturn_15 + ",消耗：" + data.Rows[i].consume + ",投放时间：" + data.Rows[i].dateTime + ",投放人群：" + data.Rows[i].materialCrowd + ",链接页面：" + data.Rows[i].materialContinuePage + "' style='padding:15px;'><img width='160' height='160' style='padding:10px;' alt='Image not found' src='imageRepo/" + data.Rows[i].fileName + ".jpg'/></a>");
 				}
 			}
 		},

@@ -16,6 +16,14 @@ function forwardToMaterialPage(){
 	window.location.href = getContextPath() + '/action?actionid=forwardAction&type=photoMaterialPage';
 }
 
+function forwardToScheduleConvertUtil(){
+	window.location.href = getContextPath() + '/action?actionid=forwardAction&type=scheduleConvertPage';
+}
+
+function forwardToSummarySheet(){
+	window.location.href = getContextPath() + '/action?actionid=forwardAction&type=summarySheetPage';
+}
+
 function createMenu(){
 	$("body").append("<header><div class='wrapper'><div class='wrapper'><div class='brand'></div><div class='rm-container'><a class='rm-toggle rm-button rm-nojs' href='#''>导航菜单</a>")
 	.append("<nav class='rm-nav rm-nojs rm-lighten'><ul><li><a href='#'>系统管理</a><ul><li><a href='#'>角色管理</a><ul><li><a href='#'>角色列表</a></li></ul></li><li><a href='#'>用户管理</a>")

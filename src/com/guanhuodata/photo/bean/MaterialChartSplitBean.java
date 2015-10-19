@@ -29,7 +29,7 @@ public class MaterialChartSplitBean implements Serializable{
 	private String allowSpreadSchedule;	//所属推广计划
 	
 	@JsonTypeSpec(JsonType.STRING)
-	private String dateTime;		//时间
+	private String dateTimes;		//时间
 	
 	@JsonTypeSpec(JsonType.NUMBER)
 	private long reveal;	//展现
@@ -154,6 +154,12 @@ public class MaterialChartSplitBean implements Serializable{
 	@JsonTypeSpec(JsonType.STRING)
 	private String operateTime;	//操作时间
 	
+	@JsonTypeSpec(JsonType.NUMBER)
+	private double clickOutput_15;	//15点击产出
+	
+	@JsonTypeSpec(JsonType.NUMBER)
+	private double showOutput_15;	//15展示产出
+	
 	public long getId() {
 		return id;
 	}
@@ -186,12 +192,12 @@ public class MaterialChartSplitBean implements Serializable{
 		this.allowSpreadSchedule = allowSpreadSchedule;
 	}
 
-	public String getDateTime() {
-		return dateTime;
+	public String getDateTimes() {
+		return dateTimes;
 	}
 
-	public void setDateTime(String dateTime) {
-		this.dateTime = dateTime;
+	public void setDateTimes(String dateTimes) {
+		this.dateTimes = dateTimes;
 	}
 
 	public long getReveal() {
@@ -520,6 +526,22 @@ public class MaterialChartSplitBean implements Serializable{
 
 	public void setOperateTime(String operateTime) {
 		this.operateTime = operateTime;
+	}
+
+	public double getClickOutput_15() {
+		return clickOutput_15;
+	}
+
+	public void setClickOutput_15(double clickOutput_15) {
+		this.clickOutput_15 = clickOutput_15;
+	}
+
+	public double getShowOutput_15() {
+		return showOutput_15;
+	}
+
+	public void setShowOutput_15(double showOutput_15) {
+		this.showOutput_15 = showOutput_15;
 	}
 	
 }
